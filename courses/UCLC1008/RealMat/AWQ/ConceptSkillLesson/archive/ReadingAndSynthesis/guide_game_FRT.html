@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWQ Summary Writing Guide - FRT in Schools</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            opacity: 0.9;
+        }
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #00c853, #69f0ae);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1b5e20;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .step-title {
+            font-size: 1.3rem;
+            color: #333;
+        }
+        .step-section {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .purpose-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .purpose-box h4 {
+            color: #1565c0;
+            margin-bottom: 5px;
+        }
+        .excerpt-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .excerpt-box h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        .excerpt-box blockquote {
+            font-style: italic;
+            color: #5d4037;
+            line-height: 1.6;
+        }
+        .paraphrase-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .paraphrase-box h4 {
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        .citation-box {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .citation-box h4 {
+            color: #c2185b;
+            margin-bottom: 5px;
+        }
+        .citation-box code {
+            background: #f8bbd9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .writing-area {
+            margin: 20px 0;
+        }
+        .writing-area label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .writing-area textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        .writing-area textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .word-count {
+            text-align: right;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-prev {
+            background: #e0e0e0;
+            color: #333;
+        }
+        .btn-prev:hover {
+            background: #bdbdbd;
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .summary-preview {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .summary-preview h4 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .summary-text {
+            line-height: 1.8;
+            color: #444;
+        }
+        .summary-text .intro { color: #1565c0; }
+        .summary-text .body { color: #2e7d32; }
+        .summary-text .conclusion { color: #7b1fa2; }
+        .ref-card {
+            background: #f3e5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .ref-card h4 {
+            color: #7b1fa2;
+            margin-bottom: 15px;
+        }
+        .ref-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        .ref-item strong {
+            color: #4a148c;
+        }
+        .hidden {
+            display: none;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        .checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+        }
+        .total-words {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .tips-toggle {
+            background: #ede7f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        .tips-toggle:hover {
+            background: #d1c4e9;
+        }
+        .tips-content {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #9575cd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 AWQ Summary Writing Guide</h1>
+            <p>FRT in Schools: Hong et al. (2022) vs. Andrejevic & Selwyn (2020)</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 8%">Step 1/12</div>
+            </div>
+        </header>
+
+        <!-- Reference Card -->
+        <div class="ref-card">
+            <h4>📚 Citation Quick Reference</h4>
+            <div class="ref-item">
+                <strong>Article A:</strong> Hong et al. (2022) — 4 authors, use "et al."<br>
+                <small>Supporting schools to use face recognition systems</small>
+            </div>
+            <div class="ref-item">
+                <strong>Article B:</strong> Andrejevic and Selwyn (2020) — 2 authors, list both<br>
+                <small>Facial recognition technology in schools: critical questions and concerns</small>
+            </div>
+        </div>
+
+        <!-- Step Cards -->
+        <div id="stepContainer">
+            <!-- Steps will be dynamically loaded -->
+        </div>
+
+        <!-- Navigation -->
+        <div class="card nav-buttons">
+            <button class="btn-prev" id="prevBtn" onclick="prevStep()">← Previous</button>
+            <button class="btn-next" id="nextBtn" onclick="nextStep()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            {
+                number: 1,
+                section: "INTRODUCTION",
+                title: "Background",
+                purpose: "Introduce FRT and its growing use in schools",
+                excerpt: "Facial recognition technology is now being introduced across various aspects of public life. This includes the burgeoning integration of facial recognition... into compulsory schooling to address issues such as campus security, automated registration and student emotion detection.",
+                paraphrase: "FRT increasingly used in schools → purposes: security, attendance, monitoring",
+                citation: "No citation needed (general background)",
+                citationCode: null
+            },
+            {
+                number: 2,
+                section: "INTRODUCTION",
+                title: "Topic Focus",
+                purpose: "State that different views exist on FRT in schools",
+                excerpt: "Different views about the adoption of FRT in elementary schools from researchers and other stakeholders have been seen in the research literature and media.",
+                paraphrase: "Contrasting views from researchers and stakeholders",
+                citation: "No citation needed",
+                citationCode: null
+            },
+            {
+                number: 3,
+                section: "INTRODUCTION",
+                title: "Thesis Statement",
+                purpose: "Preview both perspectives—(1) parents support FRT despite concerns (A), (2) critics warn about consent/surveillance (B)",
+                excerpt: null,
+                paraphrase: "Combine main claims → one supports, one warns",
+                citation: "No citation needed (your synthesis)",
+                citationCode: null
+            },
+            {
+                number: 4,
+                section: "BODY PARAGRAPH",
+                title: "Topic Sentence",
+                purpose: "Frame the debate—perceived value vs. consent concerns",
+                excerpt: null,
+                paraphrase: "Debate centres on perceived value (parents) vs. consent/surveillance (critics)",
+                citation: "No citation needed (your framing)",
+                citationCode: null
+            },
+            {
+                number: 5,
+                section: "BODY PARAGRAPH",
+                title: "Article A — Parents Have Concerns",
+                purpose: "Acknowledge parents are aware of privacy risks",
+                excerpt: "The results indicate that the average score of parents' DBVW is 3.865, which is higher than the average level (3.000), indicating that the parents were worried about the disclosure of students' personal privacy.",
+                paraphrase: "Parents concerned about → privacy disclosure / personal data",
+                citation: "YES — cite Hong et al. (2022)",
+                citationCode: "Hong et al. (2022)"
+            },
+            {
+                number: 6,
+                section: "BODY PARAGRAPH",
+                title: "Article A — BUT Parents Still Support",
+                purpose: "Despite concerns, parents value FRT and support continued use",
+                excerpt: "On the whole, although the parent respondents thought that the face recognition system had certain risks, they were willing to try technological innovation and they thought the system was valuable, so they intended to continue using it.",
+                paraphrase: "Despite risks → perceive value → intend to continue",
+                citation: "YES — cite Hong et al. (2022)",
+                citationCode: "(Hong et al., 2022)"
+            },
+            {
+                number: 7,
+                section: "BODY PARAGRAPH",
+                title: "Transition to Article B",
+                purpose: "Introduce critical perspective with contrast transition",
+                excerpt: null,
+                paraphrase: "Use: However / In contrast / On the other hand",
+                citation: "YES — introduce Andrejevic and Selwyn (2020)",
+                citationCode: "Andrejevic and Selwyn (2020)"
+            },
+            {
+                number: 8,
+                section: "BODY PARAGRAPH",
+                title: "Article B — Facial Data is Inescapable",
+                purpose: "Unlike other data, facial data cannot be controlled",
+                excerpt: "Unlike other forms of personal data... facial data lends itself to constant and permanent surveillance. In short, people are always connected to their faces. Thus... there is no option for students to self-curate and restrict what data they 'share'.",
+                paraphrase: "Facial data ≠ social media → always connected to face → cannot control",
+                citation: "YES — cite Andrejevic and Selwyn (2020)",
+                citationCode: "(Andrejevic & Selwyn, 2020)"
+            },
+            {
+                number: 9,
+                section: "BODY PARAGRAPH",
+                title: "Article B — Opt-out is Meaningless",
+                purpose: "Opting out doesn't work—system scans before recognising opt-out",
+                excerpt: "Even if opt-out protocols are in place, the system has to scan a student's face before it can recognise that they have opted out.",
+                paraphrase: "Opt-out ineffective → must scan first → paradox",
+                citation: "YES — cite Andrejevic and Selwyn (2020)",
+                citationCode: "(Andrejevic & Selwyn, 2020)"
+            },
+            {
+                number: 10,
+                section: "BODY PARAGRAPH",
+                title: "Article B — Coercion in Schools (Optional)",
+                purpose: "Schools enforce rules that make surveillance easier",
+                excerpt: "For example, most schools enforce dress codes that preclude students' faces being covered by hair, hoods or other obtrusions. This makes it difficult for students to obscure their faces from surveillance cameras.",
+                paraphrase: "Dress codes → faces exposed → cannot hide from cameras",
+                citation: "YES — cite Andrejevic and Selwyn (2020)",
+                citationCode: "(Andrejevic & Selwyn, 2020)"
+            },
+            {
+                number: 11,
+                section: "BODY PARAGRAPH",
+                title: "Article B — Consent is Inadequate",
+                purpose: "Informed consent impossible due to system requirements",
+                excerpt: "The systems being deployed in schools for security and attendance purposes rely on complete sweeps of classrooms and corridors in order to operate. This renders 'opt-in' and 'opt-out' approaches counter-productive.",
+                paraphrase: "Complete sweeps required → opt-in/opt-out doesn't work → consent inadequate",
+                citation: "YES — cite Andrejevic and Selwyn (2020)",
+                citationCode: "(Andrejevic & Selwyn, 2020)"
+            },
+            {
+                number: 12,
+                section: "CONCLUSION",
+                title: "Restate the Contrast",
+                purpose: "Summarise tension—parents see value vs. critics warn about consent",
+                excerpt: null,
+                paraphrase: "Parents perceive value + support ↔ Critics warn consent/surveillance concerns",
+                citation: "Optional (can cite both or neither)",
+                citationCode: null
+            }
+        ];
+
+        let currentStep = 0;
+        let responses = new Array(12).fill('');
+
+        function renderStep(index) {
+            const step = steps[index];
+            const container = document.getElementById('stepContainer');
+            
+            let excerptHTML = '';
+            if (step.excerpt) {
+                excerptHTML = `
+                    <div class="excerpt-box">
+                        <h4>📖 Excerpt to Paraphrase</h4>
+                        <blockquote>"${step.excerpt}"</blockquote>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="card">
+                    <div class="step-indicator">
+                        <div class="step-number">${step.number}</div>
+                        <div>
+                            <div class="step-section">${step.section}</div>
+                            <div class="step-title">${step.title}</div>
+                        </div>
+                    </div>
+
+                    <div class="purpose-box">
+                        <h4>🎯 Purpose</h4>
+                        <p>${step.purpose}</p>
+                    </div>
+
+                    ${excerptHTML}
+
+                    <div class="paraphrase-box">
+                        <h4>↗️ Paraphrase Direction</h4>
+                        <p>${step.paraphrase}</p>
+                    </div>
+
+                    <div class="citation-box">
+                        <h4>📌 Citation</h4>
+                        <p>${step.citation}</p>
+                        ${step.citationCode ? `<p>Use: <code>${step.citationCode}</code></p>` : ''}
+                    </div>
+
+                    <div class="writing-area">
+                        <label>✍️ Write your sentence:</label>
+                        <textarea id="response" placeholder="Type your sentence here..." oninput="updateResponse(this.value)">${responses[index]}</textarea>
+                        <div class="word-count" id="wordCount">0 words</div>
+                    </div>
+                </div>
+            `;
+
+            // Update word count
+            updateWordCount(responses[index]);
+            
+            // Update progress
+            const progress = ((index + 1) / 12) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressFill').textContent = `Step ${index + 1}/12`;
+
+            // Update buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').textContent = index === 11 ? 'View Summary' : 'Next →';
+        }
+
+        function updateResponse(value) {
+            responses[currentStep] = value;
+            updateWordCount(value);
+        }
+
+        function updateWordCount(text) {
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('wordCount').textContent = words + ' words';
+        }
+
+        function nextStep() {
+            if (currentStep < 11) {
+                currentStep++;
+                renderStep(currentStep);
+                window.scrollTo(0, 0);
+            } else {
+                showSummary();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep(currentStep);
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function showSummary() {
+            const container = document.getElementById('stepContainer');
+            const totalWords = responses.join(' ').trim().split(/\s+/).filter(w => w).length;
+            
+            const introText = responses.slice(0, 3).filter(r => r).join(' ');
+            const bodyText = responses.slice(3, 11).filter(r => r).join(' ');
+            const conclusionText = responses[11] || '';
+
+            container.innerHTML = `
+                <div class="card">
+                    <h2 style="margin-bottom: 20px;">📋 Your Complete Summary</h2>
+                    
+                    <div class="total-words">
+                        Total: ${totalWords} words ${totalWords <= 300 ? '✅' : '⚠️ Over limit!'}
+                    </div>
+
+                    <div class="summary-preview">
+                        <h4>Preview:</h4>
+                        <div class="summary-text">
+                            <p class="intro"><strong>Introduction:</strong> ${introText || '<em>Not written</em>'}</p>
+                            <p class="body"><strong>Body:</strong> ${bodyText || '<em>Not written</em>'}</p>
+                            <p class="conclusion"><strong>Conclusion:</strong> ${conclusionText || '<em>Not written</em>'}</p>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 10px;">✅ Checklist</h4>
+                    <ul class="checklist">
+                        <li><input type="checkbox"> Introduction has background and thesis</li>
+                        <li><input type="checkbox"> Body has a topic sentence</li>
+                        <li><input type="checkbox"> Article A ideas are paraphrased and cited (Hong et al., 2022)</li>
+                        <li><input type="checkbox"> Article B ideas are paraphrased and cited (Andrejevic & Selwyn, 2020)</li>
+                        <li><input type="checkbox"> Contrast/synthesis is clear (support vs. concerns)</li>
+                        <li><input type="checkbox"> Conclusion restates the main tension</li>
+                        <li><input type="checkbox"> No direct copying from excerpts</li>
+                        <li><input type="checkbox"> Word count ≤ 300</li>
+                    </ul>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn-next" onclick="copyToClipboard()" style="width: 100%;">📋 Copy Summary to Clipboard</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressFill').textContent = 'Complete!';
+            document.getElementById('nextBtn').textContent = 'View Summary';
+        }
+
+        function copyToClipboard() {
+            const fullText = responses.filter(r => r).join(' ');
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert('Summary copied to clipboard!');
+            });
+        }
+
+        // Initialize
+        renderStep(0);
+    </script>
+</body>
+</html>
