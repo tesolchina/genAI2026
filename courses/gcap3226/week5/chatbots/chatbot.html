@@ -649,14 +649,31 @@ When students share web search results with you, analyze and summarize the key p
         async function searchDuckDuckGo(query) {
             try {
                 // DuckDuckGo API - returns instant answers
-                const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
+                // Note: May be blocked by CORS in some browsers
+                const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1&t=chatbot`;
                 console.log('Fetching DuckDuckGo:', url);
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('DuckDuckGo result:', data);
+                    console.log('DuckDuckGo raw result:', data);
+                    
+                    // Extract text from first RelatedTopic if Abstract is empty
+                    let extractedAbstract = data.AbstractText || data.Abstract || '';
+                    if (!extractedAbstract && data.RelatedTopics && data.RelatedTopics.length > 0) {
+                        // Get text from first topic that has content
+                        for (const topic of data.RelatedTopics) {
+                            if (topic.Text && topic.Text.length > 50) {
+                                extractedAbstract = topic.Text;
+                                break;
+                            }
+                        }
+                    }
+                    
                     return {
-                        abstract: data.Abstract,
+                        abstract: extractedAbstract,
                         abstractText: data.AbstractText,
                         abstractSource: data.AbstractSource,
                         abstractURL: data.AbstractURL,
@@ -665,12 +682,14 @@ When students share web search results with you, analyze and summarize the key p
                         definitionSource: data.DefinitionSource,
                         answer: data.Answer,
                         answerType: data.AnswerType,
-                        relatedTopics: data.RelatedTopics?.slice(0, 5) || [],
+                        relatedTopics: data.RelatedTopics?.filter(t => t.Text)?.slice(0, 5) || [],
                         infobox: data.Infobox
                     };
+                } else {
+                    console.log('DuckDuckGo response not ok:', response.status);
                 }
             } catch (e) {
-                console.log('DuckDuckGo search failed:', e);
+                console.log('DuckDuckGo search failed (possibly CORS):', e.message);
             }
             return null;
         }
@@ -748,10 +767,13 @@ When students share web search results with you, analyze and summarize the key p
                     }
                 }
                 
-                if (ddgResult.abstractText) {
-                    resultMessage += `${ddgResult.abstractText}\n`;
+                // Use abstract (may come from RelatedTopics if AbstractText was empty)
+                if (ddgResult.abstract) {
+                    resultMessage += `${ddgResult.abstract}\n`;
                     if (ddgResult.abstractSource && ddgResult.abstractURL) {
                         resultMessage += `\n*Source: [${ddgResult.abstractSource}](${ddgResult.abstractURL})*\n\n`;
+                    } else {
+                        resultMessage += `\n`;
                     }
                 }
             }
