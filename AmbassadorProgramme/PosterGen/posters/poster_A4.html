@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic AI 101 in IDE – Workshop Poster (A4)</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .poster {
+      /* A4: 210mm × 297mm */
+      width: 210mm;
+      height: 297mm;
+      background: linear-gradient(180deg, #1e2a4a 0%, #111827 100%);
+      padding: 20mm 22mm 16mm;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top accent bar */
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+    }
+
+    /* Subtle top-right glow */
+    .poster::after {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+
+    /* ---- LOGOS ---- */
+    .logo-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+    .logo-bar img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* ---- HEADER ---- */
+    .poster-header { margin-bottom: 12px; }
+    .poster h1 {
+      margin: 0 0 6px;
+      font-size: 32pt;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .tagline {
+      margin: 0;
+      font-size: 13pt;
+      color: #93c5fd;
+      font-weight: 500;
+    }
+
+    .ide-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .ide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 10pt;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .ide-badge .trae-icon {
+      width: 22px; height: 22px;
+      background: #000;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ide-badge .trae-icon svg { width: 16px; height: 16px; }
+    .ide-or { color: #64748b; font-size: 10pt; }
+
+    /* ---- HIGHLIGHTS ---- */
+    .highlights {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .highlight-hero {
+      text-align: center;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(16,185,129,0.1));
+      border-radius: 14px;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+    .highlight-hero h2 {
+      margin: 0 0 2px;
+      font-size: 16pt;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .highlight-hero .boost {
+      font-size: 22pt;
+      font-weight: 800;
+      background: linear-gradient(90deg, #3b82f6, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .highlight-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .highlight-item {
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border-left: 3px solid #3b82f6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .highlight-item .hi-icon {
+      font-size: 20pt;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .highlight-item h3 {
+      margin: 0 0 3px;
+      font-size: 11pt;
+      font-weight: 700;
+      color: #fff;
+    }
+    .highlight-item p {
+      margin: 0;
+      font-size: 9.5pt;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .highlight-item:nth-child(2) { border-left-color: #34d399; }
+    .highlight-item:nth-child(3) { border-left-color: #f59e0b; }
+
+    /* ---- SPEAKER ---- */
+    .speaker-card {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 14px;
+    }
+    .photo-wrap {
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .photo {
+      display: block;
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #3b82f6;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .details { flex: 1; min-width: 0; }
+    .details p { margin: 3px 0; font-size: 11pt; line-height: 1.45; color: #cbd5e1; }
+    .speaker-name {
+      font-size: 15pt;
+      font-weight: 700;
+      color: #fff !important;
+      margin-bottom: 4px !important;
+    }
+    .audience {
+      margin-top: 8px !important;
+      font-size: 9.5pt !important;
+      color: #64748b !important;
+      font-style: italic;
+    }
+
+    /* ---- DATE / TIME / VENUE ---- */
+    .when-card {
+      display: flex;
+      background: rgba(20, 30, 50, 0.6);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    .when-item {
+      flex: 1;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .when-separator {
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.1) 50%, rgba(255,255,255,0));
+    }
+    .when-item .icon { font-size: 20pt; line-height: 1; }
+    .when-item label { display: block; font-size: 8.5pt; color: #94a3b8; margin-bottom: 2px; }
+    .when-item strong { display: block; font-size: 12pt; color: #fff; font-weight: 600; }
+
+    /* ---- CCL ---- */
+    .ccl-container { text-align: center; margin-bottom: 12px; }
+    .ccl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #059669, #10b981);
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 12pt;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+
+    /* ---- SPONSOR ---- */
+    .sponsor-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 18px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .sponsor-bar span { font-size: 10pt; color: #94a3b8; font-weight: 500; }
+    .sponsor-bar .sponsor-name { color: #34d399; font-weight: 700; font-size: 11pt; }
+    .sponsor-bar .tbc { font-size: 8.5pt; color: #64748b; font-style: italic; }
+    .sponsor-bar img { width: 26px; height: 26px; border-radius: 5px; }
+
+    /* ---- spacer to push CTA to bottom ---- */
+    .spacer { flex: 1; }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      background: rgba(255,255,255,0.02);
+      padding: 14px 20px;
+      border-radius: 18px;
+    }
+    .register-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16pt;
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .qr-container { text-align: center; flex-shrink: 0; }
+    .qr-img {
+      display: block;
+      width: 110px; height: 110px;
+      border-radius: 12px;
+      background: #fff;
+      padding: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .qr-container span {
+      display: block;
+      font-size: 8pt;
+      color: #94a3b8;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* ---- PRINT ---- */
+    @media print {
+      body {
+        background: none;
+        min-height: auto;
+      }
+      .poster {
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="logo-bar">
+      <img src="../assets/HKBULClogos/HKBU_logo.jpeg" alt="Hong Kong Baptist University">
+      <img src="../assets/HKBULClogos/LC_logo_small.jpeg" alt="Language Centre, HKBU">
+    </div>
+
+    <header class="poster-header">
+      <h1>Agentic AI 101 in IDE</h1>
+      <p class="tagline">For university students and scholars</p>
+      <div class="ide-badges">
+        <span class="ide-badge">
+          <span class="trae-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="5" width="20" height="14" rx="1" fill="#34d399"/>
+              <rect x="5" y="8" width="14" height="8" rx="0.5" fill="#000"/>
+              <path d="M10 12L8.5 10.5L10 9" stroke="#34d399" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 9L15.5 10.5L14 12" stroke="#34d399" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Trae
+        </span>
+        <span class="ide-or">or</span>
+        <span class="ide-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 2L7 12l10.5 10 4-2V4l-4-2z" fill="#3b82f6"/>
+            <path d="M7 12L2.5 8 4 6l6 6-6 6-1.5-2L7 12z" fill="#93c5fd"/>
+            <path d="M17.5 2L10 8l-3-2L4 6l13.5-4z" fill="#60a5fa"/>
+            <path d="M17.5 22L10 16l-3 2L4 18l13.5 4z" fill="#60a5fa"/>
+          </svg>
+          GitHub VS Code
+        </span>
+      </div>
+    </header>
+
+    <section class="speaker-card">
+      <div class="photo-wrap">
+        <img class="photo" src="https://lc.hkbu.edu.hk/main/wp-content/uploads/simon-1.jpg" alt="Dr Simon Wang">
+      </div>
+      <div class="details">
+        <p class="speaker-name">Dr Simon Wang</p>
+        <p>Lecturer and Innovation Officer, the Language Centre, HKBU</p>
+        <p class="audience">Open to HKBU and other university students and staff.</p>
+      </div>
+    </section>
+
+    <div class="highlights">
+      <div class="highlight-hero">
+        <h2>AI Agents — Transform How You Work</h2>
+        <span class="boost">Boost Productivity 100×</span>
+      </div>
+      <div class="highlight-items">
+        <div class="highlight-item">
+          <span class="hi-icon">📁</span>
+          <div>
+            <h3>Work Directly on Files &amp; Folders</h3>
+            <p>No more copy-paste or context switching — AI reads, edits, and creates files right inside your project.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">💻</span>
+          <div>
+            <h3>Vibe Coding</h3>
+            <p>Write computer programs in plain English. Describe what you want, and the AI agent builds it for you.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <span class="hi-icon">🚀</span>
+          <div>
+            <h3>From Idea to Output in Minutes</h3>
+            <p>Generate reports, presentations, websites, and data analysis — all through natural language prompts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="when-card">
+      <div class="when-item">
+        <span class="icon">📅</span>
+        <div>
+          <label>Date &amp; Time</label>
+          <strong>20 Feb (Friday) 10 am – 12 noon</strong>
+        </div>
+      </div>
+      <div class="when-separator"></div>
+      <div class="when-item">
+        <span class="icon">💻</span>
+        <div>
+          <label>Venue</label>
+          <strong>Zoom</strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="ccl-container">
+      <div class="ccl-badge">
+        <span>✓</span> Earn CCL Credits!
+      </div>
+    </div>
+
+    <div class="sponsor-bar">
+      <img src="../assets/editPoster/1770811458146.png" alt="Trae logo">
+      <span>Sponsorship by</span>
+      <span class="sponsor-name">Trae</span>
+      <span class="tbc">(to be confirmed)</span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <footer class="cta-section">
+      <a href="https://forms.office.com/r/tB9HqyGmuH" target="_blank" rel="noopener" class="register-btn">
+        Register Now <span>→</span>
+      </a>
+      <div class="qr-container">
+        <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fforms.office.com%2Fr%2FtB9HqyGmuH" alt="QR code for registration" width="110" height="110">
+        <span>Scan to register</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
