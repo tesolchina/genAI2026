@@ -1,9 +1,10 @@
 # Government Enquiry Questions — Group 2 Fire Service 1
 
 **Project:** Learning from Past Fire Incidents  
-**Date:** 12 Feb 2026  
+**Date:** 12 Feb 2026 (updated with cross-referenced data from Group 4 — Fire Service 2)  
 **Channel:** Code on Access to Information / Direct enquiry to FSD  
-**Target departments:** Fire Services Department (FSD), Buildings Department (BD), Security Bureau, Office of the Communications Authority (OFCA)
+**Target departments:** Fire Services Department (FSD), Buildings Department (BD), Security Bureau, Office of the Communications Authority (OFCA)  
+**FSD Directory:** [https://tel.directory.gov.hk/index_FSD_ENG.html](https://tel.directory.gov.hk/index_FSD_ENG.html) — see `group4-fire-service-2/fsd_directory_results.md` for specific team contacts
 
 ---
 
@@ -118,15 +119,56 @@ To gather information that is **not publicly available** about FSD's mechanism f
 
 ---
 
-## Part E: Forward-Looking — Preventing Future Incidents
+## Part E: Fire Alarm Deactivation and Contractor Oversight
 
-24. **Will the FSD consider publishing an annual "International Fire Lessons Review" report — studying major fire incidents worldwide and identifying lessons applicable to Hong Kong?**
+*(Informed by Group 4 research — targets Licensing & Certification Command, Fire Protection Facilities Supervision Division, Prosecution Section)*
 
-25. **Will the FSD adopt Mainland China's approach of launching proactive national inspections of specific building types after major incidents (as done after the Wang Fuk Court fire)?**
+24. **What are the protocols for temporarily deactivating fire alarm systems during building renovation? Who must be notified and what safeguards (e.g., fire watches, temporary alarms) must be in place?**
 
-26. **Will the FSD consider establishing a dedicated "Lessons Learned Unit" or assigning this function explicitly to an existing unit, with published terms of reference?**
+25. **Under the Fire Services Ordinance, must a contractor file a "Fire Service Installation Shutdown Notice" with FSD when deactivating alarm systems? How many such notices were filed for Wang Fuk Court renovation?**
 
-27. **What measures are being taken to ensure that the Emergency Alert System is used proactively during fire emergencies, not just for typhoons and extreme weather?**
+26. **How does FSD verify the accuracy of FS251 certificates (annual fire service installation inspection certificates)? Are spot checks conducted, or does FSD rely on contractor self-reporting?**
+
+27. **In the last 3 years, how many cases of false reporting by fire service installation contractors have been identified? What penalties were imposed?**
+
+28. **How does FSD assess the competence and track record of registered fire service installation contractors? Is there a public register showing compliance records?**
+
+---
+
+## Part F: Fire Safety Education and Training
+
+*(Informed by Group 4 research — targets Public Safety and Communication Division, Fire Safety Education Unit)*
+
+29. **How many fire safety education sessions or community talks were conducted in 2024-2025? How many residents were reached? Please provide breakdown by district and building age.**
+
+30. **Were any fire safety education sessions, fire drills, or community training conducted at Wang Fuk Court in the 3 years prior to the fire (2022-2025)?**
+
+31. **Are fire safety education programmes specifically targeted at residents of older buildings (pre-1987) and elderly populations? If so, how many such sessions were held in 2024-2025?**
+    - *Context: Nearly 40% of Wang Fuk Court residents were aged 65+*
+
+32. **What is the annual budget allocation for fire safety education and community engagement versus emergency response operations?**
+
+33. **How does FSD measure the effectiveness of its fire safety education programmes? What metrics are used? Are there any outcome evaluations showing improved resident preparedness?**
+
+34. **Do FSD education programmes teach residents how to activate manual fire alarm call points? Given that video evidence showed Wang Fuk Court residents trying unsuccessfully to use call points, is this a recognized gap?**
+
+35. **Are there specific training modules for residents or property management staff on fire safety during building renovation works (when fire systems may be impaired)?**
+
+---
+
+## Part G: Forward-Looking — Preventing Future Incidents
+
+36. **Will the FSD consider publishing an annual "International Fire Lessons Review" report — studying major fire incidents worldwide and identifying lessons applicable to Hong Kong?**
+
+37. **Will the FSD adopt Mainland China's approach of launching proactive national inspections of specific building types after major incidents (as done after the Wang Fuk Court fire)?**
+
+38. **Will the FSD consider establishing a dedicated "Lessons Learned Unit" or assigning this function explicitly to an existing unit, with published terms of reference?**
+
+39. **What measures are being taken to ensure that the Emergency Alert System is used proactively during fire emergencies, not just for typhoons and extreme weather?**
+
+40. **Will the FSD mandate redundant digital alert systems (e.g., mobile push notifications to residents' phones) as a supplement to building-level manual fire alarms, which are a single point of failure?**
+
+41. **How does FSD intend to address the NFPA Fire & Life Safety Ecosystem Framework finding that the Wang Fuk Court fire exposed failures across ALL eight elements (government responsibility, codes, standards, investment, workforce, compliance, preparedness, informed public)?**
 
 ---
 
@@ -141,8 +183,25 @@ To gather information that is **not publicly available** about FSD's mechanism f
 - Submit through a LegCo member to ask questions in panel meetings or by written question to the government
 - Reference: `week5/LegcoComplaint.md` for background on the redress system
 
-### Option 3: Direct Enquiry
-- Email or letter to FSD Public Relations Unit
+### Option 3: Direct Enquiry to Specific FSD Teams
+*(Contact details from `group4-fire-service-2/fsd_directory_results.md`)*
+
+| Team | Tel | Email | Questions |
+|------|-----|-------|-----------|
+| **FSD General Enquiry** | 2723 8787 | hkfsdenq@hkfsd.gov.hk | All questions |
+| **Fire Safety Command** | 2312 0376 | hkfsdenq@hkfsd.gov.hk | Q1-6: Grenfell review, lessons learned |
+| **Building Improvement Division 1** | 2716 2970 | hkfsdenq@hkfsd.gov.hk | Q8-11: Wang Fuk Court pre-fire |
+| **Building Improvement Strategy** | 2312 0376 | hkfsdenq@hkfsd.gov.hk | Q14-17: Fire Safety Directions |
+| **Public Safety & Communication** | 2197 3699 | hkfsdenq@hkfsd.gov.hk | Q29-35: Fire safety education |
+| **Information Unit** | 2724 1466 | media_enquiry@hkfsd.gov.hk | Media enquiries |
+| **Licensing & Certification Command** | 2733 7619 | lcpolic2@hkfsd.gov.hk | Q24-28: Contractor oversight, FS251 |
+| **Fire Protection Facilities Supervision** | 2722 1915 | sdo_fpfs@hkfsd.gov.hk | Q24-28: Alarm deactivation protocols |
+| **Prosecution Section** | 2369 9402 | do_pros@hkfsd.gov.hk | Q17, Q27: Prosecution stats |
+| **Mobilising & Communications** | 2733 7726 | hkfsdenq@hkfsd.gov.hk | Q12, Q22-23: EAS activation |
+| **Outsourcing & Complaints** | 2367 0973 | seo_oc@hkfsd.gov.hk | Residents' complaints handling |
+| **Policy Division** | 2723 2197 | sdo_pol@hkfsd.gov.hk | Q1-6: Lessons learned process |
+| **Safety Policy & Compliance Unit** | 2369 0941 | ado_safety_1@hkfsd.gov.hk | Q36-41: Forward-looking reforms |
+
 - FSD website: [https://www.hkfsd.gov.hk](https://www.hkfsd.gov.hk)
 - FSD directory: [https://tel.directory.gov.hk/index_FSD_ENG.html](https://tel.directory.gov.hk/index_FSD_ENG.html)
 

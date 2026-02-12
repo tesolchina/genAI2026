@@ -2,7 +2,7 @@
 
 **Project:** Group 2 — Fire Service 1  
 **Focus:** The mechanism of FSD in learning from past fire incidents (abroad and in Mainland)  
-**Date:** 12 Feb 2026
+**Date:** 12 Feb 2026 (updated with cross-referenced data from Group 4 — Fire Service 2)
 
 ---
 
@@ -18,18 +18,25 @@
 
 ### The Tai Po (Wang Fuk Court) Fire — Key Facts
 
-- **Date:** 26 Nov 2025; **Location:** Wang Fuk Court, Tai Po
-- **Death toll:** At least 159–160 people ([Reuters comparison](https://www.reuters.com/world/china/how-does-hong-kong-tower-fire-compare-other-recent-building-blazes-2025-11-28/))
-- **Scale:** 7 of 8 31-storey towers engulfed; Hong Kong's deadliest blaze in nearly 8 decades
+- **Date:** 26 Nov 2025, 2:51 PM; **Location:** Wang Fuk Court, Tai Po
+- **Final death toll: 168** (confirmed 16 Jan 2026 by Security Secretary Chris Tang) — [BBC](https://www.bbc.com/news/articles/cx2w9wqek3jo.amp) | [Reuters comparison](https://www.reuters.com/world/china/how-does-hong-kong-tower-fire-compare-other-recent-building-blazes-2025-11-28/)
+- **Scale:** 7 of 8 31-storey towers engulfed; fire took **40+ hours** to extinguish; Hong Kong's deadliest blaze in decades
+- **Victims:** Aged 6 months to 98 years; 58 male, 110 female; **nearly 40% of residents were 65+**; 10 domestic workers, 5 construction workers, 1 firefighter (Ho Wai-ho, 37) among dead
 - **Cause:** External fire fuelled by combustible renovation materials — bamboo scaffolding and protective netting creating a "chimney effect" up the façade ([Caixin analysis](https://www.caixinglobal.com/2025-11-27/analysis-hong-kong-fire-exposed-fatal-gap-in-high-rise-safety-doctrine-102387561.html))
 - **Contributing factors:**
-  - Green protective mesh netting failed to meet flame-retardant standards
-  - Highly flammable foam board used in renovation work
-  - Non-functional fire alarms
-  - Bamboo scaffolding and waterproof tarpaulins did not meet fire safety standards
+  - **2,300 rolls** of cheaper, non-fire-retardant netting purchased after typhoon damage (Jul 2025) to replace compliant netting — compliant netting only installed at base where samples were taken ([IFSJ](https://internationalfireandsafetyjournal.com/wang-fuk-court-fire-lessons/))
+  - **7 of 20 netting samples** from near windows/higher locations failed fire safety tests
+  - Foam/styrofoam boards sealed windows — **residents warned about flammability as early as Sep 2024** (a board ignited rapidly when exposed to a cigarette lighter in front of residents and project reps)
+  - Tower spacing ~7.5m, reduced further by scaffolding, enabled tower-to-tower spread
+  - **Fire alarms in ALL 8 blocks did not sound** — systems deactivated or malfunctioning during renovation; fire service installation contractor staff arrested for deactivating alarms and making false statements to FSD ([SCMP](https://www.scmp.com/news/hong-kong/society/article/3334567/failure-fire-alarms-tai-po-could-have-delayed-rescue-cost-lives-says-expert))
+  - Video evidence showed residents **unsuccessfully trying to activate manual call points**; many only learned of fire when contacted by phone by family members
   - HK$330 million renovation project dating back to 2016 ([HKFP timeline](https://hongkongfp.com/2025/12/17/tai-po-fire-timeline-wang-fuk-courts-hk330-million-renovation-ignored-warnings-and-aftermath/))
-  - **Ignored safety complaints** filed by residents with authorities
-  - Multiple government visits (including one a week before the fire) failed to prevent the tragedy
+  - Residents filed complaints with **ICAC**, **Labour Department**, and **Housing Bureau's Independent Checking Unit**
+  - **16 inspections** between Jul 2024 and Nov 2025 failed to prevent the disaster
+  - Labour Department issued further fire safety warning on **20 Nov 2025** — just 6 days before the fire
+  - Inspectors accepted documents indicating netting compliance based on **ground-level samples only**
+- **Arrests:** 30+ people arrested for manslaughter, fraud, corruption — including engineering consultants, construction directors, scaffolding subcontractors, and fire service contractors; ICAC investigating netting procurement corruption
+- **Emergency Alert System (EAS) was NOT activated** during the fire — the HK$150M system has been used only **once** since its 2020 launch (COVID-19 hospital notification, Mar 2022) ([Wikipedia/OFCA](https://en.wikipedia.org/wiki/Hong_Kong_Emergency_Alert_System))
 
 ### What lessons from Grenfell were available BEFORE Tai Po?
 
@@ -52,17 +59,45 @@ The London Grenfell Tower fire (14 June 2017, 72 deaths) offered these lessons, 
 |--------|----------------|---------------|
 | External combustible materials | ACM cladding with polyethylene core | Scaffolding nets, foam board, tarpaulins |
 | "Chimney effect" / rapid spread | Fire spread via cladding cavities | Fire spread via scaffolding and netting |
-| Residents' warnings ignored | Grenfell Action Group complaints | Safety complaints filed with authorities |
-| Fire alarm failure | Smoke extraction not working | Non-functional fire alarms |
-| Substandard materials | Failed fire safety tests | Did not meet flame-retardant standards |
-| Renovation-related | 2010s cladding refurbishment | HK$330 million façade renovation |
+| Residents' warnings ignored | Grenfell Action Group complaints (2016) | Complaints to ICAC, Labour Dept, Housing Bureau; 16 inspections failed to act |
+| Fire alarm failure | Smoke extraction not working | Alarms in ALL 8 blocks deactivated/malfunctioning; contractors arrested for false reporting |
+| Substandard materials | Failed fire safety tests; manufacturers hid findings | 7 of 20 samples failed; 2,300 rolls of non-compliant netting substituted |
+| Renovation-related | 2010s cladding refurbishment | HK$330 million façade renovation (since 2016) |
+| Emergency alert gap | No dynamic "evacuate now" broadcast | HK$150M EAS not activated; used only once since 2020 |
+| Death toll | 72 | 168 (final, confirmed Jan 2026) |
+| Vulnerable residents | Council housing tenants | 40% aged 65+; ~4,600 residents; built 1980s |
 
 ### Assessment: Was FSD's failure to learn from Grenfell a factor?
 
 - **The pattern was known:** External combustible materials on building façades causing rapid fire spread was a well-documented risk after Grenfell
 - **The gap:** Hong Kong did not appear to have applied Grenfell's lessons to regulate combustible renovation materials (scaffolding nets, foam boards) on building façades during renovation works
 - **The question for FSD:** Did the FSD study the Grenfell fire? If so, what specific policy or procedural changes were made? Did those changes address external façade fire risks during renovation works?
-- **Note on accountability:** Hong Kong's swift response (arrests of contractor/consultancy executives) contrasts with Grenfell's 7+ year wait for prosecution ([China Daily](https://www.chinadailyhk.com/article/625217))
+- **Note on accountability:** Hong Kong's swift response (30+ arrests) contrasts with Grenfell's 7+ year wait for prosecution ([China Daily](https://www.chinadailyhk.com/article/625217))
+
+### Investigation and Independent Committee
+
+- **Inter-departmental Fire Investigation Task Force** established Nov 2025, led by FSD — includes Police, BD, EMSD, Housing Bureau, Labour Dept, Government Lab, fire engineers ([news.gov.hk](https://www.news.gov.hk/eng/2025/11/20251129/20251129_143248_032.html))
+- **Independent Committee** established 12 Dec 2025 — chaired by Justice David Lok; members: Chan Kin-por (ExCo/LegCo) and Dr Rex Auyeung Pak-kuen (MTR Chairman) ([gov press release](https://www.info.gov.hk/gia/general/202512/12/P2025121200786.htm))
+  - Terms of reference cover: fire causes, fire service installations, construction safety, materials standards, roles and responsibilities, systemic problems, bid-rigging corruption, adequacy of regulation
+  - Target: 9 months from late Dec 2025
+- **First meeting (5 Feb 2026):** Senior counsel Victor Dawes stated "evidence appears to show a series of **systemic problems that should not be neglected and are unacceptable**" ([SCMP](https://www.scmp.com/news/hong-kong/society/article/3342448/fairness-pledged-hong-kong-residents-seek-answers-tai-po-fire-inquiry))
+- **Public hearings scheduled March 2026** ([The Standard](https://www.thestandard.com.hk/hong-kong-news/article/321075/Independent-Committee-probing-Wang-Fuk-Court-fire-to-hold-hearings-in-March-sources))
+
+### Hong Kong's 30-Year Pattern: 7 Major Fires
+
+The Tai Po fire fits a recurring pattern of deadly fires in Hong Kong over 30 years ([Storm.mg review](https://www.storm.mg/lifestyle/11084096)):
+
+| # | Fire | Year | Deaths | Key Issue |
+|---|------|------|--------|-----------|
+| 1 | Garley House, Jordan (Level 5) | 1996 | 41 | Sparks from welding during elevator replacement |
+| 2 | TST Karaoke Arson | 1997 | 17 | Triad revenge; petrol bomb |
+| 3 | Golden Harvest Building, Mong Kok (Level 5) | 2008 | 4 | Nightclub fire; rapid spread |
+| 4 | Fa Yuen Street, Mong Kok (Level 4) | 2011 | 9 | Ground-floor food stalls; spread to old tenement |
+| 5 | Ngau Tau Kok Mini Storage (Level 4) | 2016 | 2 | Flammable goods; 108+ hours |
+| 6 | Canton Road, Yau Ma Tei | 2020 | 7–8 | Tent house; Level 1 but still deadly |
+| 7 | **Wang Fuk Court, Tai Po (Level 5)** | **2025** | **168** | **Non-compliant netting; scaffolding; alarms off** |
+
+**Core recurring risks:** Potential fire sources and flammable materials in construction projects; complex defects of old buildings (tenement/subdivided flats, mixed-use); inadequate fire safety systems.
 
 ---
 
@@ -130,7 +165,11 @@ The London Grenfell Tower fire (14 June 2017, 72 deaths) offered these lessons, 
 - **Enforcement lag** — Fire Safety Directions issued but not complied with for years (New Lucky House: Direction in 2008, fire in 2024)
 - **Renovation fire safety oversight** was apparently inadequate before Tai Po — no effective regulation of combustible scaffolding/netting materials
 - **No systematic comparison** with international best practices is publicly available
-- **EAS effectiveness questionable** — described as "white elephant" in SCMP letters; unclear if used during major fires
+- **EAS is effectively dormant** — HK$150M system used only **once** (COVID-19, Mar 2022); NOT activated during the Level 5 Wang Fuk Court fire that killed 168 people; unclear who can trigger it for fires ([OFCA](https://www.ofca.gov.hk/en/consumer_focus/guide/help_for_consumers/emergency_alert_system/index.html))
+- **Fire safety education is severely under-scaled** — only **324 talks** reaching **16,550 people** in 2024, in a city of 7.5 million; unclear if any training was conducted at Wang Fuk Court; 40% of residents were 65+ ([FSD Annual Review 2024](https://www.hkfsd.gov.hk/eng/education/fseu.html))
+- **Manual fire alarm knowledge gap** — most residents don't know fire alarms in older buildings are **manual, not automatic**; residents at Wang Fuk Court failed to activate call points during the fire
+- **Contractor fraud and oversight failure** — fire service installation contractors arrested for deactivating alarms and filing false reports; 16 inspections over 16 months failed to identify non-compliant materials (inspectors accepted ground-level samples only)
+- **NFPA 8-element framework analysis** (applied by IFSJ) shows failures across ALL elements: government responsibility, codes, standards, investment, workforce, compliance, preparedness, and informed public
 
 ---
 
@@ -155,23 +194,46 @@ The London Grenfell Tower fire (14 June 2017, 72 deaths) offered these lessons, 
 
 ## References
 
+### Project files (Group 2)
 - `GoogleNotes.md` — Google Doc content on Grenfell Tower (Yang Yunxuan, Zhang Chenghao)
 - `WebSearchReport.md` — 5 rounds of web search on FSD incidents, alert systems, Typhoon Saola
 - `public-info.md` — Project overview, direction, key areas
-- `outlineDraft.md` — Draft report outline
+- `outlineDraft.md` / `outlineDraft01.md` — Draft report outlines
+- `govEnquiry.md` — Questions for government under Code on Access to Information
 - `Followup5Feb.md` — Follow-up actions: locate FSD unit, map incidents, research accountability
 - `planNextSteps.md` — Workflow plan for the project
+
+### Cross-referenced from Group 4 — Fire Service 2
+- `group4-fire-service-2/GoogleNotes.md` — 5 curated articles: HK01 fire alarm explainer, SCMP alarm failure expert analysis, Storm.mg 7 major fires review, BBC final death toll (168), IFSJ global lessons
+- `group4-fire-service-2/MoreInfoOnline.md` — Independent Committee details, EAS analysis, FSD education data, BD circulars, support fund
+- `group4-fire-service-2/fsd_directory_results.md` — FSD team directory (contact details for Fire Safety Command, Building Improvement, Public Safety, etc.)
+- `group4-fire-service-2/govEnquiries.md` — 29 questions addressing specific FSD teams
+
+### External sources
+- [BBC — Final death toll: 168](https://www.bbc.com/news/articles/cx2w9wqek3jo.amp)
 - [BBC — Grenfell Tower: What happened](https://www.bbc.com/news/uk-40301289)
 - [London Museum — The Grenfell Tower Fire](https://www.londonmuseum.org.uk/collections/london-stories/grenfell-tower-fire/)
 - [Reuters — How does Hong Kong tower fire compare](https://www.reuters.com/world/china/how-does-hong-kong-tower-fire-compare-other-recent-building-blazes-2025-11-28/)
 - [HKFP — Tai Po fire timeline](https://hongkongfp.com/2025/12/17/tai-po-fire-timeline-wang-fuk-courts-hk330-million-renovation-ignored-warnings-and-aftermath/)
 - [SCMP — What are the right lessons](https://www.scmp.com/news/hong-kong/society/article/3334643/what-are-right-lessons-hong-kongs-worst-fire-7-decades)
+- [SCMP — Failure of fire alarms](https://www.scmp.com/news/hong-kong/society/article/3334567/failure-fire-alarms-tai-po-could-have-delayed-rescue-cost-lives-says-expert)
+- [SCMP — Systemic failures found](https://www.scmp.com/news/hong-kong/society/article/3342448/fairness-pledged-hong-kong-residents-seek-answers-tai-po-fire-inquiry)
+- [SCMP — Scaffold netting removed at 200 sites](https://www.scmp.com/news/hong-kong/society/article/3335110/hong-kong-orders-scaffold-netting-be-removed-200-sites-wake-inferno)
+- [SCMP — Fire sprinklers and smoke detectors](https://www.scmp.com/news/hong-kong/society/article/3335092/fire-sprinklers-smoke-detectors-can-help-offset-risk-hong-kong-experts)
 - [China Daily — HK swift response vs Grenfell](https://www.chinadailyhk.com/article/625217)
 - [Caixin — Fatal gap in high-rise safety doctrine](https://www.caixinglobal.com/2025-11-27/analysis-hong-kong-fire-exposed-fatal-gap-in-high-rise-safety-doctrine-102387561.html)
 - [International Fire & Safety Journal — Wang Fuk Court global lessons](https://internationalfireandsafetyjournal.com/wang-fuk-court-fire-lessons/)
 - [Straits Times — Concern in China over fire hazards](https://www.straitstimes.com/asia/east-asia/concern-raised-in-china-over-fire-hazards-in-tall-buildings-after-deadly-hong-kong-fire)
+- [Storm.mg — 7 major HK fires in 30 years](https://www.storm.mg/lifestyle/11084096)
+- [HK01 — Fire alarm system explainer](https://www.hk01.com/article/60306899)
+- [Gov — Independent Committee established](https://www.info.gov.hk/gia/general/202512/12/P2025121200786.htm)
+- [The Standard — Hearings March 2026](https://www.thestandard.com.hk/hong-kong-news/article/321075/Independent-Committee-probing-Wang-Fuk-Court-fire-to-hold-hearings-in-March-sources)
 - [FSD Performance Pledge](https://www.hkfsd.gov.hk/eng/aboutus/performance.html)
 - [FSD Year-end Review 2024](https://www.info.gov.hk/gia/general/202501/22/P2025012200234p.htm)
+- [FSD Fire Safety Education Unit](https://www.hkfsd.gov.hk/eng/education/fseu.html)
 - [FSD steps up inspections Dec 2025](https://www.info.gov.hk/gia/general/202512/16/P2025121600721.htm)
 - [Task force probes Tai Po fire](https://www.news.gov.hk/eng/2025/11/20251129/20251129_143248_032.html)
 - [New measures boost fire safety Jan 2026](https://www.news.gov.hk/eng/2026/01/20260109/20260109_182255_535.html)
+- [Wikipedia — Hong Kong Emergency Alert System](https://en.wikipedia.org/wiki/Hong_Kong_Emergency_Alert_System)
+- [OFCA — EAS](https://www.ofca.gov.hk/en/consumer_focus/guide/help_for_consumers/emergency_alert_system/index.html)
+- [BD Circular — Fire retardant materials](https://www.bd.gov.hk/doc/en/resources/codes-and-references/practice-notes-and-circular-letters/circular/2025/CL_UFRPNSTPSFBCDAARMWRC2025e.pdf)

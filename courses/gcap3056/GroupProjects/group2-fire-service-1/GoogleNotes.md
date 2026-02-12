@@ -188,3 +188,23 @@ The Google Doc includes an overview table structure with the following columns:
 - **Comment**
 
 *(Table content to be populated by team members)*
+
+---
+
+## Cross-Reference: Additional Sources from Group 4 — Fire Service 2
+
+Group 4 has curated additional articles with highly relevant Tai Po fire details. See `group4-fire-service-2/GoogleNotes.md` for full content:
+
+| # | Article Title | Contributor | Source | Key New Info |
+|---|--------------|-------------|--------|-------------|
+| 1 | Hongfuyuan Fire: Failed Fire Alarm Causes Public Panic | Luk Kan Yiu Shannon | [HK01](https://www.hk01.com/article/60306899) | How manual vs automatic fire alarms work; FS251 annual certification; legal requirements for alarm shutdown |
+| 2 | Failure of fire alarms in Tai Po | Chang Yan Tung Brookye | [SCMP](https://www.scmp.com/news/hong-kong/society/article/3334567) | Former FSD director: "A minute's delay can make the difference between life and death"; alarms in all 8 blocks failed tests; manual call points system |
+| 3 | 7 Major Fires in HK in Past 30 Years | LU Haihong Iris | [Storm.mg](https://www.storm.mg/lifestyle/11084096) | Timeline from Garley House (1996, 41 dead) to Wang Fuk Court (2025, 168 dead); core recurring risks |
+| 4 | Final death toll: 168 | Yick Minny | [BBC](https://www.bbc.com/news/articles/cx2w9wqek3jo.amp) | Confirmed 168 deaths; victims 6 months to 98 years; 30+ arrested; firefighter Ho Wai-ho killed |
+| 5 | Wang Fuk Court global lessons | Tu Yixin | [IFSJ](https://internationalfireandsafetyjournal.com/wang-fuk-court-fire-lessons/) | NFPA 8-element analysis; 2,300 rolls non-compliant netting; 7/20 samples failed; alarms deactivated; HK$2.3B support fund |
+
+Also see `group4-fire-service-2/MoreInfoOnline.md` for:
+- Independent Committee details (Justice David Lok, first meeting 5 Feb 2026, "systemic problems")
+- Emergency Alert System analysis (HK$150M, used only once, not activated during fire)
+- FSD Fire Safety Education data (324 talks, 16,550 people in 2024)
+- BD circular on fire-retardant materials
