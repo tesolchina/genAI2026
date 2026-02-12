@@ -1,0 +1,87 @@
+# Process Log — Group 2 Fire Service 1
+
+**Project:** Learning from Past Fire Incidents  
+**Focus:** FSD mechanism for learning from past fire incidents (abroad and in Mainland)
+
+---
+
+## 12 Feb 2026 — Major Update (AI-assisted)
+
+### What was done:
+
+1. **Fetched Google Doc content → created `GoogleNotes.md`**
+   - Source: [Group 2 Fire services Public info curation](https://docs.google.com/document/d/1n3a_qLQHx7iNMYk5KR4-0v5rFqml2l_B9IhbS7Cvgi4/edit?tab=t.0)
+   - Tab 1: Two detailed entries on Grenfell Tower fire (by Yang Yunxuan and Zhang Chenghao) with facts, comments, and full texts
+   - Tab 2 (Legco report): Draft report outline (same as outlineDraft.md)
+   - Aligned with Google Doc structure
+
+2. **Reviewed all notes → created `how_to_learn_lessons.md`**
+   - Reviewed: `GoogleNotes.md`, `WebSearchReport.md`, `public-info.md`, `outlineDraft.md`, `Followup5Feb.md`, `planNextSteps.md`, `seekFeedback.md`
+   - Web research on: Tai Po Wang Fuk Court fire (Nov 2025), FSD investigation response, Mainland China national inspection campaign, international fire safety lessons
+   - Addressed two key questions:
+     - Q1: Should FSD be blamed for failing to learn from Grenfell? Was Tai Po preventable?
+     - Q2: How can FSD learn from past incidents to prevent future major fires?
+   - Includes Grenfell–Tai Po comparison table, FSD's existing mechanisms and gaps, recommended lines of inquiry
+
+3. **Created `outlineDraft01.md`** (updated Legco report outline)
+   - Based on original `outlineDraft.md`
+   - Major additions: Tai Po fire context (160+ deaths), Grenfell parallels, Mainland China response, two refined hypotheses, anticipated government replies table, expanded media coverage suggestions, comprehensive clickable references
+
+4. **Created `govEnquiry.md`**
+   - 27 specific questions organised into 5 parts:
+     - Part A: Learning from international incidents (Grenfell)
+     - Part B: Tai Po fire-specific questions
+     - Part C: FSD enforcement and accountability
+     - Part D: Emergency Alert System
+     - Part E: Forward-looking / prevention
+   - Includes submission instructions (Code on Access to Information, LegCo Redress, direct enquiry)
+
+5. **Created `process.log`** (this file)
+
+### Files created (12 Feb 2026):
+- `GoogleNotes.md` — Google Doc content aligned to markdown
+- `how_to_learn_lessons.md` — Analysis of two key questions with clickable links
+- `outlineDraft01.md` — Updated Legco report outline (v01)
+- `govEnquiry.md` — 27 questions for government departments
+- `process.log` — This log file
+
+### Existing files (before 12 Feb):
+- `update12Feb.md` — Task instructions for 12 Feb session
+- `outlineDraft.md` — Original draft report outline (v00)
+- `WebSearchReport.md` — 5 rounds of web search on FSD incidents
+- `public-info.md` — Project overview, direction, key areas
+- `Followup5Feb.md` — Follow-up actions from 5 Feb session
+- `planNextSteps.md` — Workflow plan for the project
+- `seekFeedback.md` — Request for team feedback
+
+---
+
+## 5 Feb 2026 — Follow-up Session
+
+- Created `Followup5Feb.md` with action items in 3 phases:
+  - Phase 1: Research past incidents and lessons learned
+  - Phase 2: Identify responsible units within FSD
+  - Phase 3: Policy recommendations
+- Identified need to find FSD organisational chart and specific units
+
+---
+
+## Earlier sessions (pre-5 Feb)
+
+- Created `public-info.md` — project overview and direction
+- Created `WebSearchReport.md` — 5 rounds of AI web search (FSD IT incident, EAS, Jordan fire, Typhoon Saola, performance pledge)
+- Created `planNextSteps.md` — workflow plan modelled on group6-rare-disease
+- Created `seekFeedback.md` — request for team and teacher feedback
+- Created `outlineDraft.md` — initial Legco report outline
+
+---
+
+## Next Steps
+
+- [ ] Students to review `how_to_learn_lessons.md` and `outlineDraft01.md` — add comments, refine hypotheses
+- [ ] Students to review `govEnquiry.md` — select which questions to submit first
+- [ ] Decide on submission channel: Code on Access to Information vs direct enquiry vs LegCo
+- [ ] Update Google Doc with new findings
+- [ ] Teacher feedback on hypotheses and report structure
+- [ ] Conduct additional web research if needed (e.g., FSD organisational chart, specific international incidents)
+- [ ] Begin drafting the full Legco report based on `outlineDraft01.md`
