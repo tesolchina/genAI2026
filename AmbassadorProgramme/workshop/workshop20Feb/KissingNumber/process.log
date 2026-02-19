@@ -1,0 +1,228 @@
+# process.log — Kissing Number paper search & download
+# Updated in real time
+
+[START] 2026-02-19
+- Task: From SCMP report, locate arXiv paper (Nov 2025), download to paper/, maintain this log.
+
+[STEP 1] Read SCMP report (SCMPreport.md)
+- Identified: kissing number problem, PackingStar, Peking University, Fudan University, Shanghai Academy of AI for Science (SAIS), preprint on arXiv November 2025.
+
+[STEP 2] Search arXiv
+- Query: kissing number PackingStar Peking University Fudan November 2025
+- FOUND: arXiv:2511.13391 — "Finding Kissing Numbers with Game-theoretic Reinforcement Learning"
+- Submitted Nov 17, 2025. Authors from Peking University, Fudan University, SAIS.
+
+[STEP 3] Create paper/ and prepare download
+- Created subfolder paper/
+- Downloading from https://arxiv.org/abs/2511.13391
+
+[STEP 4] Download paper assets
+- Downloaded PDF: paper/2511.13391.pdf (~609 KB)
+- Downloaded TeX source: paper/2511.13391_source.tar.gz (~301 KB, gzip)
+- Downloaded HTML (experimental): paper/2511.13391.html (~192 KB, 1042 lines)
+
+[STEP 5] Final status
+- Paper: "Finding Kissing Numbers with Game-theoretic Reinforcement Learning"
+- arXiv ID: 2511.13391 (submitted 17 Nov 2025; v3 revised 11 Feb 2026)
+- Authors: Chengdong Ma, Théo Tao Zhaowei, Pengyu Li, Minghao Liu, Haojun Chen, Zihao Mao, Yuan Cheng, Yuan Qi, Yaodong Yang
+- Files in paper/: 2511.13391.pdf, 2511.13391_source.tar.gz, 2511.13391.html
+
+[DONE] 2026-02-19
+
+---
+# Follow-up: Letter brainstorming (from work/Brainstorm.md)
+
+[STEP 6] 2026-02-19 — Partner AI writing process
+- Created work/partnerAIwriting.md: process for AI-assisted SCMP letter (from tax/graduates letter + Poe link), transferable lessons, and how to apply to kissing-number letter.
+- References: Poe conversation https://poe.com/s/JdBL1zQr2xd9jamabP16; published letter https://www.scmp.com/opinion/letters/article/3342445/tax-companies-deploy-ai-save-hong-kong-graduates
+
+[STEP 7] 2026-02-19 — Ideas for letter
+- Created work/ideas4letters.md: bullet-point ideas for SCMP letter in response to Ref/SCMPreport.md.
+- Sources: SCMP report, preprint (paper/2511.13391.html), Ref/solarWeatherLetter.md.
+- Includes themes from report + insights from preprint not in report (two-agent game, human–AI feedback loop, antipodal paradigms, proof still lacking, rational structures, 6000+ structures, validation/databases).
+- Suggested angles and next step (draft with AI, edit, submit).
+
+[STEP 8] Log update
+- process.log updated to include Steps 6–8 (letter prep workflow).
+
+[DONE] 2026-02-19
+
+---
+# Ref video/transcript processing (learnCoze scripts)
+
+[STEP 9] 2026-02-19 — Process Ref videos and transcripts
+- Source: Ref/PKU_wechat.mp4, Ref/PKU_wechat.txt (王浩 港浸会 shared audio, ~16 min).
+- Scripts: Knowledge-Hub/project/learnCoze/process_session.py (run with venv).
+- Command (from learnCoze): python process_session.py <Ref_path> PKU_wechat.mp4 PKU_wechat.txt
+- Pipeline: keyframe extraction (20s + hash dedup) → OCR (easyocr) → transcript parse & align → notes generation.
+- Outputs (on completion): Ref/keyframes/, Ref/keyframes/keyframes.json, Ref/keyframes/ocr_results.json, Ref/aligned_data.json, Ref/ChineseNotesCoze.md.
+- Note: Pipeline was started; OCR step can take several minutes. Check Ref/ for outputs when finished.
+
+[STEP 10] 2026-02-19 — moreIdeas.md from video insights
+- Created work/moreIdeas.md using transcript Ref/PKU_wechat.txt (full narrative from video).
+- Content: video-only insights (digital life, 14D nightmare, two-agent origin from “manual delete bad balls”, 无中生有, 解释神, fragments/cell division, young team, PackingStar as 飞船), suggested new angles, and how to combine with ideas4letters.md.
+- Purpose: Letter ideas that reflect the team's own story and language for a more personal, grounded SCMP letter.
+
+[DONE] 2026-02-19
+
+---
+# Explain deck + letter focus (work/explain.md)
+
+[STEP 11] 2026-02-19 — HTML presentation deck
+- Created work/explain.html: presentation deck (large font, projector-friendly, dark theme).
+- Content: problem from scratch (3D pomegranate, K(n)); human value in past literature (Newton, Hilbert, timeline); why hard; what PackingStar does (cosine matrix, two agents, fragments); novelty vs SCMP report & PKU video; "Human in the loop — where to comment" (6 points); takeaways for letter.
+- Yellow callout boxes mark "Comment for your letter" with refs to Ref/SCMPreport.md, Ref/PKU_wechat, paper, moreIdeas.md. Links to PackingStar GitHub, local work and Ref files.
+- Letter focus throughout: humans should be in the loop when using AI for research including maths.
+
+---
+# User comments / instructions (from work/explain.md and follow-up)
+
+[USER — explain.md]
+- Consider paper (KissingNumber/paper), ideas from work, and study codebase https://github.com/CDM1619/PackingStar.
+- Generate an HTML file to explain the problem and the paper from scratch (zero background) for someone who wishes to write a letter in response to Ref/SCMPreport.md.
+- In the HTML describe how the study is novel, with ref to SCMPreport.md and wechat video from PKU (Ref); link/highlight places where we could comment.
+- HTML in the form of a presentation deck with large font and visuals for projector.
+- Initial idea for the letter: focus on the value of human in the process of solving the math problem; the human value embedded in the past literature (Newton, past studies); other studies in areas such as AI; identify insights from these sources and how AI helps bring out new solutions based on human insights from the past. Main argument: human should be in the loop when using AI to do research including math.
+- Update process.log in real time.
+
+[USER — explain01 request]
+- Create explain01.html.
+- Need more background info on the paper.
+- More info about PackingStar — how it works, where it comes from.
+- Be more explicit and label the three sources of human value: (1) historical researcher, (2) researchers on the problem, (3) researcher on game and AI.
+- Look into the GitHub code again to gain more insights.
+- Generate an outline of the SCMP letter at the end; letter of up to 150 words.
+
+[USER — this update]
+- Update process log; include my comments in the log.
+
+---
+# explain01.html (per user comments above)
+
+[STEP 12] 2026-02-19 — explain01.html
+- Created work/explain01.html per user instructions.
+- Added: more paper background (formal setup, Gram/cosine matrix, why hard); PackingStar how it works and where it comes from (cosine matrix, two-agent from manual delete, fragments; Filler/Corrector); GitHub insights (verify_coordinates.py, verify_cosmatrix.py, result categories, 25–31D structure, 31D/29D assembly).
+- Three sources of human value explicitly labeled: (1) Historical researchers, (2) Researchers on the problem, (3) Researchers on game and AI (with coloured labels in HTML).
+- Letter outline at end + draft ≤150 words (hook, human-in-the-loop argument, close).
+
+[DONE] 2026-02-19
+
+---
+# User request: explain02.html (standalone, proof vs verify, other AI tools)
+
+[USER]
+- Need a new explain02.html that is standalone and consolidates the previous two versions (explain.html, explain01.html).
+- Explanation should be accessible to people with no advanced math training.
+- The draft letter is promising; also refer to the fact that AI can prove the result is correct (and need a bit more explanation why AI cannot prove).
+- Check if there are other AI models or tools that can help prove.
+
+[STEP 13] 2026-02-19 — explain02.html (standalone, plain language, proof vs verify)
+- Created work/explain02.html: single file consolidating explain.html + explain01.html; written for readers with no advanced maths.
+- Content: problem (3D pomegranate, higher dimensions); three sources of human value (historical / problem / game-AI) with labels; why hard (plain language); PackingStar what it is and where it came from (cosine matrix, two players, fragments); new section “Can AI prove the result is correct?”:
+  - (1) Verification: yes—AI/code can check that a given arrangement is valid (no overlap, all touch centre); team does this with verify_coordinates.py, verify_cosmatrix.py; configs in official databases.
+  - (2) Proving optimality: no—PackingStar does not prove “no larger arrangement exists”; that requires a logical argument over all possibilities; paper states “rigorous mathematical proof still lacking.”
+- New section “Other AI tools that can help with proof”: AlphaProof (DeepMind, formal proofs in Lean), Lean / Isabelle / Coq (proof assistants), Lean Copilot (LLM-assisted proof steps); note that such tools could in future help turn human arguments into machine-checked proofs for optimality.
+- Letter outline and draft updated: AI can verify a configuration is valid; proving it’s the best possible still needs humans (and possibly AlphaProof/Lean in future); draft ~148 words including this point.
+
+[DONE] 2026-02-19
+
+---
+# Letter revision (draftingLetter/revise.md)
+
+[USER — revise.md]
+- Given firstDraft.md and project context; produce another draft. Style similar to Ref/solarWeatherLetter.md; inspiration from work/partnerAIwriting.md.
+- Stronger thesis: e.g. "this story highlights the importance of human input..." (replace "The lesson is the enduring value of humans"); capture essence of whole letter.
+- More standalone narrative—comprehensible without having read the study; avoid jargon (lattices and codes, push bounds, correctors).
+- Add positive, celebrating notes to highlight accomplishment and novelty.
+- Create draft01.md with new draft, word count at end, notes on how changes meet expectations. Update process.log.
+
+[STEP 14] 2026-02-19 — draft01.md
+- Created draftingLetter/draft01.md: new draft (199 words), word count, and notes.
+- Draft: hook; one-sentence kissing number; celebration paragraph (record-breaking, first progress in 13D since 1971); thesis "This story also highlights the importance of human input at every stage of AI-driven research"; human-input points in plain language; closing ask. Jargon removed or rephrased.
+- Notes explain how thesis, style, standalone/jargon, celebration, and partner-AI structure expectations were met.
+
+[DONE] 2026-02-19
+
+---
+# Sharpening the argument (draft02)
+
+[USER — chat message]
+- "Human in the loop" thesis sounds trivial—readers may say "of course humans must be in the loop."
+- Re-read paper (2511.13391.html) and PKU video notes (ChineseNotesCoze.md, PKU_wechat.txt) for material to sharpen.
+- Create draft02.md with explanation; keep word count under 200. Update process.log.
+
+[STEP 15] 2026-02-19 — draft02.md
+- Re-read paper introduction and results; re-read full PKU transcript and ChineseNotesCoze.md.
+- Identified the non-trivial angle: not "humans should supervise AI" but that a **genuine creative loop** occurred—AI overturned decades-old assumptions (antipodal paradigms), humans interpreted those surprises and extracted new principles to push further.
+- Three key evidence points: (1) AI challenged long-held antipodal paradigms (paper); (2) "interpreting the data from the AI black box" was the hardest work—解释神 (PKU video ~15:22); (3) second agent design came from human instinct to manually delete bad entries in 14D (PKU video ~09:35).
+- Created draftingLetter/draft02.md (~186 words) with thesis: "this breakthrough emerged from a genuine creative loop, not mere human supervision of AI." Closing: invest in the human expertise to question, interpret, and build on what AI reveals.
+- Notes section explains: core problem with draft 01 (platitude), what changed (specific claim, surprise-value evidence, reframed closing, what was cut), sources table.
+
+[STEP 15b] 2026-02-19 — draft02.md sources
+- User requested exact sources for each of the four key sentences in the argument paragraph.
+- Updated draft02.md: replaced summary sources table with sentence-by-sentence source annotations, including exact quotes (Chinese originals + English translations for video sources) and precise locations:
+  - Sentence 1 (overturned assumptions): Paper §Intro ¶4 — "fundamentally challenge long-held antipodal paradigms"
+  - Sentence 2 (extracted new principles): Paper §Intro ¶4 — "inspired mathematicians to extract new and more general construction principles… a productive feedback loop"; also Paper Abstract — "humans devised further improved constructions"
+  - Sentence 3 (interpreting AI black box): PKU video ~15:22 — 王浩 on 解释神 (interpreter of the gods)
+  - Sentence 4 (second agent from human instinct): PKU video ~09:35 — 王浩 on manually deleting bad balls in 14D; also Paper §Intro ¶3 — description of the second agent's design
+
+[DONE] 2026-02-19
+
+---
+# Clone PackingStar repo & ReadmeSimon.md
+
+[STEP 16] 2026-02-19 — PackingStar clone + ReadmeSimon.md
+- Cloned https://github.com/CDM1619/PackingStar into KissingNumber/PackingStar/.
+- Explored repo structure: data folders (25D-31D, 13D_rational, 12D_14D_15D, generalised kissing), verification scripts (verify_coordinates.py, verify_cosmatrix.py), results_all.png.
+- Inspected numpy data: coordinate files (N×D float), cosine/Gram matrices (N×N float), partitioned sub-structures (partitioned_D5 40×5 int, partitioned_E7 126×7 float).
+- Created PackingStar/ReadmeSimon.md covering:
+  - What the repo contains (data files table, two representations, verification scripts, key image).
+  - 8 visualization ideas: (1) cosine-value histogram, (2) Gram matrix heatmap, (3) eigenvalue spectrum, (4) PCA/t-SNE 2D/3D projection, (5) contact graph / adjacency network, (6) old vs new kissing number bar chart, (7) partitioned sub-structure visualisation (29D/31D), (8) rational vs non-rational 13D comparison.
+  - Quick-start verification commands and visualisation dependencies.
+
+[DONE] 2026-02-19
+
+---
+# Diagram explanation, 8 visualizations, video diagrams, explain03.html
+
+[USER — chat message]
+- Explain results_all.png in new md file: what is n-dimensional, kissing number = number of spheres?, rational vs non-rational.
+- Explain diagrams in PKU video; update ChineseNotesCoze.md.
+- Run all 8 visualizations with detailed explanations.
+- Create explain03.html consolidating explain02.html + all new content.
+
+[STEP 17] 2026-02-19 — explainDiagram.md
+- Created work/explainDiagram.md: full panel-by-panel explanation of results_all.png.
+- Covers: what "n-dimensional" means (table), what kissing number is (= max touching spheres), left panel (standard kissing numbers 11D–31D, log scale, AlphaEvolve vs PackingStar, inset ΔK bar chart), right panel (generalised kissing numbers with tighter angular constraints), and rational vs non-rational (definition, comparison table, 13D story).
+
+[STEP 18] 2026-02-19 — ChineseNotesCoze.md video diagram appendix
+- Added "Appendix: Key Diagrams in the Video (English Explanation)" to Ref/ChineseNotesCoze.md.
+- 12 diagram explanations covering: kissing number structures (帧 6), known kissing number chart (帧 10), single-agent matrix completion (帧 15), multi-entry completion (帧 18), target kissing numbers (帧 19), GPU optimisation (帧 21–24), checkpoint mechanism (帧 25), 14D nightmare progress (帧 27–28), PackingStar system (帧 31), two-player game (帧 32–33), Leech lattice 196560 (帧 34), fragment expansion (帧 39).
+
+[STEP 19] 2026-02-19 — 8 visualizations
+- Wrote PackingStar/visualize_all.py; generated all 8 PNGs in PackingStar/viz/:
+  1. Cosine-value distribution (12D: 3 distinct values; 13D rational: 6 values)
+  2. Gram matrix heatmap (block-diagonal patterns visible in 12D)
+  3. Eigenvalue spectrum (rank = 12 and 13, confirming dimension)
+  4. PCA 3D projection (17D, 578 spheres — layered shells visible)
+  5. Contact graph (12D, 81 nodes, 1458 edges, all degree 36 — strongly regular!)
+  6. Old vs new bar chart (25D–31D, ΔK from +8 to +5476)
+  7. Partitioned sub-structures (D5: 40 vectors/12 triangles for 29D; E7: 126 vectors/42 triangles for 31D)
+  8. Rational 13D analysis (6 rational cosine values: −1, −1/2, −1/4, 0, 1/4, 1/2)
+
+[STEP 20] 2026-02-19 — explain03.html
+- Created work/explain03.html: comprehensive standalone presentation (21 slides).
+- Consolidates all explain02.html content + new material:
+  - "What does n-dimensional mean?" slide with table
+  - "What is the Kissing Number?" with known values table
+  - History, Why hard, PackingStar (from explain02)
+  - Results diagram explanation (with embedded results_all.png)
+  - Rational vs non-rational slide with comparison table and 13D story
+  - Proof vs verification + other AI proof tools (from explain02)
+  - All 8 visualizations with detailed explanations (images via relative paths to PackingStar/viz/)
+  - Key PKU video diagram explanations
+  - "The creative loop" — the non-trivial human-AI argument from draft02
+  - Draft02 letter (~186 words)
+- Fixed nav bar with links to all 21 sections.
+
+[DONE] 2026-02-19

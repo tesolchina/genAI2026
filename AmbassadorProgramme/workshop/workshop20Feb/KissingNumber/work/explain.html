@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kissing Number & PackingStar — Explain & Letter Angles</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card: #16213e;
+      --accent: #e94560;
+      --highlight: #ffd93d;
+      --text: #eee;
+      --muted: #a0a0a0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    }
+    .slide {
+      min-height: 100vh;
+      padding: 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .slide h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0 0 1rem;
+      color: var(--accent);
+    }
+    .slide h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      margin: 2rem 0 0.75rem;
+      color: #b8c5d6;
+    }
+    .slide p, .slide li {
+      margin: 0.5rem 0;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+    }
+    .slide ul { padding-left: 1.5rem; }
+    .comment {
+      background: rgba(255, 217, 61, 0.15);
+      border-left: 4px solid var(--highlight);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .comment strong { color: var(--highlight); }
+    .ref {
+      font-size: 0.9em;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .ref a { color: #6eb5ff; }
+    .visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .sphere-3d {
+      width: 180px;
+      height: 180px;
+      position: relative;
+    }
+    .center { fill: var(--accent); }
+    .around { fill: #4a7ba7; opacity: 0.9; }
+    .two-agents {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    .agent {
+      background: var(--card);
+      padding: 1.25rem;
+      border-radius: 12px;
+      border: 2px solid #2a3a5a;
+    }
+    .agent h3 { margin: 0 0 0.5rem; font-size: 1.25rem; color: var(--accent); }
+    nav {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+    nav a {
+      background: var(--card);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    nav a:hover { background: var(--accent); }
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .timeline span {
+      background: var(--card);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<section class="slide" id="title">
+  <h1>Kissing Number & PackingStar</h1>
+  <p>From zero background to writing your SCMP letter</p>
+  <p><strong>Your angle:</strong> Human in the loop — humans should be central when using AI for research, including maths.</p>
+  <p class="ref">Sources: paper (KissingNumber/paper), work ideas (ideas4letters.md, moreIdeas.md), <a href="https://github.com/CDM1619/PackingStar" target="_blank" rel="noopener">PackingStar GitHub</a>, Ref/SCMPreport.md, Ref/PKU_wechat (video + transcript).</p>
+</section>
+
+<section class="slide" id="problem">
+  <h1>What is the Kissing Number Problem?</h1>
+  <p><strong>In 3D:</strong> How many identical spheres can touch one central sphere of the same size without overlapping?</p>
+  <div class="visual">
+    <svg class="sphere-3d" viewBox="0 0 100 100" aria-label="Central sphere with 12 touching spheres">
+      <circle cx="50" cy="50" r="12" class="center"/>
+      <circle cx="50" cy="22" r="10" class="around"/>
+      <circle cx="50" cy="78" r="10" class="around"/>
+      <circle cx="22" cy="50" r="10" class="around"/>
+      <circle cx="78" cy="50" r="10" class="around"/>
+      <circle cx="35" cy="35" r="10" class="around"/>
+      <circle cx="65" cy="35" r="10" class="around"/>
+      <circle cx="35" cy="65" r="10" class="around"/>
+      <circle cx="65" cy="65" r="10" class="around"/>
+    </svg>
+    <p style="max-width: 400px;">Think: a pomegranate — replace seeds with unit spheres. How many can “kiss” the centre? <strong>Answer in 3D: 12</strong> (proven 1953).</p>
+  </div>
+  <p>The problem is extended to <em>n</em> dimensions: K(1)=2, K(2)=6, K(3)=12, K(4)=24, … up to K(24)=196,560. In many dimensions the exact value is still unknown; we only have lower and upper bounds.</p>
+  <div class="comment">
+    <strong>Comment for your letter:</strong> Human value in the problem itself — Newton and Gregory debated it in 1694. Centuries of human intuition and proof (e.g. 3D settled in 1953) built the foundation. Ref: <a href="../Ref/SCMPreport.md">SCMPreport.md</a>, PKU video (石榴子).
+  </div>
+</section>
+
+<section class="slide" id="history">
+  <h1>Human value in the past literature</h1>
+  <h2>Timeline</h2>
+  <div class="timeline">
+    <span>1694 Newton vs Gregory (12 vs 13)</span>
+    <span>1900 Hilbert’s 18th problem</span>
+    <span>1953 3D = 12 proven</span>
+    <span>2003 Musin: 4D = 24</span>
+    <span>1971–2016 Lattice/code methods (13D, 14D, 25–31…)</span>
+  </div>
+  <p>Progress relied on <strong>human-designed</strong> tools: lattices, error-correcting codes, group theory, substructures. “In higher dimensions even top mathematicians felt stuck” (PKU video). About seven major advances in ~50 years, each with different methods.</p>
+  <p><strong>Applications</strong> (human motivation): information coding (compress most with fewest bits), telecommunications, quantum coding, satellite signals. Ref: SCMP report (Qi quote), paper intro.</p>
+  <div class="comment">
+    <strong>Comment for your letter:</strong> The past literature is entirely human — problem posing (Newton, Hilbert), proofs, and applications. AI did not replace that history; it builds on it. Ref: SCMPreport.md, PKU video (希尔伯特, 信息编码).
+  </div>
+</section>
+
+<section class="slide" id="why-hard">
+  <h1>Why is it so hard?</h1>
+  <p>Exact kissing numbers are known only in dimensions <strong>1, 2, 3, 4, 8, 24</strong>. In other dimensions we have bounds, not proofs.</p>
+  <ul>
+    <li>High dimensions: “combinatorial explosion,” geometry beyond human intuition.</li>
+    <li>Traditional methods depend on prior human designs (lattices, codes); they don’t scale arbitrarily.</li>
+    <li>Numerical issues: in coordinate-based search, tiny errors accumulate and break the packing (PKU video: stuck at 8–9D until they changed the formulation).</li>
+  </ul>
+  <div class="comment">
+    <strong>Comment for your letter:</strong> Humans defined what “hard” means and pushed the frontier for centuries. AI enters where human intuition and hand-designed methods hit limits — so AI is extending human endeavour, not replacing it. Ref: paper intro, PKU video (九维八维).
+  </div>
+</section>
+
+<section class="slide" id="packingstar">
+  <h1>What does PackingStar do?</h1>
+  <p><strong>Idea:</strong> Don’t search in high-dimensional coordinates. Use a <strong>cosine matrix</strong> (pairwise angles between sphere centres). The problem becomes: fill this matrix under constraints → matrix size = kissing number. That reformulation is stable, GPU-friendly, and avoids precision blow-up.</p>
+  <h2>Two agents (the key design)</h2>
+  <div class="two-agents">
+    <div class="agent">
+      <h3>Player 1 (Filler)</h3>
+      <p>Adds entries to the matrix to grow the configuration.</p>
+    </div>
+    <div class="agent">
+      <h3>Player 2 (Corrector)</h3>
+      <p>Removes or corrects bad entries — like “one bad ball ruins the soup.”</p>
+    </div>
+  </div>
+  <p>They cooperate via reinforcement learning. Plus: decompose matrices into “fragments” and reuse them in new games (like “cell division,” PKU video).</p>
+  <p class="ref">Paper: arXiv:2511.13391; code: <a href="https://github.com/CDM1619/PackingStar" target="_blank" rel="noopener">github.com/CDM1619/PackingStar</a>.</p>
+  <div class="comment">
+    <strong>Comment for your letter:</strong> The second agent was inspired by a <strong>human</strong> act: the mathematician manually deleting “bad” balls to get 14D 1932. So “human in the loop” is literally in the algorithm design. Ref: PKU video (手动删掉坏球, 陈栋把球问题转化成了博弈问题), moreIdeas.md.
+  </div>
+</section>
+
+<section class="slide" id="novelty">
+  <h1>How is the study novel? (vs SCMP report & video)</h1>
+  <ul>
+    <li><strong>SCMP report:</strong> “Romance” between scientists and AI; PackingStar; new lower bounds in dimensions 25–31; first progress in 13D rational since 1971; AI doesn’t prove — humans verify.</li>
+    <li><strong>PKU video adds:</strong> No training data (“无中生有”); 14D 1932 as “nightmare” until the second agent; human interpretation of the black box (“解释神”); young team; “PackingStar is the spacecraft” — not arrival, new start.</li>
+    <li><strong>Paper adds:</strong> 6000+ new structures; antipodal paradigms challenged; humans then improved bounds (e.g. 22D) from AI patterns; results in standard databases; generalized kissing numbers under angular constraints.</li>
+  </ul>
+  <div class="comment">
+    <strong>Comment for your letter:</strong> Novelty is not “AI did it alone.” It’s: human insight (cosine matrix, two-agent design, fragments) + engineering + AI exploration + <strong>human verification and interpretation</strong>. Ref: SCMPreport.md, Ref/PKU_wechat.txt, paper abstract & intro.
+  </div>
+</section>
+
+<section class="slide" id="human-loop">
+  <h1>Human in the loop — where to comment</h1>
+  <p><strong>1. Problem and history</strong> — Newton, Hilbert, decades of human proofs and constructions. Your letter can say: the value of humans is in the very formulation and the long literature.</p>
+  <p><strong>2. Design of the system</strong> — The corrector agent came from watching a human “delete bad balls.” So human intuition is encoded in the method. Ref: PKU video.</p>
+  <p><strong>3. Verification and proof</strong> — PackingStar does not prove; mathematicians must verify. 25D “may be optimal” but “rigorous proof still lacking.” Ref: SCMP report, paper.</p>
+  <p><strong>4. Interpretation</strong> — “The work I spent the most time on was interpreting the data from the AI black box” (PKU video). Humans give meaning to what the machine finds. Ref: moreIdeas.md (解释神).</p>
+  <p><strong>5. Human improvements after AI</strong> — “Inspired by these patterns, humans devised further improved constructions” (paper). So: AI suggests, humans refine and prove. Ref: paper, ideas4letters.md.</p>
+  <p><strong>6. Other AI-for-science</strong> — Unlike AlphaFold-style (lots of data), this is “discovery from nothing” (无中生有). You can contrast: different roles for AI, but humans still in the loop in both. Ref: PKU video.</p>
+</section>
+
+<section class="slide" id="takeaways">
+  <h1>Takeaways for your letter</h1>
+  <ul>
+    <li>Anchor in <strong>Ref/SCMPreport.md</strong> (e.g. “I refer to the report on PackingStar…”).</li>
+    <li>Main argument: <strong>Humans should be in the loop</strong> when using AI for research, including maths — problem posing, design, verification, interpretation, and building on AI to improve bounds.</li>
+    <li>Use one or two vivid lines from the <strong>PKU video</strong> if helpful (e.g. “not arrival, but a new start”; “human and machine exploring the universe together”).</li>
+    <li>Keep it short (SCMP letters ~400 words), one clear ask, and match SCMP style (see partnerAIwriting.md).</li>
+  </ul>
+  <p class="ref">Local refs: <a href="../Ref/SCMPreport.md">Ref/SCMPreport.md</a>, <a href="../Ref/PKU_wechat.txt">Ref/PKU_wechat.txt</a>, <a href="ideas4letters.md">work/ideas4letters.md</a>, <a href="moreIdeas.md">work/moreIdeas.md</a>, <a href="partnerAIwriting.md">work/partnerAIwriting.md</a>.</p>
+</section>
+
+<nav>
+  <a href="#title">Title</a>
+  <a href="#problem">Problem</a>
+  <a href="#history">History</a>
+  <a href="#why-hard">Why hard</a>
+  <a href="#packingstar">PackingStar</a>
+  <a href="#novelty">Novelty</a>
+  <a href="#human-loop">Human loop</a>
+  <a href="#takeaways">Takeaways</a>
+</nav>
+
+</body>
+</html>

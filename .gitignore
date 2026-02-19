@@ -17,5 +17,15 @@ Ollama-darwin.zip
 
 # Large video files (keep locally, don't track in git)
 *.mp4
+
+# PackingStar cloned repo: exclude large data files and cloned .git
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/.git/
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/25D-31D/25D-31D_new_bounds_configurations/
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/25D-31D/Si_configurations/
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/25D-31D/__MACOSX/
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/12D_14D_15D/*_configurations/
+AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/PackingStar/13D_rational_configurations/13D_rational_configurations/
+*.npy
+*.zip
 courses/gcap3226/week5/chatbots/ollama-macos-offline.zip
 courses/gcap3226/week5/chatbots/ollama-macos-offline/

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kissing Number & PackingStar — Background, Human Value, Letter Outline</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card: #16213e;
+      --accent: #e94560;
+      --highlight: #ffd93d;
+      --human1: #6bcb77;
+      --human2: #4d96ff;
+      --human3: #ff6b9d;
+      --text: #eee;
+      --muted: #a0a0a0;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; font-size: clamp(1rem, 2.2vw, 1.35rem); }
+    .slide {
+      min-height: 100vh;
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .slide h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin: 0 0 0.75rem; color: var(--accent); }
+    .slide h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); margin: 1.5rem 0 0.5rem; color: #b8c5d6; }
+    .slide p, .slide li { margin: 0.4rem 0; }
+    .slide ul { padding-left: 1.25rem; }
+    .label {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9em;
+      margin-right: 0.25rem;
+    }
+    .label.hist { background: rgba(107, 203, 119, 0.3); color: var(--human1); }
+    .label.problem { background: rgba(77, 150, 255, 0.3); color: var(--human2); }
+    .label.gameai { background: rgba(255, 107, 157, 0.3); color: var(--human3); }
+    .ref { font-size: 0.85em; color: var(--muted); margin-top: 0.5rem; }
+    .ref a { color: #6eb5ff; }
+    .two-agents { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+    .agent { background: var(--card); padding: 1rem; border-radius: 10px; border: 2px solid #2a3a5a; }
+    .agent h3 { margin: 0 0 0.35rem; font-size: 1.1rem; color: var(--accent); }
+    nav { position: fixed; bottom: 0.75rem; right: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.35rem; z-index: 10; }
+    nav a { background: var(--card); color: var(--text); padding: 0.4rem 0.75rem; text-decoration: none; border-radius: 6px; font-size: 0.85rem; }
+    nav a:hover { background: var(--accent); }
+    .outline-box { background: rgba(255,217,61,0.12); border: 2px solid var(--highlight); padding: 1.25rem; border-radius: 10px; margin: 1rem 0; }
+    .outline-box h2 { margin-top: 0; color: var(--highlight); }
+    .outline-box .word-count { font-size: 0.9em; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<section class="slide" id="title">
+  <h1>explain01 — More background & three sources of human value</h1>
+  <p>Deeper paper background, how PackingStar works and where it comes from, and an SCMP letter outline (≤150 words).</p>
+  <p class="ref">Paper: arXiv:2511.13391; <a href="https://github.com/CDM1619/PackingStar" target="_blank" rel="noopener">GitHub CDM1619/PackingStar</a>; Ref/SCMPreport.md; Ref/PKU_wechat.</p>
+</section>
+
+<section class="slide" id="paper-background">
+  <h1>More background on the paper</h1>
+  <h2>Formal setup (from paper & GitHub)</h2>
+  <p><strong>Coordinate formulation:</strong> Maximise <em>N</em> vectors in <em>D</em>-dimensional space so that: (1) all lie on the unit sphere (centres at distance 1 from origin), and (2) any two distinct centres are at distance ≥ 1 (non-overlapping). Equivalently: pairwise inner product (cosine) ≤ 1/2.</p>
+  <p><strong>Gram / cosine matrix:</strong> Instead of optimising coordinates, the paper works in the <strong>Gram matrix</strong> domain: entry <em>(i,j)</em> = cosine between sphere <em>i</em> and <em>j</em>. Valid packings correspond to matrices with 1’s on the diagonal and off-diagonal entries in a constrained set (e.g. ≤ 1/2 for classical kissing). This avoids high-dimensional coordinate drift and is GPU-friendly.</p>
+  <h2>Why this problem is hard</h2>
+  <p>Exact kissing numbers are known only for dimensions <strong>1, 2, 3, 4, 8, 24</strong>. In other dimensions only bounds exist. Past progress used lattices, error-correcting codes, group theory, and human-designed substructures (e.g. Leech lattice subsets). “Combinatorial explosion” and loss of symmetry in high dimensions limit these methods (paper §1).</p>
+  <p class="ref">Paper intro; GitHub README “Mathematical Statements”.</p>
+</section>
+
+<section class="slide" id="packingstar-how">
+  <h1>PackingStar — how it works & where it comes from</h1>
+  <h2>Where it comes from</h2>
+  <ul>
+    <li><strong>Cosine-matrix idea:</strong> Stuck at 8–9D in coordinate space (numerical errors). Switch to pairwise cosines in a finite set → “fill a matrix” instead of place balls; stable, parallelisable (paper; PKU video 九维八维 → cosine matrix).</li>
+    <li><strong>Two-agent idea:</strong> To reproduce 14D known result (1932), the mathematician had to <em>manually delete</em> some “bad” balls (“one bad ball ruins the soup”). So they added a second agent to correct/remove bad matrix entries — “Chengdong turned the sphere problem into a game” (PKU video).</li>
+    <li><strong>Fragments:</strong> After each round, decompose the matrix into geometric “fragments” and reuse them in new games (“cell division,” PKU video); paper: “representative substructures” that steer subsequent games.</li>
+  </ul>
+  <h2>How it works (summary)</h2>
+  <div class="two-agents">
+    <div class="agent"><h3>Player 1 (Filler)</h3><p>Incrementally fills matrix entries to grow the configuration; reward = matrix size (kissing number).</p></div>
+    <div class="agent"><h3>Player 2 (Corrector)</h3><p>Delayed, selective corrections; removes invalid/inconsistent entries; compresses search space (paper §1).</p></div>
+  </div>
+  <p>Both are trained with reinforcement learning. Matrices are decomposed into substructures and used to initialise/constrain later games. No big training dataset — “discovery from nothing” (无中生有, PKU video).</p>
+  <p class="ref">Paper abstract & intro; PKU video (手动删掉坏球, 陈栋, 碎片); GitHub README.</p>
+</section>
+
+<section class="slide" id="github-insights">
+  <h1>PackingStar — from the GitHub repo</h1>
+  <p><strong>Repository:</strong> Official store of new kissing configurations; all independently verified and in <a href="https://cohn.mit.edu/kissing-numbers/#7" target="_blank" rel="noopener">kissing number database</a> and <a href="https://spherical-codes.org/" target="_blank" rel="noopener">spherical codes database</a>.</p>
+  <p><strong>Results (three categories):</strong> (i) New lower bounds in dimensions 25–31; (ii) Improved rational constructions in 13D; (iii) Diverse families in 12, 14, 15D and new generalized kissing (angular constraints 1/3, 1/4).</p>
+  <p><strong>Verification:</strong> <code>verify_coordinates.py</code> for coordinate representations; <code>verify_cosmatrix.py</code> for Gram/cosine matrix (e.g. 13D rational). Threshold 0.5 for cosine. Configs stored as <code>.npy</code> (e.g. 25D_197056_coordinates.npy, 13D-1146-cosmatrix.npy).</p>
+  <p><strong>25–31D structure:</strong> Builds on Leech lattice K(24) plus subsets S_i; PackingStar finds larger |S_i| (e.g. 496 vs previous 488) with clear geometry (symmetric-frame X_8, X_24 “Conway–Curtis Cross”). In 31D: 42 disjoint equilateral triangles → 84-fold weighted S_i (vs 75); in 29D: 12 triangles → 26-fold (vs 24) (README).</p>
+  <p class="ref"><a href="https://github.com/CDM1619/PackingStar" target="_blank" rel="noopener">github.com/CDM1619/PackingStar</a> README, file structure, verification instructions.</p>
+</section>
+
+<section class="slide" id="three-human-values">
+  <h1>Three sources of human value (explicit labels)</h1>
+  <p>Use these three labels in your letter to argue that <strong>humans should be in the loop</strong> when using AI for research, including maths.</p>
+  <h2><span class="label hist">1. Historical researchers</span></h2>
+  <p><strong>Who:</strong> Newton, Gregory (1694), Hilbert (1900, 18th problem), and later provers (e.g. 3D=12 in 1953, Musin 4D=24 in 2003).</p>
+  <p><strong>Value:</strong> Posed the problem, set the standard of proof, established exact kissing numbers in dimensions 1, 2, 3, 4, 8, 24. Without this history there is no “kissing number problem” for AI to work on.</p>
+  <h2><span class="label problem">2. Researchers on the problem</span></h2>
+  <p><strong>Who:</strong> Mathematicians using lattices, error-correcting codes, group theory, Leech lattice, substructures (1971–2016 and beyond); established lower bounds in 10, 11, 13, 14, 17–21, 25–31.</p>
+  <p><strong>Value:</strong> Human-designed constructions and prior knowledge that PackingStar must first <em>reproduce</em> (e.g. 14D 1932) before claiming new results. Applications (coding, telecoms) also come from human motivation.</p>
+  <h2><span class="label gameai">3. Researchers on game and AI</span></h2>
+  <p><strong>Who:</strong> The team (Peking University, Fudan, SAIS): formulation as a game, cosine matrix, two-agent design from human “manual correction,” RL, fragments, engineering (GPU, mixed precision, checkpointing), and <em>interpretation</em> of AI output (“解释神,” PKU video).</p>
+  <p><strong>Value:</strong> Human insight encoded in the method; verification and proof still done by humans; “inspired by these patterns, humans devised further improved constructions” (paper).</p>
+</section>
+
+<section class="slide" id="three-sources-summary">
+  <h1>Three sources — summary for your letter</h1>
+  <ul>
+    <li><span class="label hist">Historical researchers</span> — Problem and proofs from Newton to today; no problem without them.</li>
+    <li><span class="label problem">Researchers on the problem</span> — Lattice/code methods and known bounds; AI first reproduces, then extends.</li>
+    <li><span class="label gameai">Researchers on game and AI</span> — Design of PackingStar (game, two agents, fragments), engineering, and human verification and interpretation; humans also improve bounds after AI.</li>
+  </ul>
+  <p>Your argument: all three show that <strong>human value is indispensable</strong> — in history, in prior maths, and in the design and interpretation of AI. So humans must stay in the loop when using AI for research, including maths.</p>
+</section>
+
+<section class="slide" id="letter-outline">
+  <h1>SCMP letter outline (up to 150 words)</h1>
+  <div class="outline-box">
+    <h2>Outline</h2>
+    <p><strong>1. Hook (1–2 sentences).</strong> Refer to the SCMP report on the Chinese team’s progress on the “kissing number” problem with AI (PackingStar).</p>
+    <p><strong>2. Main argument (2–3 sentences).</strong> The real lesson is the value of <strong>humans in the loop</strong>: (a) the problem and its proofs go back to Newton and Hilbert; (b) decades of mathematicians pushed bounds with lattices and codes; (c) the team itself embedded human intuition in the design (e.g. the “corrector” agent from watching a mathematician delete bad balls) and still rely on humans to verify and interpret results. AI suggests; humans prove and interpret.</p>
+    <p><strong>3. Close (1 sentence).</strong> When we use AI for research—including maths—we should keep humans at the centre: posing questions, designing methods, and checking meaning.</p>
+    <p class="word-count">Target: ≤150 words. Keep one clear message: human in the loop.</p>
+  </div>
+  <h2>Draft (≤150 words)</h2>
+  <div class="outline-box" style="border-color: #6eb5ff;">
+    <p>I refer to your report on the Chinese team’s use of AI to advance the “kissing number” problem (“Romance between scientists and AI,” 19 February).</p>
+    <p>The lesson is the enduring value of humans. The problem comes from Newton and Hilbert; exact answers in some dimensions were proved only after centuries of work. Later researchers used lattices and codes to push bounds—and the PackingStar team had to reproduce those results before claiming new ones. The system’s “corrector” agent was inspired by a mathematician manually deleting bad entries; verification and interpretation still rest with people. As the team said, it is “human and machine exploring the universe together.”</p>
+    <p>When we use AI for research, including maths, we should keep humans in the loop: posing questions, designing methods, and checking meaning.</p>
+    <p class="word-count">(About 145 words.)</p>
+  </div>
+  <p class="ref">Ref: <a href="../Ref/SCMPreport.md">SCMPreport.md</a>; work/ideas4letters.md, moreIdeas.md; explain.md (human-in-the-loop angle).</p>
+</section>
+
+<nav>
+  <a href="#title">Title</a>
+  <a href="#paper-background">Paper</a>
+  <a href="#packingstar-how">PackingStar</a>
+  <a href="#github-insights">GitHub</a>
+  <a href="#three-human-values">3 sources</a>
+  <a href="#three-sources-summary">Summary</a>
+  <a href="#letter-outline">Letter</a>
+</nav>
+
+</body>
+</html>

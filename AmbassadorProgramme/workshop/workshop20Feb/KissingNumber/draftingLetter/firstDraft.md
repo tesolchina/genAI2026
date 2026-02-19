@@ -1,0 +1,5 @@
+I refer to your report on the Chinese team’s use of AI to advance the “kissing number” problem (“Romance between scientists and AI,” 19 February).
+
+The lesson is the enduring value of humans. The problem comes from Newton and Hilbert; exact answers in some dimensions were proved only after centuries of work. Later researchers used lattices and codes to push bounds—and the PackingStar team had to reproduce those results before claiming new ones. The “corrector” was inspired by a mathematician manually deleting bad entries; verification and interpretation still rest with people. AI can verify that an arrangement is valid (the team does this); proving it is the best possible still needs human mathematics—tools like AlphaProof or Lean may one day help. As the team said, it is “human and machine exploring the universe together.”
+
+When we use AI for research, including maths, we should keep humans in the loop: posing questions, designing methods, and—where needed—completing the proof.

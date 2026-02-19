@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kissing Number & PackingStar — Comprehensive Guide (explain03)</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card: #16213e;
+      --accent: #e94560;
+      --highlight: #ffd93d;
+      --human1: #6bcb77;
+      --human2: #4d96ff;
+      --human3: #ff6b9d;
+      --text: #eee;
+      --muted: #a0a0a0;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: clamp(1rem, 2vw, 1.3rem); }
+    .slide {
+      min-height: 100vh;
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .slide h1 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin: 0 0 0.75rem; color: var(--accent); }
+    .slide h2 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); margin: 1.25rem 0 0.5rem; color: #b8c5d6; }
+    .slide h3 { font-size: 1.1rem; color: var(--highlight); margin: 1rem 0 0.4rem; }
+    .slide p, .slide li { margin: 0.45rem 0; }
+    .slide ul { padding-left: 1.25rem; }
+    .label { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 700; font-size: 0.88em; margin-right: 0.25rem; }
+    .label.hist { background: rgba(107, 203, 119, 0.3); color: var(--human1); }
+    .label.problem { background: rgba(77, 150, 255, 0.3); color: var(--human2); }
+    .label.gameai { background: rgba(255, 107, 157, 0.3); color: var(--human3); }
+    .ref { font-size: 0.85em; color: var(--muted); margin-top: 0.5rem; }
+    .ref a { color: #6eb5ff; }
+    .two-agents { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+    .agent { background: var(--card); padding: 1rem; border-radius: 10px; border: 2px solid #2a3a5a; }
+    .agent h3 { margin: 0 0 0.35rem; font-size: 1.05rem; color: var(--accent); }
+    .gloss { background: rgba(110, 181, 255, 0.12); border-left: 4px solid #6eb5ff; padding: 0.75rem 1rem; margin: 0.75rem 0; border-radius: 0 6px 6px 0; font-size: 0.95em; }
+    .outline-box { background: rgba(255,217,61,0.12); border: 2px solid var(--highlight); padding: 1.25rem; border-radius: 10px; margin: 1rem 0; }
+    .outline-box h2 { margin-top: 0; color: var(--highlight); }
+    .outline-box .word-count { font-size: 0.9em; color: var(--muted); }
+    nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(22,33,62,0.95); display: flex; flex-wrap: wrap; gap: 0.25rem; z-index: 10; padding: 0.4rem 0.5rem; justify-content: center; }
+    nav a { color: var(--text); padding: 0.3rem 0.6rem; text-decoration: none; border-radius: 5px; font-size: 0.75rem; background: var(--card); white-space: nowrap; }
+    nav a:hover { background: var(--accent); }
+    .visual { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+    .timeline { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.75rem 0; }
+    .timeline span { background: var(--card); padding: 0.35rem 0.75rem; border-radius: 8px; font-size: 0.9rem; }
+    table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; font-size: 0.92em; }
+    th, td { border: 1px solid #2a3a5a; padding: 0.45rem 0.65rem; text-align: left; }
+    th { background: var(--card); color: var(--highlight); }
+    tr:nth-child(even) { background: rgba(42,58,90,0.3); }
+    .viz-img { width: 100%; max-width: 900px; border-radius: 10px; margin: 0.75rem auto; display: block; border: 2px solid #2a3a5a; }
+    .viz-caption { text-align: center; font-size: 0.9em; color: var(--muted); margin-top: 0.25rem; }
+    .section-divider { text-align: center; color: var(--accent); font-size: 2rem; margin: 2rem 0 0; letter-spacing: 0.5rem; }
+    code { background: rgba(110,181,255,0.15); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ TITLE ════════════════════ -->
+<section class="slide" id="title">
+  <h1>Kissing Number & PackingStar</h1>
+  <p><strong>Comprehensive standalone guide</strong> — no advanced maths needed.</p>
+  <p>Covers: the problem, its history, PackingStar, visualizations of actual data, proof vs verification, video diagrams, human value, and the SCMP letter draft.</p>
+  <p class="ref">Sources: paper (arXiv:2511.13391 v3), <a href="https://github.com/CDM1619/PackingStar">PackingStar GitHub</a>, SCMP report, PKU WeChat video.</p>
+</section>
+
+<!-- ════════════════════ WHAT IS N-DIMENSIONAL ════════════════════ -->
+<section class="slide" id="dimensions">
+  <h1>What does "n-dimensional" mean?</h1>
+  <p><strong>Dimension</strong> = the number of independent directions you can move in.</p>
+  <table>
+    <tr><th>Dimension</th><th>What it looks like</th><th>"Ball" shape</th></tr>
+    <tr><td>1D</td><td>A line</td><td>A line segment</td></tr>
+    <tr><td>2D</td><td>A flat surface</td><td>A circle (disc)</td></tr>
+    <tr><td>3D</td><td>Our everyday world</td><td>A sphere</td></tr>
+    <tr><td>4D, 5D, …</td><td>Cannot be seen or drawn — but mathematically well-defined</td><td>A "hypersphere"</td></tr>
+  </table>
+  <p>When we say "the kissing number in 25 dimensions," we are asking: in a 25-dimensional mathematical space, how many same-size hyperspheres can simultaneously touch one central hypersphere?</p>
+  <div class="gloss">
+    <strong>Key point:</strong> We cannot visualise these spaces, but we can compute in them using coordinates — a point in 25D is just a list of 25 numbers. The geometry (distances, angles) still works exactly like 3D, just with more numbers.
+  </div>
+</section>
+
+<!-- ════════════════════ WHAT IS KISSING NUMBER ════════════════════ -->
+<section class="slide" id="problem">
+  <h1>What is the Kissing Number?</h1>
+  <p><strong>The kissing number K(n)</strong> is the maximum number of non-overlapping unit balls that can all touch (= "kiss") one central unit ball in n-dimensional space.</p>
+  <div class="visual">
+    <svg width="140" height="140" viewBox="0 0 100 100" aria-label="Central ball with touching balls">
+      <circle cx="50" cy="50" r="12" fill="var(--accent)"/>
+      <circle cx="50" cy="22" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="50" cy="78" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="22" cy="50" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="78" cy="50" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="35" cy="35" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="65" cy="35" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="35" cy="65" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="65" cy="65" r="10" fill="#4a7ba7" opacity="0.9"/>
+    </svg>
+    <div style="max-width: 400px;">
+      <p>Think of a pomegranate: replace seeds with balls. How many can "kiss" the centre? <strong>Answer in 3D: 12</strong> (proven in 1953).</p>
+      <p>So yes: <strong>kissing number = maximum number of touching spheres</strong>.</p>
+    </div>
+  </div>
+  <table>
+    <tr><th>Dimension</th><th>Kissing number</th><th>Status</th></tr>
+    <tr><td>1</td><td>2</td><td>Obvious</td></tr>
+    <tr><td>2</td><td>6</td><td>Proven</td></tr>
+    <tr><td>3</td><td>12</td><td>Proven (1953)</td></tr>
+    <tr><td>4</td><td>24</td><td>Proven (2003)</td></tr>
+    <tr><td>8</td><td>240</td><td>Proven</td></tr>
+    <tr><td>24</td><td>196,560</td><td>Proven</td></tr>
+    <tr><td>5–7, 9–23, 25+</td><td>Only ranges known</td><td>Open problem!</td></tr>
+  </table>
+  <p><strong>Why it matters:</strong> Kissing numbers connect to how we pack information in codes and signals — data storage, telecommunications, error correction.</p>
+</section>
+
+<!-- ════════════════════ HISTORY ════════════════════ -->
+<section class="slide" id="history">
+  <h1>Who brought us here? Three kinds of human value</h1>
+  <div class="timeline">
+    <span>1694 Newton vs Gregory</span>
+    <span>1900 Hilbert's 18th</span>
+    <span>1953 3D proven</span>
+    <span>1971 13D rational: 1130</span>
+    <span>2011–2016 25D–31D bounds</span>
+    <span>2025 PackingStar</span>
+  </div>
+  <p><span class="label hist">1. Historical researchers</span> — Newton, Gregory, Hilbert. They posed the problem and set the standard of proof.</p>
+  <p><span class="label problem">2. Researchers on the problem</span> — Used lattices, codes, representation theory to push bounds. PackingStar had to reproduce their results before claiming new ones.</p>
+  <p><span class="label gameai">3. Researchers on game & AI</span> — Turned the problem into a two-player game, designed the AI, and do the verification and interpretation.</p>
+</section>
+
+<!-- ════════════════════ WHY HARD ════════════════════ -->
+<section class="slide" id="why-hard">
+  <h1>Why is it so hard?</h1>
+  <ul>
+    <li><strong>High dimensions:</strong> Beyond 3D we can't "see" the geometry; the number of possible arrangements explodes exponentially.</li>
+    <li><strong>Old methods</strong> rely on human-invented structures (lattices, codes). They work in some dimensions but don't scale.</li>
+    <li><strong>Numerical traps:</strong> Placing balls by coordinates in high-D causes rounding errors that accumulate and destroy the packing. The team got stuck at 8–9 dimensions until they switched to a cosine matrix approach.</li>
+  </ul>
+  <p>In the PKU video, the team said: "In the last 50 years there have been only about 7 advances, each using a completely different method. Even the best mathematicians felt helpless."</p>
+</section>
+
+<!-- ════════════════════ PACKINGSTAR ════════════════════ -->
+<section class="slide" id="packingstar">
+  <h1>What is PackingStar?</h1>
+  <p>A <strong>multi-agent reinforcement learning system</strong> that discovers new kissing number configurations.</p>
+  <h2>Core idea: Cosine matrix instead of coordinates</h2>
+  <p>Instead of placing balls in high-dimensional space (prone to numerical errors), the team works with a <strong>Gram / cosine matrix</strong> — a table where entry (i,j) is the cosine of the angle between sphere centres i and j. Filling this table under strict rules is equivalent to finding a valid packing, but it's numerically stable and GPU-friendly.</p>
+  <h2>Two "players" (the key design)</h2>
+  <div class="two-agents">
+    <div class="agent"><h3>Player 1: Filler</h3><p>Adds entries to the cosine matrix to fit more balls. Bigger valid matrix = more spheres.</p></div>
+    <div class="agent"><h3>Player 2: Corrector</h3><p>Removes bad entries that would "poison" the structure. Inspired by a mathematician manually deleting bad balls to solve the 14D problem.</p></div>
+  </div>
+  <p><strong>Fragment decomposition:</strong> After each game, the matrix is broken into sub-structures ("fragments") that are recombined as seeds for new games — "like cell division, producing new digital life."</p>
+  <p><strong>No training data:</strong> Unlike protein folding (which learns from known structures), PackingStar explores from scratch — "creation from nothing" (无中生有).</p>
+</section>
+
+<!-- ════════════════════ RESULTS DIAGRAM ════════════════════ -->
+<section class="slide" id="results-diagram">
+  <h1>Reading the results diagram</h1>
+  <img src="../PackingStar/results_all.png" class="viz-img" alt="PackingStar results chart">
+  <p class="viz-caption">Figure 1 from the paper: all new kissing number records by PackingStar.</p>
+
+  <h2>Left panel: Standard kissing numbers (dim 11–31)</h2>
+  <ul>
+    <li><strong>Grey line:</strong> Previously known best lower bounds in each dimension.</li>
+    <li><strong>Blue triangle (11D):</strong> AlphaEvolve (Google DeepMind, 2025) — a different AI system, K(11)=593.</li>
+    <li><strong>Red stars:</strong> PackingStar's new records. Each sits above the grey line.</li>
+    <li><strong>Y-axis (log scale):</strong> Kissing number grows enormously — from ~600 (11D) to ~238,000 (31D).</li>
+    <li><strong>Inset bar chart:</strong> Shows the improvement ΔK(n) in dimensions 25–31. Grows from +8 (25D) to +5,476 (31D).</li>
+  </ul>
+
+  <h2>Right panel: Generalised kissing numbers</h2>
+  <p>A stricter version of the problem with tighter angular constraints (cosine ≤ 1/3 or 1/4 instead of 1/2). PackingStar beats records in 5 settings, some dating to the 1990s.</p>
+</section>
+
+<!-- ════════════════════ RATIONAL VS NON-RATIONAL ════════════════════ -->
+<section class="slide" id="rational">
+  <h1>Rational vs. non-rational: what's the difference?</h1>
+  <p>This distinction matters especially in <strong>13 dimensions</strong>.</p>
+
+  <h2>Definitions</h2>
+  <ul>
+    <li><strong>Rational configuration:</strong> Every entry in the cosine matrix is a rational number (a fraction like 1/2, −1/3, 0).</li>
+    <li><strong>Non-rational:</strong> Some entries are irrational (like √2/3) and cannot be expressed as exact fractions.</li>
+  </ul>
+
+  <table>
+    <tr><th></th><th>Rational</th><th>Non-rational</th></tr>
+    <tr><td>Cosine values</td><td>Exact fractions</td><td>Irrational numbers</td></tr>
+    <tr><td>Mathematical study</td><td>Exact analysis, no rounding</td><td>Requires numerical approximations</td></tr>
+    <tr><td>Practical use</td><td>Easier for coding/decoding in telecoms</td><td>Harder to implement precisely</td></tr>
+    <tr><td>13D record</td><td><strong>1146 (PackingStar!)</strong></td><td>1154 (since 1999)</td></tr>
+    <tr><td>Previous 13D rational</td><td>1130 (since 1971 — 50+ years!)</td><td>—</td></tr>
+  </table>
+
+  <div class="gloss">
+    <strong>The 13D story:</strong> PackingStar's 1146 rational spheres break a 50-year record (1130 from 1971). Although 1146 < 1154 (non-rational), the rational result allows exact mathematical analysis and is more useful for practical applications like error-correcting codes.
+  </div>
+</section>
+
+<!-- ════════════════════ PROVE VS VERIFY ════════════════════ -->
+<section class="slide" id="prove-vs-verify">
+  <h1>Can AI prove the result? (Proof vs verification)</h1>
+  <h2>1. Verification: "Is this arrangement valid?"</h2>
+  <p><strong>Yes.</strong> Given N balls, check: do they all touch the centre? Do any overlap? That's a finite calculation. PackingStar does this with scripts (<code>verify_coordinates.py</code>, <code>verify_cosmatrix.py</code>). All results are independently verified and accepted into official databases.</p>
+
+  <h2>2. Proof of optimality: "Is this the maximum possible?"</h2>
+  <p><strong>PackingStar does not do this.</strong> Proving "no arrangement can have more than N balls" requires a logical argument covering all possible arrangements — not just checking one. The paper says the 25D result "may represent the optimal arrangement, although a rigorous mathematical proof is still lacking."</p>
+
+  <div class="gloss">
+    <strong>Bottom line:</strong> AI can verify "this arrangement is valid." Proving "this number is the maximum" is a harder, different step — and that's where humans (and perhaps tools like AlphaProof, Lean, Isabelle) remain essential.
+  </div>
+</section>
+
+<!-- ════════════════════ OTHER AI PROOF TOOLS ════════════════════ -->
+<section class="slide" id="other-ai-proof">
+  <h1>Other AI tools that can help with proof</h1>
+  <ul>
+    <li><strong>AlphaProof</strong> (DeepMind): AI that generates and verifies formal proofs inside Lean. Strong on olympiad-level problems.</li>
+    <li><strong>Lean, Isabelle, Coq:</strong> Proof assistants — software that checks every step of a mathematical proof for logical correctness.</li>
+    <li><strong>Lean Copilot:</strong> Uses LLMs to suggest proof steps inside Lean, helping humans complete proofs with high automation.</li>
+  </ul>
+  <p>PackingStar finds configurations; formal proof tools could in future help prove those configurations are optimal. Right now, that step is missing.</p>
+</section>
+
+<!-- ════════════════════ SECTION: VISUALIZATIONS ════════════════════ -->
+<div class="section-divider">● ● ●</div>
+
+<section class="slide" id="viz-intro">
+  <h1>Visualizations from PackingStar Data</h1>
+  <p>Below are 8 visualizations generated directly from the data in the <a href="https://github.com/CDM1619/PackingStar">PackingStar GitHub repository</a>. Each reveals a different aspect of what the AI discovered.</p>
+</section>
+
+<!-- VIZ 1 -->
+<section class="slide" id="viz1">
+  <h1>VIZ 1: Cosine-value Distribution</h1>
+  <img src="../PackingStar/viz/01_cosine_distribution.png" class="viz-img" alt="Cosine value distribution">
+  <h2>What it shows</h2>
+  <p>A histogram of all pairwise cosine values between sphere centres (excluding the diagonal = self).</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li><strong>Left (12D, 81 spheres, cos≤1/4):</strong> Only <strong>3 distinct cosine values</strong> exist: {−0.5, approximately −0.125, 0.25}. The AI has found an extraordinarily clean algebraic structure — not a random scatter, but a configuration where every pair of spheres sits at one of just three angles.</li>
+    <li><strong>Right (13D rational, 1146 spheres):</strong> Only <strong>6 distinct values</strong>, all rational fractions: {−1, −1/2, −1/4, 0, 1/4, 1/2}. This confirms the configuration is genuinely "rational" — every angle is an exact fraction.</li>
+  </ul>
+  <div class="gloss">
+    <strong>Why it matters:</strong> The small number of distinct values is a signature of deep mathematical structure. The AI didn't just "get lucky" — it found configurations with hidden algebraic regularity that humans can then study exactly.
+  </div>
+</section>
+
+<!-- VIZ 2 -->
+<section class="slide" id="viz2">
+  <h1>VIZ 2: Gram Matrix Heatmap</h1>
+  <img src="../PackingStar/viz/02_gram_heatmap.png" class="viz-img" alt="Gram matrix heatmap">
+  <h2>What it shows</h2>
+  <p>The N×N cosine matrix displayed as a colour map. Red = high cosine (spheres close together), blue = negative cosine (far apart), white = zero (perpendicular).</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li><strong>Left (12D):</strong> Clear <strong>block-diagonal patterns</strong> are visible — groups of spheres that are more closely related to each other. These blocks correspond to the internal sub-structures ("fragments") that PackingStar discovers and reuses.</li>
+    <li><strong>Right (13D, first 200×200):</strong> A more complex pattern, but still with visible structure — not random noise. The top-left corner shows a dense red block, suggesting a tightly packed sub-group.</li>
+  </ul>
+</section>
+
+<!-- VIZ 3 -->
+<section class="slide" id="viz3">
+  <h1>VIZ 3: Eigenvalue Spectrum</h1>
+  <img src="../PackingStar/viz/03_eigenvalue_spectrum.png" class="viz-img" alt="Eigenvalue spectrum">
+  <h2>What it shows</h2>
+  <p>The eigenvalues of the Gram matrix, sorted from largest to smallest. The <strong>rank</strong> (number of non-zero eigenvalues) tells us the actual dimension of the embedding.</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li><strong>12D (81 spheres):</strong> Rank = 12 (as expected for a 12-dimensional configuration). Most eigenvalues are zero — the 81 points really do live in exactly 12 dimensions, not more.</li>
+    <li><strong>13D (1146 spheres):</strong> Rank = 13. Despite having 1146 spheres, they all lie in exactly 13-dimensional space. The single dominant eigenvalue (~88) indicates a strong "average" direction, with the remaining structure spread across 12 other dimensions.</li>
+  </ul>
+  <div class="gloss">
+    <strong>Why it matters:</strong> The rank confirms the configurations are mathematically valid — they really do embed in the claimed dimension. The eigenvalue shape also reveals the geometric "personality" of the arrangement.
+  </div>
+</section>
+
+<!-- VIZ 4 -->
+<section class="slide" id="viz4">
+  <h1>VIZ 4: PCA 3D Projection</h1>
+  <img src="../PackingStar/viz/04_pca_projection.png" class="viz-img" alt="PCA 3D projection">
+  <h2>What it shows</h2>
+  <p>578 sphere centres from a 17-dimensional configuration projected down to 3D using PCA (Principal Component Analysis). Colour encodes position along the third principal axis.</p>
+  <h2>What it reveals</h2>
+  <p>Even in this "flattened" view, clustering and symmetry are visible. The points are not randomly scattered — they form layered shells and clusters, hinting at the underlying geometric order that exists in 17D. This is a configuration found under the tighter cosine≤1/3 constraint, making it even more structured than the standard kissing problem.</p>
+</section>
+
+<!-- VIZ 5 -->
+<section class="slide" id="viz5">
+  <h1>VIZ 5: Contact Graph</h1>
+  <img src="../PackingStar/viz/05_contact_graph.png" class="viz-img" alt="Contact graph">
+  <h2>What it shows</h2>
+  <p><strong>Left:</strong> A graph where each sphere is a node, and an edge connects two spheres whose cosine = 1/4 (i.e., they are at the maximum allowed proximity). <strong>Right:</strong> The degree distribution.</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li>The graph has 81 nodes and <strong>1,458 edges</strong> — an extremely dense network.</li>
+    <li>Every node has <strong>exactly degree 36</strong> — each sphere is in maximum contact with exactly 36 others. This perfect regularity means the configuration is <strong>strongly regular</strong>, a rare and beautiful mathematical property.</li>
+    <li>The uniform degree distribution is a hallmark of highly symmetric structures — the kind mathematicians study for their connections to finite groups and combinatorial designs.</li>
+  </ul>
+</section>
+
+<!-- VIZ 6 -->
+<section class="slide" id="viz6">
+  <h1>VIZ 6: Old vs. New Kissing Numbers</h1>
+  <img src="../PackingStar/viz/06_old_vs_new.png" class="viz-img" alt="Old vs new kissing numbers">
+  <h2>What it shows</h2>
+  <p><strong>Left:</strong> Side-by-side comparison of previous best lower bounds vs. PackingStar's new records in dimensions 25–31. <strong>Right:</strong> The improvement ΔK per dimension.</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li>The improvement <strong>grows dramatically</strong> with dimension: +8 in 25D, +38 in 26D, +68 in 27D, +152 in 28D, +1,152 in 29D, +1,224 in 30D, and <strong>+5,476 in 31D</strong>.</li>
+    <li>In 25D, the new record (197,056) is conjectured to be optimal — though proof is still lacking.</li>
+    <li>The exponential growth of improvements suggests PackingStar is finding fundamentally better construction strategies, not just incremental tweaks.</li>
+  </ul>
+</section>
+
+<!-- VIZ 7 -->
+<section class="slide" id="viz7">
+  <h1>VIZ 7: Partitioned Sub-structures (Building Blocks)</h1>
+  <img src="../PackingStar/viz/07_partitioned_substructures.png" class="viz-img" alt="Partitioned sub-structures">
+  <h2>What it shows</h2>
+  <p>The lower-dimensional "building blocks" that PackingStar assembles into its 29D and 31D records. Nodes are colour-coded by which triangle they belong to.</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li><strong>Left (D5, 40 vectors):</strong> The 5D kissing configuration partitioned into equilateral triangles. PackingStar uses 12 optimal disjoint triangles to construct the 29D record.</li>
+    <li><strong>Right (E7, 126 vectors):</strong> The 7D kissing configuration partitioned into 42 optimal disjoint equilateral triangles for the 31D record.</li>
+    <li>This <strong>assembly pattern</strong> — partitioning a known structure into triangles and weighting them — is a novel construction principle that PackingStar discovered. It surpasses the previous approach (75-fold weighted S_i → 84-fold in 31D).</li>
+  </ul>
+  <div class="gloss">
+    <strong>Human-AI loop:</strong> The AI found this pattern; mathematicians then recognised it as a general principle and used it to improve bounds in other dimensions too (e.g., 22D).
+  </div>
+</section>
+
+<!-- VIZ 8 -->
+<section class="slide" id="viz8">
+  <h1>VIZ 8: Rational Structure Analysis (13D)</h1>
+  <img src="../PackingStar/viz/08_rational_13D.png" class="viz-img" alt="Rational 13D analysis">
+  <h2>What it shows</h2>
+  <p><strong>Left:</strong> All distinct cosine values in the 13D rational configuration (1146 spheres), labelled as exact fractions. <strong>Right:</strong> A 30×30 close-up of the Gram matrix.</p>
+  <h2>What it reveals</h2>
+  <ul>
+    <li>There are exactly <strong>6 distinct rational cosine values:</strong> {−1, −1/2, −1/4, 0, 1/4, 1/2}.</li>
+    <li>The most common value is 0 (perpendicular pairs, ~490,000 pairs), followed by 1/4 and −1/4.</li>
+    <li>The value −1 (antipodal pairs — pointing in exactly opposite directions) appears, but is relatively rare. This is notable because many classical constructions assumed antipodal symmetry, which PackingStar's other configurations challenge.</li>
+    <li>The 30×30 heatmap shows a dense red block (top-left ~8 spheres all at cosine 1/2 with each other) — a tightly packed sub-cluster within the larger structure.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════ SECTION: VIDEO DIAGRAMS ════════════════════ -->
+<div class="section-divider">● ● ●</div>
+
+<section class="slide" id="video-diagrams">
+  <h1>Key Diagrams from the PKU Video</h1>
+  <p>The PKU WeChat video (王浩, HKBU, ~17 min) contains several technical diagrams. Here are the most important ones explained.</p>
+
+  <h3>Diagram: Filler Matrix Completion (帧 15, ~05:00)</h3>
+  <p>Shows the single-agent game: one "Filler" selects cosine values from an action space to fill the Gram matrix, one entry at a time. Reward = matrix size. This was the first design, before the critical two-player idea.</p>
+
+  <h3>Diagram: Two-Player Matrix Completion Game (帧 32–33, ~10:40)</h3>
+  <p>The final design with two cooperating agents (Filler + Corrector). The Corrector idea came directly from watching mathematician 王浩 manually delete "bad balls" during the 14D nightmare. Once implemented, the system immediately solved the 14D problem (reaching 1932).</p>
+
+  <h3>Diagram: Fragment Expansion (帧 39, ~13:00)</h3>
+  <p>After each game round, the matrix is decomposed into geometric "fragments" (碎片). These are recombined as seeds for new games — "like cell division." A strange fragment from the 200th experiment led to the 25D breakthrough.</p>
+
+  <h3>Diagram: Checkpoint Mechanism (帧 25, ~08:20)</h3>
+  <p>"Without Checkpoints" vs. "With Checkpoints": saving state periodically allows recovery from crashes, enabling uninterrupted deep search over days. Essential for scaling to 30+ dimensions.</p>
+
+  <h3>The 14D Nightmare (帧 27–28, ~09:00)</h3>
+  <p>The team could not reproduce K(14)=1932 for over 6 months. The researcher even dreamed of reaching 1700+. This failure drove the key innovation: the second agent (Corrector) that simulates human manual correction.</p>
+</section>
+
+<!-- ════════════════════ CREATIVE LOOP ════════════════════ -->
+<section class="slide" id="creative-loop">
+  <h1>The creative loop: why "human in the loop" is not trivial</h1>
+  <p>The obvious claim is: "of course humans need to supervise AI." But the PackingStar story shows something more surprising:</p>
+
+  <h2>AI overturned human assumptions</h2>
+  <p>PackingStar found configurations that <strong>"fundamentally challenge long-held antipodal paradigms"</strong> — structures where no sphere has an opposite partner, yet the arrangement maintains high symmetry. Mathematicians had assumed for decades that the best structures would be antipodal. The AI showed they were wrong.</p>
+
+  <h2>Humans learned from the AI</h2>
+  <p><strong>"These structural insights have, in turn, inspired mathematicians to extract new and more general construction principles."</strong> Humans didn't just check the AI's work — they studied the AI's surprising outputs and developed new mathematical theory from them. This led to further improvements in other dimensions (e.g., 22D).</p>
+
+  <h2>Human interpretation was the hardest work</h2>
+  <p>Mathematician 王浩 said: <strong>"The work I spent the most time on was interpreting the data from the AI black box"</strong> — describing his role as <strong>"解释神" (interpreter of the gods)</strong>. The human role was not supervisor but interpreter, doing the most demanding intellectual labour.</p>
+
+  <h2>Human instinct was encoded into the AI</h2>
+  <p>The Corrector agent came from watching a mathematician manually delete bad balls during the 14D nightmare. Human intuition was not applied after AI — it was baked into the AI's architecture.</p>
+
+  <div class="gloss">
+    <strong>This is not "human supervises AI."</strong> It's a genuine creative loop: AI found things that overturned human assumptions → humans interpreted the surprises → humans extracted new principles → those principles pushed results further. Each side transformed the other's understanding.
+  </div>
+</section>
+
+<!-- ════════════════════ LETTER DRAFT ════════════════════ -->
+<section class="slide" id="letter">
+  <h1>SCMP Letter Draft (draft 02, ~186 words)</h1>
+  <div class="outline-box" style="border-color: #6eb5ff;">
+    <p>I refer to your report on the Chinese team's use of AI to advance the "kissing number" problem ("Romance between scientists and AI," 19 February).</p>
+    <p>The kissing number asks how many identical balls can touch one central ball without overlapping—a question posed by Newton in 1694, still unsolved in most dimensions. PackingStar's record-breaking results, including the first advance in 13 dimensions since 1971, deserve celebration.</p>
+    <p>But the deeper lesson is that this breakthrough emerged from a genuine creative loop, not mere human supervision of AI. PackingStar discovered sphere arrangements that overturned assumptions mathematicians had held for decades. Mathematicians then interpreted those surprises and extracted new principles to push results further still. As the team said, the work they spent the most time on was "interpreting the data from the AI black box." Even a key design idea—a second agent that removes flawed choices—came from watching a mathematician delete bad entries by hand.</p>
+    <p>This is not the familiar story of AI as a faster calculator checked by humans. If we want AI-driven research to bear fruit, we should invest not just in algorithms, but in the human expertise to question, interpret, and build on what AI reveals.</p>
+    <p class="word-count">(~186 words)</p>
+  </div>
+</section>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <a href="#title">Title</a>
+  <a href="#dimensions">Dimensions</a>
+  <a href="#problem">Kissing #</a>
+  <a href="#history">History</a>
+  <a href="#why-hard">Why hard</a>
+  <a href="#packingstar">PackingStar</a>
+  <a href="#results-diagram">Results chart</a>
+  <a href="#rational">Rational</a>
+  <a href="#prove-vs-verify">Proof</a>
+  <a href="#other-ai-proof">AI proof tools</a>
+  <a href="#viz1">Viz 1</a>
+  <a href="#viz2">Viz 2</a>
+  <a href="#viz3">Viz 3</a>
+  <a href="#viz4">Viz 4</a>
+  <a href="#viz5">Viz 5</a>
+  <a href="#viz6">Viz 6</a>
+  <a href="#viz7">Viz 7</a>
+  <a href="#viz8">Viz 8</a>
+  <a href="#video-diagrams">Video</a>
+  <a href="#creative-loop">Creative loop</a>
+  <a href="#letter">Letter</a>
+</nav>
+
+</body>
+</html>

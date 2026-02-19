@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kissing Number & PackingStar — Plain-language guide (standalone)</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --card: #16213e;
+      --accent: #e94560;
+      --highlight: #ffd93d;
+      --human1: #6bcb77;
+      --human2: #4d96ff;
+      --human3: #ff6b9d;
+      --text: #eee;
+      --muted: #a0a0a0;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; font-size: clamp(1.05rem, 2.2vw, 1.4rem); }
+    .slide {
+      min-height: 100vh;
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .slide h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); margin: 0 0 0.75rem; color: var(--accent); }
+    .slide h2 { font-size: clamp(1.2rem, 2.8vw, 1.6rem); margin: 1.25rem 0 0.5rem; color: #b8c5d6; }
+    .slide p, .slide li { margin: 0.45rem 0; }
+    .slide ul { padding-left: 1.25rem; }
+    .label { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 700; font-size: 0.88em; margin-right: 0.25rem; }
+    .label.hist { background: rgba(107, 203, 119, 0.3); color: var(--human1); }
+    .label.problem { background: rgba(77, 150, 255, 0.3); color: var(--human2); }
+    .label.gameai { background: rgba(255, 107, 157, 0.3); color: var(--human3); }
+    .ref { font-size: 0.85em; color: var(--muted); margin-top: 0.5rem; }
+    .ref a { color: #6eb5ff; }
+    .two-agents { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+    .agent { background: var(--card); padding: 1rem; border-radius: 10px; border: 2px solid #2a3a5a; }
+    .agent h3 { margin: 0 0 0.35rem; font-size: 1.1rem; color: var(--accent); }
+    .gloss { background: rgba(110, 181, 255, 0.12); border-left: 4px solid #6eb5ff; padding: 0.75rem 1rem; margin: 0.75rem 0; border-radius: 0 6px 6px 0; font-size: 0.95em; }
+    .outline-box { background: rgba(255,217,61,0.12); border: 2px solid var(--highlight); padding: 1.25rem; border-radius: 10px; margin: 1rem 0; }
+    .outline-box h2 { margin-top: 0; color: var(--highlight); }
+    .outline-box .word-count { font-size: 0.9em; color: var(--muted); }
+    nav { position: fixed; bottom: 0.75rem; right: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.35rem; z-index: 10; }
+    nav a { background: var(--card); color: var(--text); padding: 0.4rem 0.75rem; text-decoration: none; border-radius: 6px; font-size: 0.85rem; }
+    nav a:hover { background: var(--accent); }
+    .visual { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1rem 0; flex-wrap: wrap; }
+    .timeline { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0.75rem 0; }
+    .timeline span { background: var(--card); padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+<section class="slide" id="title">
+  <h1>Kissing Number & PackingStar</h1>
+  <p><strong>Standalone guide</strong> — no advanced maths needed. Consolidates the full story: the problem, the paper, PackingStar, human value, and whether AI can “prove” results.</p>
+  <p>For writing your SCMP letter: focus on <strong>humans in the loop</strong>.</p>
+  <p class="ref">Sources: paper (arXiv:2511.13391), <a href="https://github.com/CDM1619/PackingStar" target="_blank" rel="noopener">PackingStar GitHub</a>, Ref/SCMPreport.md, Ref/PKU_wechat.</p>
+</section>
+
+<section class="slide" id="problem">
+  <h1>What is the Kissing Number Problem?</h1>
+  <p><strong>In 3D:</strong> How many identical balls can touch one central ball of the same size without overlapping?</p>
+  <div class="visual">
+    <svg width="140" height="140" viewBox="0 0 100 100" aria-label="Central ball with 12 touching balls">
+      <circle cx="50" cy="50" r="12" fill="var(--accent)"/>
+      <circle cx="50" cy="22" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="50" cy="78" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="22" cy="50" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="78" cy="50" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="35" cy="35" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="65" cy="35" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="35" cy="65" r="10" fill="#4a7ba7" opacity="0.9"/>
+      <circle cx="65" cy="65" r="10" fill="#4a7ba7" opacity="0.9"/>
+    </svg>
+    <p style="max-width: 380px;">Think of a pomegranate: replace seeds with balls. How many can “kiss” the centre? <strong>Answer in 3D: 12</strong> (proven in 1953).</p>
+  </div>
+  <p>The same question is asked in higher dimensions (4D, 5D, … 24D, 25D, …). In many dimensions we only know a range: “at least this many” and “at most that many.” The exact number is known only in a few special dimensions (1, 2, 3, 4, 8, 24).</p>
+  <p><strong>Why it matters:</strong> It links to how we pack information in codes and signals (e.g. data storage, telecoms).</p>
+</section>
+
+<section class="slide" id="history">
+  <h1>Who brought us here? Three kinds of human value</h1>
+  <div class="timeline">
+    <span>1694 Newton vs Gregory (12 vs 13)</span>
+    <span>1900 Hilbert’s 18th problem</span>
+    <span>1953 3D = 12 proven</span>
+    <span>1971–2016 New bounds (lattices, codes)</span>
+  </div>
+  <p><span class="label hist">1. Historical researchers</span> — Newton, Gregory, Hilbert, and later mathematicians who proved exact answers in some dimensions. They posed the problem and set the standard of proof.</p>
+  <p><span class="label problem">2. Researchers on the problem</span> — Mathematicians who used lattices, codes, and clever structures to push “at least this many” in many dimensions. PackingStar had to match their known results before claiming new ones.</p>
+  <p><span class="label gameai">3. Researchers on game and AI</span> — The team that turned the problem into a two-player game, designed the “filler” and “corrector” (inspired by a mathematician manually removing bad balls), and still do the verification and interpretation of what the AI finds.</p>
+  <p>All three show that <strong>humans are indispensable</strong>: in history, in prior maths, and in designing and interpreting AI.</p>
+</section>
+
+<section class="slide" id="why-hard">
+  <h1>Why is it so hard?</h1>
+  <p>In most dimensions we don’t know the exact kissing number. Reasons in plain language:</p>
+  <ul>
+    <li><strong>High dimensions:</strong> Beyond 3D we can’t “see” the geometry; the number of possible arrangements explodes.</li>
+    <li><strong>Old methods</strong> rely on human-invented structures (lattices, codes). They work in some dimensions but don’t scale to all.</li>
+    <li><strong>Numerical traps:</strong> If you search by placing balls in space, tiny rounding errors add up and can break the packing. The team got stuck until they changed how they represented the problem (see PackingStar).</li>
+  </ul>
+  <p>So humans pushed the frontier for centuries; AI steps in where both intuition and hand-built methods hit limits.</p>
+</section>
+
+<section class="slide" id="packingstar">
+  <h1>What is PackingStar and where did it come from?</h1>
+  <p><strong>Core idea:</strong> Instead of placing balls in high-dimensional space, the team works with a “cosine matrix”—a table of angles between pairs of balls. Filling this table under strict rules is equivalent to finding a valid packing, and it’s stable on computers and fits modern hardware (GPUs).</p>
+  <h2>Two “players” (the key design)</h2>
+  <div class="two-agents">
+    <div class="agent"><h3>Player 1 (Filler)</h3><p>Adds entries to the table to try to fit more balls. The bigger the valid table, the better.</p></div>
+    <div class="agent"><h3>Player 2 (Corrector)</h3><p>Removes or fixes bad entries—like “one bad ball ruins the soup.” This idea came from watching a mathematician manually delete bad balls to get a known result.</p></div>
+  </div>
+  <p>Both are trained with reinforcement learning. The team also breaks successful tables into “fragments” and reuses them in new runs (like cell division). There’s no big training dataset—the system explores from scratch (“discovery from nothing”).</p>
+  <p><strong>Results:</strong> New “at least this many” records in dimensions 25–31, better rational constructions in 13D, and 6000+ new configurations; all checked and listed in standard databases (see GitHub).</p>
+</section>
+
+<section class="slide" id="prove-vs-verify">
+  <h1>Can AI prove the result is correct? (Proof vs verification)</h1>
+  <p>Two different things are often both called “proof” in everyday language. Here they are kept separate.</p>
+  <h2>1. Checking that an arrangement works (verification)</h2>
+  <p><strong>Yes, AI and code can do this.</strong> Given a specific arrangement of N balls, we can check: do they all touch the centre? Do any two overlap? That’s a finite calculation. The PackingStar team does exactly this with scripts (<code>verify_coordinates.py</code>, <code>verify_cosmatrix.py</code> on GitHub). So in the sense of “prove this configuration is valid,” the result can be verified—and the team has done it; configurations are accepted into official databases.</p>
+  <h2>2. Proving that no better arrangement exists (optimality)</h2>
+  <p><strong>PackingStar does not do this.</strong> Showing “no arrangement can have more than N balls” is a different task: you must argue logically that every possible arrangement is at most N, not just check one arrangement. That’s what mathematicians mean by a “rigorous proof” of the kissing number. The paper says the 25D configuration “may represent the optimal … arrangement, although a rigorous mathematical proof is still lacking.” So: AI finds and we can verify good configurations; proving they are the best possible still needs human mathematics (and possibly other tools).</p>
+  <div class="gloss">
+    <strong>In short:</strong> AI can verify “this arrangement is valid.” Proving “this number is the maximum” is a harder, different kind of step—and that’s where humans (and perhaps other AI tools) remain essential.
+  </div>
+</section>
+
+<section class="slide" id="other-ai-proof-tools">
+  <h1>Other AI tools that can help with proof</h1>
+  <p>PackingStar is built to <em>find</em> good configurations, not to write or check formal mathematical proofs. Other AI systems and tools do focus on proof:</p>
+  <ul>
+    <li><strong>AlphaProof</strong> (Google DeepMind): AI that can generate and verify formal proofs. It has achieved strong results on olympiad-style problems and works inside a proof assistant (Lean).</li>
+    <li><strong>Lean, Isabelle, Coq:</strong> “Proof assistants”—computer programs that check every step of a mathematical proof. Researchers (sometimes with AI help) write proofs in these languages; the computer then verifies that the logic is correct.</li>
+    <li><strong>Lean Copilot:</strong> Uses large language models to suggest proof steps inside Lean, helping humans complete proofs with high automation.</li>
+  </ul>
+  <p>So: <strong>PackingStar</strong> finds configurations and we verify them with scripts; <strong>formal proof tools</strong> (Lean, Isabelle, Coq) plus AI (e.g. AlphaProof, Lean Copilot) could in future help turn a human argument into a machine-checked proof that a kissing number is optimal. Right now, for the new PackingStar bounds, that step is still missing—which is why the paper says “rigorous mathematical proof is still lacking.”</p>
+  <p class="ref">See e.g. AlphaProof (DeepMind), Lean Copilot (arXiv:2404.12534), and proof assistants Lean, Isabelle, Coq.</p>
+</section>
+
+<section class="slide" id="letter-outline">
+  <h1>SCMP letter outline and draft (≤150 words)</h1>
+  <div class="outline-box">
+    <h2>Outline</h2>
+    <p><strong>1. Hook.</strong> Refer to the SCMP report on the Chinese team’s progress on the “kissing number” problem with AI (PackingStar).</p>
+    <p><strong>2. Main argument.</strong> Humans in the loop: (a) problem and proofs from Newton and Hilbert; (b) decades of mathematicians pushed bounds; (c) the team embedded human intuition in the design (e.g. corrector from “delete bad balls”) and still rely on people to verify and interpret. AI can verify that a configuration is valid (and the team does this); proving it’s the best possible still needs humans—and in future, tools like AlphaProof or Lean could help turn such proofs into machine-checked form.</p>
+    <p><strong>3. Close.</strong> When we use AI for research, including maths, keep humans at the centre: posing questions, designing methods, and checking meaning—and, where needed, completing the proof.</p>
+  </div>
+  <h2>Draft (≤150 words)</h2>
+  <div class="outline-box" style="border-color: #6eb5ff;">
+    <p>I refer to your report on the Chinese team’s use of AI to advance the “kissing number” problem (“Romance between scientists and AI,” 19 February).</p>
+    <p>The lesson is the enduring value of humans. The problem comes from Newton and Hilbert; exact answers in some dimensions were proved only after centuries of work. Later researchers used lattices and codes to push bounds—and the PackingStar team had to reproduce those results before claiming new ones. The “corrector” was inspired by a mathematician manually deleting bad entries; verification and interpretation still rest with people. AI can verify that an arrangement is valid (the team does this); proving it is the best possible still needs human mathematics—tools like AlphaProof or Lean may one day help. As the team said, it is “human and machine exploring the universe together.”</p>
+    <p>When we use AI for research, including maths, we should keep humans in the loop: posing questions, designing methods, and—where needed—completing the proof.</p>
+    <p class="word-count">(About 148 words.)</p>
+  </div>
+  <p class="ref">Ref: Ref/SCMPreport.md; work/ideas4letters.md, moreIdeas.md.</p>
+</section>
+
+<nav>
+  <a href="#title">Title</a>
+  <a href="#problem">Problem</a>
+  <a href="#history">History</a>
+  <a href="#why-hard">Why hard</a>
+  <a href="#packingstar">PackingStar</a>
+  <a href="#prove-vs-verify">Prove vs verify</a>
+  <a href="#other-ai-proof-tools">Other AI tools</a>
+  <a href="#letter-outline">Letter</a>
+</nav>
+
+</body>
+</html>

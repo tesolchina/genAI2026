@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Finding Kissing Numbers with Game-theoretic Reinforcement Learning</title>
+<!--Generated on Wed Feb 11 16:10:24 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<link href="/static/browse/0.3.4/css/arxiv-html-papers-20250916.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
+<script src="/static/browse/0.3.4/js/addons_new.js"></script>
+<script src="/static/browse/0.3.4/js/feedbackOverlay.js"></script>
+<base href="/html/2511.13391v3/"/></head>
+<body>
+<nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.SSx2.SSS0.Px1" title="In Finding Kissing Numbers in two-player matrix completion game ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title">Player 1 (Matrix Filler).</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.SSx2.SSS0.Px2" title="In Finding Kissing Numbers in two-player matrix completion game ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title">Player 2 (Matrix Corrector).</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.SSx2.SSS0.Px3" title="In Finding Kissing Numbers in two-player matrix completion game ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title">Game Dynamics and Cooperative Learning Process.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.SSx2.SSS0.Px4" title="In Finding Kissing Numbers in two-player matrix completion game ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title">Matrix Decompositionn and Initialization for Subsequent Games.</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_appendix"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#A1" title="In Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">A </span>Key difference to <span class="ltx_text ltx_font_italic">AlphaEvolve</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_appendix"><a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#A2" title="In Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">B </span>Diverse constructions in different dimensions</span></a></li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_font_bold ltx_title_document"> Finding Kissing Numbers with Game-theoretic Reinforcement Learning</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_tabular ltx_align_middle" id="id9.9.9">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id4.4.4.4">
+<span class="ltx_td ltx_align_center" id="id4.4.4.4.4">Chengdong Ma<sup class="ltx_sup" id="id4.4.4.4.4.1"><span class="ltx_text ltx_font_italic" id="id4.4.4.4.4.1.1">1,2,∗,†</span></sup>    
+Théo TAO Zhaowei<sup class="ltx_sup" id="id4.4.4.4.4.2"><span class="ltx_text ltx_font_italic" id="id4.4.4.4.4.2.1">1,2,∗</span></sup>    
+Pengyu Li<sup class="ltx_sup" id="id4.4.4.4.4.3"><span class="ltx_text ltx_font_italic" id="id4.4.4.4.4.3.1">1,2,∗</span></sup>    
+Minghao Liu<sup class="ltx_sup" id="id4.4.4.4.4.4"><span class="ltx_text ltx_font_italic" id="id4.4.4.4.4.4.1">1</span></sup></span></span>
+<span class="ltx_tr" id="id9.9.9.9">
+<span class="ltx_td ltx_align_center" id="id9.9.9.9.5">Haojun Chen<sup class="ltx_sup" id="id9.9.9.9.5.1"><span class="ltx_text ltx_font_italic" id="id9.9.9.9.5.1.1">1</span></sup>    
+Zihao Mao<sup class="ltx_sup" id="id9.9.9.9.5.2"><span class="ltx_text ltx_font_italic" id="id9.9.9.9.5.2.1">1</span></sup>    
+Yuan Cheng<sup class="ltx_sup" id="id9.9.9.9.5.3"><span class="ltx_text ltx_font_italic" id="id9.9.9.9.5.3.1">2,3</span></sup>    
+Yuan Qi<sup class="ltx_sup" id="id9.9.9.9.5.4"><span class="ltx_text ltx_font_italic" id="id9.9.9.9.5.4.1">2,3,†</span></sup>    
+Yaodong Yang<sup class="ltx_sup" id="id9.9.9.9.5.5"><span class="ltx_text ltx_font_italic" id="id9.9.9.9.5.5.1">1,†</span></sup></span></span>
+</span>
+</span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id15.3.id1"><span class="ltx_text ltx_font_italic" id="id15.3.id1.1" style="font-size:90%;">1</span></sup><span class="ltx_text" id="id11.2.1" style="font-size:90%;">Institute for Artificial Intelligence, Peking University. <sup class="ltx_sup" id="id11.2.1.1"><span class="ltx_text ltx_font_italic" id="id11.2.1.1.1">2</span></sup>Shanghai Academy of AI for Science.</span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id16.2.id1"><span class="ltx_text ltx_font_italic" id="id16.2.id1.1" style="font-size:90%;">3</span></sup><span class="ltx_text" id="id17.3.id2" style="font-size:90%;">Artificial Intelligence Innovation and Incubation Institute, Fudan University.</span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id18.3.id1"><span class="ltx_text" id="id18.3.id1.1" style="font-size:90%;">∗</span></sup><span class="ltx_text" id="id14.2.1" style="font-size:90%;">Equal contribution. <sup class="ltx_sup" id="id14.2.1.1"><span class="ltx_text ltx_font_italic" id="id14.2.1.1.1">†</span></sup>Corresponding authors: chengdong.ma@stu.pku.edu.cn, 
+<br class="ltx_break"/>qiyuan@fudan.edu.cn and yaodong.yang@pku.edu.cn
+</span>
+</span></span>
+</div>
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="id19.id1"><span class="ltx_text ltx_font_bold" id="id19.id1.1">Since Isaac Newton first studied the Kissing Number Problem in 1694, determining the maximal number of non-overlapping spheres around a central sphere has remained a fundamental challenge. This problem is the local analogue of Hilbert’s 18th problem, bridging geometry, number theory, and information theory.
+Although significant progress has been made through lattices and codes, the irregularities of high-dimensional geometry, dimensional structure variability, and combinatorial explosion beyond Go limit the scalability and generality of existing methods.
+Here we model the problem as a two-player matrix completion game and train the reinforcement learning system, <span class="ltx_text ltx_font_italic" id="id19.id1.1.1">PackingStar</span>, to play the games. The matrix entries represent pairwise cosines of sphere center vectors. One player fills entries while another corrects suboptimal ones to improve exploration quality, cooperatively maximizing the matrix size, corresponding to the kissing number.
+These matrices are decomposed into representative substructures, providing diverse bases and structural constraints that steer subsequent games and make extremely large spaces tractable.
+<span class="ltx_text ltx_font_italic" id="id19.id1.1.2">PackingStar</span> surpasses records from dimensions 25 to 31 and sets new lower bounds for generalized kissing numbers under various angular constraints.
+It achieves the first breakthrough beyond rational structures from 1971 in 13 dimensions and discovers over 6000 new structures in other dimensions.
+Notably, some configurations challenge long-held antipodal paradigms, revealing algebraic correspondences with finite simple groups as well as geometric relationships across dimensions. Inspired by these patterns, humans devised further improved constructions. These results demonstrate AI’s power to explore high-dimensional spaces beyond human intuition via extreme-scale reinforcement learning and open new pathways for the Kissing Number Problem and broader geometry research.</span></p>
+</div>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">Introduction</h2>
+<div class="ltx_para" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.4">The Kissing Number Problem was first posed in 1694 by Isaac Newton and David Gregory, asking for the maximal number of non-overlapping spheres that can touch a central sphere in three-dimensional space.
+It was later extended to <math alttext="n" class="ltx_Math" display="inline" id="Sx1.p1.1.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-dimensional Euclidean space, where <math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.p1.2.m2" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math> denotes the kissing number in <math alttext="n" class="ltx_Math" display="inline" id="Sx1.p1.3.m3" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> dimensions, sparking centuries of research in high-dimensional geometry.
+In 1900, David Hilbert included the sphere packing problem in <math alttext="n" class="ltx_Math" display="inline" id="Sx1.p1.4.m4" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-dimensional space as the 18th problem of his famous 23 problems  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p1.4.1">?</span>]. The Kissing Number Problem is the local analogue of Hilbert’s 18th problem  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p1.4.2">?</span>]. It connects to geometry, number theory, group theory, and information theory  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p1.4.3">?<span class="ltx_text ltx_font_medium" id="Sx1.p1.4.3.1">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p1.4.3.2">,</span>?</span>]. Therefore, advancing this problem could foster progress across multiple fields.</p>
+</div>
+<figure class="ltx_table" id="Sx1.T1">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text ltx_font_bold" id="Sx1.T1.21.4.1">Table 1</span>: </span><span class="ltx_text ltx_font_bold" id="Sx1.T1.6.3">Kissing number <math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.4.1.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math> in dimension <math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.5.2.m2" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> for <math alttext="1\leq n\leq 24" class="ltx_Math" display="inline" id="Sx1.T1.6.3.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">1\leq n\leq 24</annotation></semantics></math></span>  [<span class="ltx_text" id="Sx1.T1.22.5" style="--ltx-fg-color:#003366;">?</span>]. The bold items indicate the kissing numbers that are known to be optimal.</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx1.T1.18">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="Sx1.T1.18.12">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.7.1.1"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.7.1.1.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.8.2.2">
+<math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.8.2.2.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+<th class="ltx_td ltx_nopad_l ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.9.3.3"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.9.3.3.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.10.4.4">
+<math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.10.4.4.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+<th class="ltx_td ltx_nopad_l ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.11.5.5"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.11.5.5.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.12.6.6">
+<math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.12.6.6.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+<th class="ltx_td ltx_nopad_l ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.13.7.7"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.13.7.7.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.14.8.8">
+<math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.14.8.8.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+<th class="ltx_td ltx_nopad_l ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.15.9.9"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.15.9.9.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.16.10.10">
+<math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.16.10.10.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+<th class="ltx_td ltx_nopad_l ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.17.11.11"><math alttext="n" class="ltx_Math" display="inline" id="Sx1.T1.17.11.11.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="Sx1.T1.18.12.12"><math alttext="K(n)" class="ltx_Math" display="inline" id="Sx1.T1.18.12.12.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx1.T1.18.13.1">
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.1">1</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.2">
+<span class="ltx_text ltx_font_bold" id="Sx1.T1.18.13.1.2.1">2</span></td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.3">5</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.4">40</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.5">9</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.6">306</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.7">13</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.8">1154</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.9">17</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.10">5730</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.11">21</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx1.T1.18.13.1.12">29768</td>
+</tr>
+<tr class="ltx_tr" id="Sx1.T1.18.14.2">
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.1">2</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.2">
+<span class="ltx_text ltx_font_bold" id="Sx1.T1.18.14.2.2.1">6</span></td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.14.2.3">6</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.4">72</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.14.2.5">10</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.6">510</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.14.2.7">14</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.8">1932</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.14.2.9">18</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.10">7654</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.14.2.11">22</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.14.2.12">49896</td>
+</tr>
+<tr class="ltx_tr" id="Sx1.T1.18.15.3">
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.1">3</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.2">
+<span class="ltx_text ltx_font_bold" id="Sx1.T1.18.15.3.2.1">12</span></td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.15.3.3">7</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.4">126</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.15.3.5">11</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.6">593</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.15.3.7">15</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.8">2564</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.15.3.9">19</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.10">11692</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center" id="Sx1.T1.18.15.3.11">23</td>
+<td class="ltx_td ltx_align_center" id="Sx1.T1.18.15.3.12">93150</td>
+</tr>
+<tr class="ltx_tr" id="Sx1.T1.18.16.4">
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.1">4</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.2">
+<span class="ltx_text ltx_font_bold" id="Sx1.T1.18.16.4.2.1">24</span></td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.3">8</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.4">
+<span class="ltx_text ltx_font_bold" id="Sx1.T1.18.16.4.4.1">240</span></td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.5">12</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.6">840</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.7">16</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.8">4320</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.9">20</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.10">19448</td>
+<td class="ltx_td ltx_nopad_l ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.11">24</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="Sx1.T1.18.16.4.12"><span class="ltx_text ltx_font_bold" id="Sx1.T1.18.16.4.12.1">196560</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="Sx1.p2">
+<p class="ltx_p" id="Sx1.p2.1">Unfortunately, determining kissing numbers in higher dimensions remains exceptionally difficult. Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx1.T1" title="Table 1 ‣ Introduction ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">1</span></a> lists the kissing numbers in different dimensions. After centuries of effort, the problem has been solved exactly only in a few dimensions 1, 2, 3, 4, 8, and 24  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.1">?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.1">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.2">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.3">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.4">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.5">,</span>?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.1.6">,</span>?</span>]. As the dimension increases, human understanding becomes more limited due to the growing geometric complexity of high-dimensional spaces and combinatorial explosion of configurations. Over the past half-century, mathematicians have continued to push the boundaries using lattice constructions  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.2">?</span>], code techniques  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.3">?</span>], group representation theory  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.4">?</span>], and carefully designed substructures derived from known configurations  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.5">?</span>]. In dimensions 10, 11, 13, 14, and dimensions from 17 to 21, such approaches established new lower bounds  [<span class="ltx_text" id="Sx1.p2.1.6" style="--ltx-fg-color:#003366;">?</span><span class="ltx_text ltx_font_italic" id="Sx1.p2.1.7">,</span><span class="ltx_text" id="Sx1.p2.1.8" style="--ltx-fg-color:#003366;">?</span>]. In dimensions 25–31, studies conducted in 2011 and 2016 further improved the bounds by exploiting subsets of Leech lattice vectors combined with heuristic optimization  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx1.p2.1.9">?<span class="ltx_text ltx_font_medium" id="Sx1.p2.1.9.1">,</span>?</span>]. While these results mark significant milestones, they are limited by reliance on prior knowledge, and specific human design. As dimensionality increases, the exponentially growing configuration space and the breakdown of full symmetry assumptions make existing approaches insufficient. These challenges highlight the need for novel paradigms to explore complex structures beyond human intuition.</p>
+</div>
+<div class="ltx_para" id="Sx1.p3">
+<p class="ltx_p" id="Sx1.p3.1">In this paper, we introduce <span class="ltx_text ltx_font_italic" id="Sx1.p3.1.1">PackingStar</span>, a multi-agent reinforcement learning system that reformulates the Kissing Number Problem as a two-player matrix completion game in the Gram matrix domain. By operating directly on pairwise cosines rather than high-dimensional coordinates, this formulation eliminates numerical instability and computational inefficiency, enabling fully parallelizable GPU acceleration and large-scale sampling. Within <span class="ltx_text ltx_font_italic" id="Sx1.p3.1.2">PackingStar</span>, the first agent incrementally fills matrix entries to construct larger and denser configurations. In early exploration stages, however, the candidate space is exponentially large and only local matrix information is observable, making erroneous placements inevitable. To address this challenge, the second agent performs delayed and selective corrections by leveraging a more global understanding of matrix, dynamically removing invalid or inconsistent entries and compressing the first agent’s search space. This interaction enables the joint system to converge toward larger configurations corresponding to higher kissing numbers. Meanwhile, the evolving matrices are iteratively decomposed into representative substructures that distill essential geometric patterns and impose structural constraints for subsequent games. Together, these mechanisms transform unconstrained combinatorial exploration into guided construction, substantially reducing reinforcement learning complexity in exponentially large spaces and enabling scalable discovery of high-dimensional configurations previously inaccessible to existing methods.</p>
+</div>
+<figure class="ltx_figure" id="Sx1.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="294" id="Sx1.F1.g1" src="x1.png" width="660"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text ltx_font_bold" id="Sx1.F1.12.1.1">Figure 1</span>: </span><span class="ltx_text ltx_font_bold" id="Sx1.F1.13.2">AI breakthroughs in the Kissing Number Problem.</span>
+Grey markers show the best previously known lower bounds.
+The blue triangle marks the 11D improvement achieved by <span class="ltx_text ltx_font_italic" id="Sx1.F1.14.3">AlphaEvolve</span> (2025)  [<span class="ltx_text" id="Sx1.F1.15.4" style="--ltx-fg-color:#003366;">?</span>]. The red stars indicate new lower bounds <math alttext="K_{\mathrm{new}}(n)" class="ltx_Math" display="inline" id="Sx1.F1.4.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(n)</annotation></semantics></math> discovered by <span class="ltx_text ltx_font_italic" id="Sx1.F1.16.5">PackingStar</span>, with the inset reporting the corresponding increments <math alttext="\Delta K(n)=K_{\mathrm{new}}(n)-K_{\mathrm{prev}}(n)" class="ltx_Math" display="inline" id="Sx1.F1.5.m2" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\Delta K(n)=K_{\mathrm{new}}(n)-K_{\mathrm{prev}}(n)</annotation></semantics></math> compared to the previous best <math alttext="K_{\mathrm{prev}}(n)" class="ltx_Math" display="inline" id="Sx1.F1.6.m3" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n)</annotation></semantics></math>.</figcaption>
+</figure>
+<div class="ltx_para" id="Sx1.p4">
+<p class="ltx_p" id="Sx1.p4.2"><span class="ltx_text ltx_font_italic" id="Sx1.p4.2.1">PackingStar</span> demonstrates remarkable scalability, successfully reproducing all known kissing number configurations in dimensions up to 31.
+Figure <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx1.F1" title="Figure 1 ‣ Introduction ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">1</span></a> illustrates some of <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.2">PackingStar</span>’s breakthrough discoveries on this problem.
+From dimensions 25 to 31, <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.3">PackingStar</span> surpasses the lower bounds reported in 2016 and also exceeds the construction form introduced in 2011  [<span class="ltx_text" id="Sx1.p4.2.4" style="--ltx-fg-color:#003366;">?</span><span class="ltx_text ltx_font_italic" id="Sx1.p4.2.5">,</span><span class="ltx_text" id="Sx1.p4.2.6" style="--ltx-fg-color:#003366;">?</span>], achieving what appears to be the optimal construction form along this path; the resulting construction form are summarized in Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T2" title="Table 2 ‣ New records from dimensions 25 to 31 ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">2</span></a>.
+Notably, the breakthrough configuration discovered in 25 dimensions exhibits a clear geometric pattern that corresponds closely to the substructure of Leech lattice. Across multiple metrics, this configuration shows strong convergence, suggesting that it may represent the optimal 25-dimensional arrangement, although a rigorous mathematical proof is still lacking. In 13 dimensions, <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.7">PackingStar</span> surpasses the previously known rational structure with 1130 spheres from 1971  [<span class="ltx_text" id="Sx1.p4.2.8" style="--ltx-fg-color:#003366;">?</span>], reaching a kissing number of 1146.
+Rational structures are those in which all pairwise cosines between sphere centers are rational. The non-rational structure with 1154 spheres is obtained by slightly adjusting the coordinates of some spheres in the 1130-sphere configuration, later reached 1154 in 1999  [<span class="ltx_text" id="Sx1.p4.2.9" style="--ltx-fg-color:#003366;">?</span>]. Although the new 13-dimensional rational configuration does not exceed the non-rational record, it is of considerable mathematical value. Its fully rational inter-sphere cosines allow for exact analytic study without relying on numerical approximations. This offers insights into the effects of different constraints on kissing numbers and may inspire higher-density packings. Rational structures also facilitate more efficient encoding and decoding in information and communication applications, highlighting their practical significance alongside their theoretical and geometric value. Beyond these specific dimensions, <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.10">PackingStar</span> uncovers over 6000 new configurations in 14 dimensions and identifies additional configurations corresponding to current lower bounds in dimensions 12, 13, 15, and others. The sheer volume of these newly discovered arrangements provides rich opportunities for further investigation and may ultimately lead to configurations with even higher kissing numbers. In addition, <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.11">PackingStar</span> achieves significant new records for generalized kissing configurations under tighter angular constraints, including 12-dimensional, 20-dimensional and 21-dimensional configurations with 81, 405 and 567 spheres under the <math alttext="1/4" class="ltx_Math" display="inline" id="Sx1.p4.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math> cosine constraint, as well as 14-dimensional and 17-dimensional configurations with 252 and 578 spheres under the <math alttext="1/3" class="ltx_Math" display="inline" id="Sx1.p4.2.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math> constraint, respectively. Notably, several of the newly discovered configurations fundamentally challenge long-held antipodal paradigms. Rather than conforming to symmetry-driven constructions centered around antipodal pairing, these configurations exhibit asymmetric yet highly regular geometric patterns. In multiple cases, they reveal deep algebraic correspondences with finite simple groups and previously unnoticed geometric relationships across dimensions. These structural insights have, in turn, inspired mathematicians to extract new and more general construction principles. Building on patterns uncovered by <span class="ltx_text ltx_font_italic" id="Sx1.p4.2.12">PackingStar</span>, subsequent human-designed configurations have further improved existing lower bounds in several dimensions, including 22 dimensions, illustrating a productive feedback loop between AI-driven discovery and mathematical theory. All of these results have been independently validated and are now included in the standard databases for <a class="ltx_ref ltx_href" href="https://cohn.mit.edu/kissing-numbers/#7" title="">kissing numbers</a> and <a class="ltx_ref ltx_href" href="https://spherical-codes.org/" title="">spherical codes</a>.
+In summary, these results showcase AI’s power to understand high-dimensional geometry, reshape established mathematical intuitions, and drive progress on century-old geometry problems.</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">Results</h2>
+<div class="ltx_para" id="Sx2.p1">
+<p class="ltx_p" id="Sx2.p1.3">We evaluate the <span class="ltx_text ltx_font_italic" id="Sx2.p1.3.1">PackingStar</span> system across multiple high-dimensional regimes and report new state-of-the-art kissing configurations. Our results fall into three categories: (i) new lower bounds in dimensions <math alttext="25" class="ltx_Math" display="inline" id="Sx2.p1.1.m1" intent=":literal"><semantics><mn>25</mn><annotation encoding="application/x-tex">25</annotation></semantics></math>–<math alttext="31" class="ltx_Math" display="inline" id="Sx2.p1.2.m2" intent=":literal"><semantics><mn>31</mn><annotation encoding="application/x-tex">31</annotation></semantics></math>, (ii) improved rational constructions in <math alttext="13" class="ltx_Math" display="inline" id="Sx2.p1.3.m3" intent=":literal"><semantics><mn>13</mn><annotation encoding="application/x-tex">13</annotation></semantics></math> dimensions, (iii) diverse families of solutions in different dimensions, and (iv) new records for generalized kissing configurations. These findings demonstrate that <span class="ltx_text ltx_font_italic" id="Sx2.p1.3.2">PackingStar</span> can both recover classical lattice-based structures and uncover entirely new high-dimensional arrangements, substantially expanding the landscape of known kissing configurations. The main kissing configurations are available at the data repository
+<a class="ltx_ref ltx_href" href="https://github.com/CDM1619/PackingStar" title="">https://github.com/CDM1619/PackingStar</a>.</p>
+</div>
+<section class="ltx_subsection" id="Sx2.SSx1">
+<h3 class="ltx_title ltx_title_subsection">New records from dimensions 25 to 31</h3>
+<div class="ltx_para" id="Sx2.SSx1.p1">
+<p class="ltx_p" id="Sx2.SSx1.p1.2">We first evaluate <span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p1.2.1">PackingStar</span> in dimensions <math alttext="25\leq n\leq 31" class="ltx_Math" display="inline" id="Sx2.SSx1.p1.1.m1" intent=":literal"><semantics><mrow><mn>25</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">25\leq n\leq 31</annotation></semantics></math>, where the best previously known lower bounds were all derived from a common structural template that the Leech lattice packing together with a family of disjoint subsets <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p1.2.m2" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math> of its minimal vectors  [<span class="ltx_text" id="Sx2.SSx1.p1.2.2" style="--ltx-fg-color:#003366;">?</span><span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p1.2.3">,</span><span class="ltx_text" id="Sx2.SSx1.p1.2.4" style="--ltx-fg-color:#003366;">?</span>].</p>
+</div>
+<figure class="ltx_table" id="Sx2.T2">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text ltx_font_bold" id="Sx2.T2.20.4.1">Table 2</span>: </span><span class="ltx_text ltx_font_bold" id="Sx2.T2.6.3">New kissing numbers <math alttext="K_{\mathrm{new}}(n)" class="ltx_Math" display="inline" id="Sx2.T2.4.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(n)</annotation></semantics></math> by <span class="ltx_text ltx_font_italic" id="Sx2.T2.6.3.1">PackingStar</span> vs. previous
+<math alttext="K_{\mathrm{prev}}(n)" class="ltx_Math" display="inline" id="Sx2.T2.5.2.m2" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n)</annotation></semantics></math> for <math alttext="25\leq n\leq 31" class="ltx_Math" display="inline" id="Sx2.T2.6.3.m3" intent=":literal"><semantics><mrow><mn>25</mn><mo>≤</mo><mi>n</mi><mo>≤</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">25\leq n\leq 31</annotation></semantics></math>.</span> In the new construction form, bold items indicate the improved configuration forms discovered by <span class="ltx_text ltx_font_italic" id="Sx2.T2.21.5">PackingStar</span> compared with previous forms  [<span class="ltx_text" id="Sx2.T2.22.6" style="--ltx-fg-color:#003366;">?</span>].</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx2.T2.16">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="Sx2.T2.9.3">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T2.7.1.1" style="padding:0.75pt 16.0pt;">   <math alttext="n" class="ltx_Math" display="inline" id="Sx2.T2.7.1.1.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T2.9.3.4" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T2.9.3.4.1">New construction form</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T2.8.2.2" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K_{\mathrm{new}}(n)}" class="ltx_Math" display="inline" id="Sx2.T2.8.2.2.m1" intent=":literal"><semantics><mrow><msub><mi>𝑲</mi><mi>𝐧𝐞𝐰</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mi>𝒏</mi><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K_{\mathrm{new}}(n)}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T2.9.3.3" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{prev}}(n)" class="ltx_Math" display="inline" id="Sx2.T2.9.3.3.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n)</annotation></semantics></math>  [<span class="ltx_text" id="Sx2.T2.9.3.3.1" style="--ltx-fg-color:#003366;">?</span>]</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx2.T2.10.4">
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T2.10.4.2" style="padding:0.75pt 16.0pt;">   25</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T2.10.4.1" style="padding:0.75pt 16.0pt;">   <math alttext="K(24)+|S_{1}|" class="ltx_Math" display="inline" id="Sx2.T2.10.4.1.m1" intent=":literal"><semantics><mrow><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy="false">|</mo></mrow></mrow><annotation encoding="application/x-tex">K(24)+|S_{1}|</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T2.10.4.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.10.4.3.1">197056</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T2.10.4.4" style="padding:0.75pt 16.0pt;">   197048</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.11.5">
+<td class="ltx_td ltx_align_center" id="Sx2.T2.11.5.2" style="padding:0.75pt 16.0pt;">   26</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.11.5.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(2)}+K(24)+2|S_{1}|+2|S_{2}|" class="ltx_Math" display="inline" id="Sx2.T2.11.5.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟐</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy="false">|</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy="false">|</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(2)}+K(24)+2|S_{1}|+2|S_{2}|</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.11.5.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.11.5.3.1">198550</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.11.5.4" style="padding:0.75pt 16.0pt;">   198512</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.12.6">
+<td class="ltx_td ltx_align_center" id="Sx2.T2.12.6.2" style="padding:0.75pt 16.0pt;">   27</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.12.6.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(3)}+K(24)+2|S_{1}|+2|S_{2}|+\sum_{i=3}^{5}|S_{i}|" class="ltx_Math" display="inline" id="Sx2.T2.12.6.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟑</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy="false">|</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy="false">|</mo></mrow></mrow><mo rspace="0.055em">+</mo><mrow><msubsup><mo rspace="0em">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>3</mn></mrow><mn>5</mn></msubsup><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(3)}+K(24)+2|S_{1}|+2|S_{2}|+\sum_{i=3}^{5}|S_{i}|</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.12.6.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.12.6.3.1">200044</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.12.6.4" style="padding:0.75pt 16.0pt;">   199976</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.13.7">
+<td class="ltx_td ltx_align_center" id="Sx2.T2.13.7.2" style="padding:0.75pt 16.0pt;">   28</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.13.7.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(4)}+K(24)+2\sum_{i=1}^{8}|S_{i}|" class="ltx_Math" display="inline" id="Sx2.T2.13.7.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟒</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><msubsup><mo rspace="0em">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>8</mn></msubsup><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(4)}+K(24)+2\sum_{i=1}^{8}|S_{i}|</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.13.7.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.13.7.3.1">204520</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.13.7.4" style="padding:0.75pt 16.0pt;">   204368</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.14.8">
+<td class="ltx_td ltx_align_center" id="Sx2.T2.14.8.2" style="padding:0.75pt 16.0pt;">   29</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.14.8.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(5)}+K(24)+\boldsymbol{2\sum_{i=1}^{12}|S_{i}|+\sum_{i=13}^{14}|S_{i}|}" class="ltx_Math" display="inline" id="Sx2.T2.14.8.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟓</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>𝟐</mn><mo lspace="0em" rspace="0em">​</mo><mrow><msubsup><mo class="ltx_mathvariant_bold" mathvariant="bold" rspace="0em">∑</mo><mrow><mi>𝒊</mi><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟏</mn></mrow><mn>𝟏𝟐</mn></msubsup><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo><msub><mi>𝑺</mi><mi>𝒊</mi></msub><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo></mrow></mrow></mrow><mo rspace="0.055em">+</mo><mrow><msubsup><mo class="ltx_mathvariant_bold" mathvariant="bold" rspace="0em">∑</mo><mrow><mi>𝒊</mi><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟏𝟑</mn></mrow><mn>𝟏𝟒</mn></msubsup><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo><msub><mi>𝑺</mi><mi>𝒊</mi></msub><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(5)}+K(24)+\boldsymbol{2\sum_{i=1}^{12}|S_{i}|+\sum_{i=13}^{14}|S_{i}|}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.14.8.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.14.8.3.1">209496</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.14.8.4" style="padding:0.75pt 16.0pt;">   208272</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.15.9">
+<td class="ltx_td ltx_align_center" id="Sx2.T2.15.9.2" style="padding:0.75pt 16.0pt;">   30</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.15.9.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(6)}+K(24)+2\sum_{i=1}^{24}|S_{i}|" class="ltx_Math" display="inline" id="Sx2.T2.15.9.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟔</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mrow><msubsup><mo rspace="0em">∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>24</mn></msubsup><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(6)}+K(24)+2\sum_{i=1}^{24}|S_{i}|</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.15.9.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.15.9.3.1">220440</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T2.15.9.4" style="padding:0.75pt 16.0pt;">   219984</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T2.16.10">
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T2.16.10.2" style="padding:0.75pt 16.0pt;">   31</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T2.16.10.1" style="padding:0.75pt 16.0pt;">   <math alttext="\boldsymbol{K(7)}+K(24)+\boldsymbol{2\sum_{i=1}^{42}|S_{i}|}" class="ltx_Math" display="inline" id="Sx2.T2.16.10.1.m1" intent=":literal"><semantics><mrow><mrow><mi>𝑲</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mn>𝟕</mn><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>24</mn><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>𝟐</mn><mo lspace="0em" rspace="0em">​</mo><mrow><msubsup><mo class="ltx_mathvariant_bold" mathvariant="bold" rspace="0em">∑</mo><mrow><mi>𝒊</mi><mo class="ltx_mathvariant_bold" mathvariant="bold">=</mo><mn>𝟏</mn></mrow><mn>𝟒𝟐</mn></msubsup><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo><msub><mi>𝑺</mi><mi>𝒊</mi></msub><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">|</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K(7)}+K(24)+\boldsymbol{2\sum_{i=1}^{42}|S_{i}|}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T2.16.10.3" style="padding:0.75pt 16.0pt;">   <span class="ltx_text ltx_font_bold" id="Sx2.T2.16.10.3.1">238350</span></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T2.16.10.4" style="padding:0.75pt 16.0pt;">   232874</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="Sx2.SSx1.p2">
+<p class="ltx_p" id="Sx2.SSx1.p2.10">In this setting, the first objective is to identify the largest possible subsets <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.1.m1" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math>.
+Each <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.2.m2" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math> corresponds to a subset of shortest Leech lattice vectors whose pairwise cosine values are bounded by <math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.3.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>; equivalently, in the <span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p2.10.1">PackingStar</span> framework this corresponds to cosine sets <math alttext="C_{1}=C_{2}=\{-1,\ 0,\ \pm 1/4\}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.4.m4" intent=":literal"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">C_{1}=C_{2}=\{-1,\ 0,\ \pm 1/4\}</annotation></semantics></math> together with the structural constraint that <math alttext="C_{*}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.5.m5" intent=":literal"><semantics><msub><mi>C</mi><mo>∗</mo></msub><annotation encoding="application/x-tex">C_{*}</annotation></semantics></math> matches the Leech lattice minimal-vector set.
+Previous work identified subsets <math alttext="|S_{i}|=488" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.6.m6" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>488</mn></mrow><annotation encoding="application/x-tex">|S_{i}|=488</annotation></semantics></math> with no apparent geometric structure  [<span class="ltx_text" id="Sx2.SSx1.p2.10.2" style="--ltx-fg-color:#003366;">?</span>].
+<span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p2.10.3">PackingStar</span> discovers subsets <math alttext="|S_{i}|=496" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.7.m7" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><msub><mi>S</mi><mi>i</mi></msub><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>496</mn></mrow><annotation encoding="application/x-tex">|S_{i}|=496</annotation></semantics></math> exhibiting a clear internal geometric organization.
+Specifically, this 496-element subset is composed of 28 symmetric-frame structures <math alttext="\mathrm{X}_{8}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.8.m8" intent=":literal"><semantics><msub><mi mathvariant="normal">X</mi><mn>8</mn></msub><annotation encoding="application/x-tex">\mathrm{X}_{8}</annotation></semantics></math> in 8-dimensional subspaces, each containing 16 spheres, together with a symmetric-frame structure (“Conway-Curtis Cross”  [<span class="ltx_text" id="Sx2.SSx1.p2.10.4" style="--ltx-fg-color:#003366;">?</span>]) <math alttext="\mathrm{X}_{24}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.9.m9" intent=":literal"><semantics><msub><mi mathvariant="normal">X</mi><mn>24</mn></msub><annotation encoding="application/x-tex">\mathrm{X}_{24}</annotation></semantics></math> in 24-dimensional space containing 48 spheres, which corresponds to an important substructure of the Leech lattice. Here the symmetric-frame structure is a Cross-polytope.
+Based on this clear geometric interpretation, we conjecture that this subset <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p2.10.m10" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math> may be optimal, and consequently, the 25-dimensional kissing configuration derived from this construction could also attain the maximum kissing number.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx1.p3">
+<p class="ltx_p" id="Sx2.SSx1.p3.23">The second objective is to identify improved construction forms that assemble these subsets into full configurations. Both objectives are jointly addressed within the unified <span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p3.23.1">PackingStar</span> framework, which simultaneously increases the achievable size of <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.1.m1" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math> and uncovers superior construction forms. Our findings show that <span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p3.23.2">PackingStar</span> not only discovers larger subsets but also identifies a better construction form; moreover, evidence from convergence and geometric consistency strongly suggests that the new template is optimal within this construction pathway. These advances yield especially pronounced improvements in dimensions 29 and 31.
+Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T2" title="Table 2 ‣ New records from dimensions 25 to 31 ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">2</span></a> reports additional new construction forms that deviate from the classical form  [<span class="ltx_text" id="Sx2.SSx1.p3.23.3" style="--ltx-fg-color:#003366;">?</span><span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p3.23.4">,</span><span class="ltx_text" id="Sx2.SSx1.p3.23.5" style="--ltx-fg-color:#003366;">?</span>]. In dimensions <math alttext="26" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.2.m2" intent=":literal"><semantics><mn>26</mn><annotation encoding="application/x-tex">26</annotation></semantics></math>–<math alttext="30" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.3.m3" intent=":literal"><semantics><mn>30</mn><annotation encoding="application/x-tex">30</annotation></semantics></math>, the system consistently augments the Leech-lattice component by adding lower-dimensional parts <math alttext="K(k)" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.4.m4" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(k)</annotation></semantics></math> where <math alttext="k=n-24" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.5.m5" intent=":literal"><semantics><mrow><mi>k</mi><mo>=</mo><mrow><mi>n</mi><mo>−</mo><mn>24</mn></mrow></mrow><annotation encoding="application/x-tex">k=n-24</annotation></semantics></math> (e.g., adding <math alttext="K(2)" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.6.m6" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(2)</annotation></semantics></math> in dimension <math alttext="26" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.7.m7" intent=":literal"><semantics><mn>26</mn><annotation encoding="application/x-tex">26</annotation></semantics></math>).
+In 31 dimensions, <span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p3.23.6">PackingStar</span> uncovers a novel assembly pattern by partitioning a 7-dimensional kissing configuration into 42 (optimal) disjoint unit-radius equilateral triangles, resulting in an <math alttext="84" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.8.m8" intent=":literal"><semantics><mn>84</mn><annotation encoding="application/x-tex">84</annotation></semantics></math>-fold weighted <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.9.m9" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math>, surpassing the previous <math alttext="75" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.10.m10" intent=":literal"><semantics><mn>75</mn><annotation encoding="application/x-tex">75</annotation></semantics></math>-fold weighted <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.11.m11" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math>. Similarly, in 29 dimensions,
+<span class="ltx_text ltx_font_italic" id="Sx2.SSx1.p3.23.7">PackingStar</span> embeds 12 (optimal) disjoint unit-radius equilateral triangles into the 5-dimensional kissing configuration to generate a <math alttext="26" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.12.m12" intent=":literal"><semantics><mn>26</mn><annotation encoding="application/x-tex">26</annotation></semantics></math>-fold weighted <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.13.m13" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math>, exceeding the prior <math alttext="24" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.14.m14" intent=":literal"><semantics><mn>24</mn><annotation encoding="application/x-tex">24</annotation></semantics></math>-fold weighted <math alttext="S_{i}" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.15.m15" intent=":literal"><semantics><msub><mi>S</mi><mi>i</mi></msub><annotation encoding="application/x-tex">S_{i}</annotation></semantics></math>.
+These advances yield strictly larger kissing configurations in all dimensions from <math alttext="25" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.16.m16" intent=":literal"><semantics><mn>25</mn><annotation encoding="application/x-tex">25</annotation></semantics></math> to <math alttext="31" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.17.m17" intent=":literal"><semantics><mn>31</mn><annotation encoding="application/x-tex">31</annotation></semantics></math>.
+The resulting new lower bounds <math alttext="K_{\mathrm{new}}(n)" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.18.m18" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(n)</annotation></semantics></math> are summarized in Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T2" title="Table 2 ‣ New records from dimensions 25 to 31 ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">2</span></a>.
+Compared with the previous best values <math alttext="K_{\mathrm{prev}}(n)" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.19.m19" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n)</annotation></semantics></math>, our constructions increase the kissing number by <math alttext="8,38,68,152,1224,456," class="ltx_Math" display="inline" id="Sx2.SSx1.p3.20.m20" intent=":literal"><semantics><mrow><mrow><mn>8</mn><mo>,</mo><mn>38</mn><mo>,</mo><mn>68</mn><mo>,</mo><mn>152</mn><mo>,</mo><mn>1224</mn><mo>,</mo><mn>456</mn></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">8,38,68,152,1224,456,</annotation></semantics></math> and <math alttext="5476" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.21.m21" intent=":literal"><semantics><mn>5476</mn><annotation encoding="application/x-tex">5476</annotation></semantics></math> spheres in dimensions <math alttext="25" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.22.m22" intent=":literal"><semantics><mn>25</mn><annotation encoding="application/x-tex">25</annotation></semantics></math> through <math alttext="31" class="ltx_Math" display="inline" id="Sx2.SSx1.p3.23.m23" intent=":literal"><semantics><mn>31</mn><annotation encoding="application/x-tex">31</annotation></semantics></math>, respectively.
+These improvements are also highlighted by the red markers in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx1.F1" title="Figure 1 ‣ Introduction ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">1</span></a>. Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T4" title="Table 4 ‣ Improved rational configurations in 13 dimensions ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">4</span></a> summarizes the cosine value among sphere pairs in the new configurations.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx2.SSx2">
+<h3 class="ltx_title ltx_title_subsection">New records for generalized kissing numbers</h3>
+<div class="ltx_para" id="Sx2.SSx2.p1">
+<p class="ltx_p" id="Sx2.SSx2.p1.2">In this section, we apply <span class="ltx_text ltx_font_italic" id="Sx2.SSx2.p1.2.1">PackingStar</span> to explore generalized kissing configurations with maximal inner product at most <math alttext="1/3" class="ltx_Math" display="inline" id="Sx2.SSx2.p1.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math> and <math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.SSx2.p1.2.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math>. For geometric intuition, these cases may be viewed as double-sphere and triple-sphere kissing configurations, in which one asks how many additional unit spheres can be simultaneously tangent to two or three mutually tangent spheres, respectively. These configurations arise naturally as fundamental building blocks in sphere packings and play an important role in the study of the broader packing problem.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx2.p2">
+<p class="ltx_p" id="Sx2.SSx2.p2.6">The classical kissing number is denoted by <math alttext="K(n)" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.1.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n)</annotation></semantics></math>, which corresponds to the case in which the pairwise angles between sphere centers have cosine at most <math alttext="1/2" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.2.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>. More generally, for an angular constraint <math alttext="-1&lt;\alpha&lt;1" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.3.m3" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>1</mn></mrow><mo>&lt;</mo><mi>α</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1&lt;\alpha&lt;1</annotation></semantics></math> with <math alttext="\alpha\neq 1/2" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.4.m4" intent=":literal"><semantics><mrow><mi>α</mi><mo>≠</mo><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></mrow><annotation encoding="application/x-tex">\alpha\neq 1/2</annotation></semantics></math>, we use <math alttext="K(n,\alpha)" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.5.m5" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>,</mo><mi>α</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n,\alpha)</annotation></semantics></math> to denote maximum number of unit vectors such that the inner product between any two distinct vectors is at most <math alttext="\alpha" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.6.m6" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>.</p>
+</div>
+<figure class="ltx_table" id="Sx2.T3">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text ltx_font_bold" id="Sx2.T3.30.4.1">Table 3</span>: </span><span class="ltx_text ltx_font_bold" id="Sx2.T3.7.3">New maximal values <math alttext="K_{\mathrm{new}}(n,\alpha)" class="ltx_Math" display="inline" id="Sx2.T3.5.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>,</mo><mi>α</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(n,\alpha)</annotation></semantics></math> for generalized kissing configurations with maximal inner product at most <math alttext="\alpha" class="ltx_Math" display="inline" id="Sx2.T3.6.2.m2" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>, obtained by <span class="ltx_text ltx_font_italic" id="Sx2.T3.7.3.1">PackingStar</span>, compared with the previous best known values <math alttext="K_{\mathrm{prev}}(n,\alpha)" class="ltx_Math" display="inline" id="Sx2.T3.7.3.m3" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>,</mo><mi>α</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n,\alpha)</annotation></semantics></math>.</span> Bold entries indicate improved configurations discovered by <span class="ltx_text ltx_font_italic" id="Sx2.T3.31.5">PackingStar</span>, and <math alttext="\star" class="ltx_Math" display="inline" id="Sx2.T3.8.m1" intent=":literal"><semantics><mo>⋆</mo><annotation encoding="application/x-tex">\star</annotation></semantics></math> denotes human-improved constructions inspired by structures from <span class="ltx_text ltx_font_italic" id="Sx2.T3.32.6">PackingStar</span>.</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx2.T3.26">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="Sx2.T3.12.4">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T3.9.1.1" style="padding:0.75pt 12.0pt;"><math alttext="n" class="ltx_Math" display="inline" id="Sx2.T3.9.1.1.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T3.10.2.2" style="padding:0.75pt 12.0pt;"><math alttext="\alpha" class="ltx_Math" display="inline" id="Sx2.T3.10.2.2.m1" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T3.12.4.5" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T3.12.4.5.1">New cosine set</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T3.11.3.3" style="padding:0.75pt 12.0pt;"><math alttext="\boldsymbol{K_{\mathrm{new}}(n,\alpha)}" class="ltx_Math" display="inline" id="Sx2.T3.11.3.3.m1" intent=":literal"><semantics><mrow><msub><mi>𝑲</mi><mi>𝐧𝐞𝐰</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">(</mo><mi>𝒏</mi><mo class="ltx_mathvariant_bold" mathvariant="bold">,</mo><mi>𝜶</mi><mo class="ltx_mathvariant_bold" mathvariant="bold" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\boldsymbol{K_{\mathrm{new}}(n,\alpha)}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T3.12.4.4" style="padding:0.75pt 12.0pt;"><math alttext="K_{\mathrm{prev}}(n,\alpha)" class="ltx_Math" display="inline" id="Sx2.T3.12.4.4.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>prev</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>,</mo><mi>α</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{prev}}(n,\alpha)</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx2.T3.15.7">
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T3.15.7.4" style="padding:0.75pt 12.0pt;">14</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T3.13.5.1" style="padding:0.75pt 12.0pt;"><math alttext="1/3" class="ltx_Math" display="inline" id="Sx2.T3.13.5.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T3.15.7.3" style="padding:0.75pt 12.0pt;">
+<math alttext="\{-1,\ 0,\ \pm\tfrac{1}{3}\}" class="ltx_Math" display="inline" id="Sx2.T3.14.6.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-1,\ 0,\ \pm\tfrac{1}{3}\}</annotation></semantics></math>; variants: <math alttext="\{-1,\ -\tfrac{2}{3},\ 0,\ \pm\tfrac{1}{3}\}" class="ltx_Math" display="inline" id="Sx2.T3.15.7.3.m2" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-1,\ -\tfrac{2}{3},\ 0,\ \pm\tfrac{1}{3}\}</annotation></semantics></math>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T3.15.7.5" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold" id="Sx2.T3.15.7.5.1">252</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T3.15.7.6" style="padding:0.75pt 12.0pt;">240  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T3.15.7.6.1">?</span>]</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T3.17.9">
+<td class="ltx_td ltx_align_center" id="Sx2.T3.17.9.3" style="padding:0.75pt 12.0pt;">17</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.16.8.1" style="padding:0.75pt 12.0pt;"><math alttext="1/3" class="ltx_Math" display="inline" id="Sx2.T3.16.8.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.17.9.2" style="padding:0.75pt 12.0pt;"><math alttext="\{-1,\ -\tfrac{7}{9},\ -\tfrac{5}{9},\ 0,\ \pm\tfrac{1}{9},\ \pm\tfrac{1}{3}\}" class="ltx_Math" display="inline" id="Sx2.T3.17.9.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>7</mn><mn>9</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>9</mn></mfrac></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>9</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-1,\ -\tfrac{7}{9},\ -\tfrac{5}{9},\ 0,\ \pm\tfrac{1}{9},\ \pm\tfrac{1}{3}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.17.9.4" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold" id="Sx2.T3.17.9.4.1">578</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.17.9.5" style="padding:0.75pt 12.0pt;">546  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T3.17.9.5.1">?</span>]</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T3.19.11">
+<td class="ltx_td ltx_align_center" id="Sx2.T3.19.11.3" style="padding:0.75pt 12.0pt;">12</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.18.10.1" style="padding:0.75pt 12.0pt;"><math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.T3.18.10.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.19.11.2" style="padding:0.75pt 12.0pt;"><math alttext="\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}" class="ltx_Math" display="inline" id="Sx2.T3.19.11.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.19.11.4" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold" id="Sx2.T3.19.11.4.1">81</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.19.11.5" style="padding:0.75pt 12.0pt;">79  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T3.19.11.5.1">?</span>]</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T3.21.13">
+<td class="ltx_td ltx_align_center" id="Sx2.T3.21.13.3" style="padding:0.75pt 12.0pt;">20</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.20.12.1" style="padding:0.75pt 12.0pt;"><math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.T3.20.12.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.21.13.2" style="padding:0.75pt 12.0pt;"><math alttext="\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}" class="ltx_Math" display="inline" id="Sx2.T3.21.13.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.21.13.4" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold" id="Sx2.T3.21.13.4.1">405</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.21.13.5" style="padding:0.75pt 12.0pt;">378  [<span class="ltx_text" id="Sx2.T3.21.13.5.1" style="--ltx-fg-color:#003366;">?</span>]</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T3.23.15">
+<td class="ltx_td ltx_align_center" id="Sx2.T3.23.15.3" style="padding:0.75pt 12.0pt;">21</td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.22.14.1" style="padding:0.75pt 12.0pt;"><math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.T3.22.14.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.23.15.2" style="padding:0.75pt 12.0pt;"><math alttext="\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}" class="ltx_Math" display="inline" id="Sx2.T3.23.15.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mfrac><mn>1</mn><mn>4</mn></mfrac><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{1}{2},\ -\tfrac{1}{8},\ \tfrac{1}{4}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.23.15.4" style="padding:0.75pt 12.0pt;"><span class="ltx_text ltx_font_bold" id="Sx2.T3.23.15.4.1">567</span></td>
+<td class="ltx_td ltx_align_center" id="Sx2.T3.23.15.5" style="padding:0.75pt 12.0pt;">554  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx2.T3.23.15.5.1">?</span>]</td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T3.26.18">
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T3.26.18.4" style="padding:0.75pt 12.0pt;">22</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T3.24.16.1" style="padding:0.75pt 12.0pt;"><math alttext="1/5" class="ltx_Math" display="inline" id="Sx2.T3.24.16.1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">1/5</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T3.25.17.2" style="padding:0.75pt 12.0pt;"><math alttext="\{-1,\ -\tfrac{1}{5},\ \tfrac{1}{5}\}" class="ltx_Math" display="inline" id="Sx2.T3.25.17.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>1</mn><mn>5</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mfrac><mn>1</mn><mn>5</mn></mfrac><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-1,\ -\tfrac{1}{5},\ \tfrac{1}{5}\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T3.26.18.3" style="padding:0.75pt 12.0pt;"> <span class="ltx_text ltx_font_bold" id="Sx2.T3.26.18.3.1">352</span> <sup class="ltx_sup" id="Sx2.T3.26.18.3.2">⋆</sup>
+</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T3.26.18.5" style="padding:0.75pt 12.0pt;">338  [<span class="ltx_text" id="Sx2.T3.26.18.5.1" style="--ltx-fg-color:#003366;">?</span>]</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="Sx2.SSx2.p3">
+<p class="ltx_p" id="Sx2.SSx2.p3.8">As shown in Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T3" title="Table 3 ‣ New records for generalized kissing numbers ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">3</span></a>, the new constructions from <span class="ltx_text ltx_font_italic" id="Sx2.SSx2.p3.8.1">PackingStar</span> yield new record for <math alttext="K(n,\alpha)" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.1.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>,</mo><mi>α</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K(n,\alpha)</annotation></semantics></math> in several dimensions.
+In 12, 20 and 21 dimensions under the <math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.2.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math> constraint, we obtain <math alttext="K_{\mathrm{new}}(12,1/4)=81" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.3.m3" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>12</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(12,1/4)=81</annotation></semantics></math>, <math alttext="K_{\mathrm{new}}(20,1/4)=405" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.4.m4" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>20</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>405</mn></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(20,1/4)=405</annotation></semantics></math> and <math alttext="K_{\mathrm{new}}(21,1/4)=567" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.5.m5" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>21</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>567</mn></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(21,1/4)=567</annotation></semantics></math>, surpassing the previous records of 79, 378 and 554, respectively.
+We also report improvements under the <math alttext="1/3" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.6.m6" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math> constraint: in dimensions 14 and 17, we obtain <math alttext="K_{\mathrm{new}}(14,1/3)=252" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.7.m7" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>14</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>252</mn></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(14,1/3)=252</annotation></semantics></math> and <math alttext="K_{\mathrm{new}}(17,1/3)=578" class="ltx_Math" display="inline" id="Sx2.SSx2.p3.8.m8" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>17</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>578</mn></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(17,1/3)=578</annotation></semantics></math>, which beat the prior best known records of 240 and 546.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx2.p4">
+<p class="ltx_p" id="Sx2.SSx2.p4.6">Notably, the <math alttext="K_{\mathrm{new}}(12,1/4)" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>12</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(12,1/4)</annotation></semantics></math> configuration contains no antipodal pairs; however, each of the 81 spheres has the same number of neighbors at each distance, forming a highly regular local structure.
+Such a combination of high local regularity without any antipodal pair appears to be rare in spherical code.
+We find several distinct variants of <math alttext="K_{\mathrm{new}}(12,1/4)" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.2.m2" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>12</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(12,1/4)</annotation></semantics></math> configuration, among which the most symmetric realization turns out to be the Kronecker product of the Schläfli spherical code with the unit equilateral triangle.
+This arrangement possesses a transitive symmetry group of order 311040. In dimension 17, <span class="ltx_text ltx_font_italic" id="Sx2.SSx2.p4.6.1">PackingStar</span> found a significant improvement: a configuration with 578 spheres, exceeding the previously known 546. All three geometrically non-isomorphic variants discovered share the same cosine set. Analysis of these variants reveals a remarkable structural property: the <math alttext="K_{\mathrm{new}}(17,1/3)" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.3.m3" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>17</mn><mo>,</mo><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(17,1/3)</annotation></semantics></math> configuration can be interpreted as essentially two copies of the 16-dimensional 288-sphere configuration, which is known to be optimal under the cosine <math alttext="1/4" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.4.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math> constraint, together with two additional points, i.e., <math alttext="578=288\times 2+2" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.5.m5" intent=":literal"><semantics><mrow><mn>578</mn><mo>=</mo><mrow><mrow><mn>288</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>2</mn></mrow><mo>+</mo><mn>2</mn></mrow></mrow><annotation encoding="application/x-tex">578=288\times 2+2</annotation></semantics></math>. This decomposition provides strong evidence that 578 is very likely optimal for the cosine <math alttext="1/3" class="ltx_Math" display="inline" id="Sx2.SSx2.p4.6.m6" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">1/3</annotation></semantics></math> constraint in dimension 17.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx2.SSx3">
+<h3 class="ltx_title ltx_title_subsection">Improved rational configurations in 13 dimensions</h3>
+<div class="ltx_para" id="Sx2.SSx3.p1">
+<p class="ltx_p" id="Sx2.SSx3.p1.6">We apply <span class="ltx_text ltx_font_italic" id="Sx2.SSx3.p1.6.1">PackingStar</span> to explore rational kissing configurations in dimension <math alttext="13" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.1.m1" intent=":literal"><semantics><mn>13</mn><annotation encoding="application/x-tex">13</annotation></semantics></math>.
+In this setting, guided by the simulations in Step 1 of our method, we identify two feasible cosine sets for 13-dimensional rational arrangements: <math alttext="C_{1}=C_{2}=\{-1,\ 0,\ \pm 1/4,\ \pm 1/2\}" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.2.m2" intent=":literal"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">C_{1}=C_{2}=\{-1,\ 0,\ \pm 1/4,\ \pm 1/2\}</annotation></semantics></math> or <math alttext="\{-1,\ -3/4,\ 0,\ \pm 1/4,\ \pm 1/2\}" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.3.m3" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mrow><mn>3</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-1,\ -3/4,\ 0,\ \pm 1/4,\ \pm 1/2\}</annotation></semantics></math>. Table <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx2.T4" title="Table 4 ‣ Improved rational configurations in 13 dimensions ‣ Results ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">4</span></a> summarizes the cosine value among sphere pairs in <math alttext="K_{r}(13)" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.4.m4" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>r</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>13</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{r}(13)</annotation></semantics></math> configurations.
+Based on these cosine features, <span class="ltx_text ltx_font_italic" id="Sx2.SSx3.p1.6.2">PackingStar</span> discovers several new rational configuration with kissing number <math alttext="K_{r}(13)=1146" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.5.m5" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>r</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>13</mn><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mn>1146</mn></mrow><annotation encoding="application/x-tex">K_{r}(13)=1146</annotation></semantics></math>, surpassing the previously known rational structure from 1971, which achieved <math alttext="1130" class="ltx_Math" display="inline" id="Sx2.SSx3.p1.6.m6" intent=":literal"><semantics><mn>1130</mn><annotation encoding="application/x-tex">1130</annotation></semantics></math>  [<span class="ltx_text" id="Sx2.SSx3.p1.6.3" style="--ltx-fg-color:#003366;">?</span>].
+The new configuration exhibits a highly regular geometric pattern and a fully rational Gram matrix, allowing exact verification of all pairwise cosines without reliance on numerical approximations.
+This demonstrates the capability of <span class="ltx_text ltx_font_italic" id="Sx2.SSx3.p1.6.4">PackingStar</span> to systematically explore the space of rational configurations and discover previously unknown structures.</p>
+</div>
+<figure class="ltx_table" id="Sx2.T4">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text ltx_font_bold" id="Sx2.T4.23.1.1">Table 4</span>: </span><span class="ltx_text ltx_font_bold" id="Sx2.T4.24.2">Cosine sets of different kissing configurations.</span>
+For each configuration, the table lists the set of cosine values between distinct unit vectors. All maximal cosines are <math alttext="\leq 0.5" class="ltx_Math" display="inline" id="Sx2.T4.2.m1" intent=":literal"><semantics><mrow><mi></mi><mo>≤</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\leq 0.5</annotation></semantics></math>, ensuring that the geometric constraints of the kissing number problem are satisfied, i.e., no spheres overlap.</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx2.T4.20">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="Sx2.T4.4.2">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row ltx_border_t" id="Sx2.T4.4.2.3" style="padding:0.75pt 16.0pt;">   Configuration</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx2.T4.4.2.2" style="padding:0.75pt 16.0pt;">   Cosine set (excluding <math alttext="-1" class="ltx_Math" display="inline" id="Sx2.T4.3.1.1.m1" intent=":literal"><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math> and <math alttext="0" class="ltx_Math" display="inline" id="Sx2.T4.4.2.2.m2" intent=":literal"><mn>0</mn></math>)</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx2.T4.7.5">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="Sx2.T4.5.3.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{r}}(13)" class="ltx_Math" display="inline" id="Sx2.T4.5.3.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi mathvariant="normal">r</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>13</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{r}}(13)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx2.T4.7.5.3" style="padding:0.75pt 16.0pt;">   <math alttext="\{\pm\tfrac{1}{4},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.6.4.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\pm\tfrac{1}{4},\ \pm\tfrac{1}{2}\}</annotation></semantics></math>; variants: <math alttext="\{-\tfrac{3}{4},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.7.5.3.m2" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{3}{4},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.9.7">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.8.6.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(25)" class="ltx_Math" display="inline" id="Sx2.T4.8.6.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>25</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(25)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.9.7.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{\pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.9.7.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{\pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.11.9">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.10.8.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(26)" class="ltx_Math" display="inline" id="Sx2.T4.10.8.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>26</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(26)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.11.9.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.11.9.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.13.11">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.12.10.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(27)" class="ltx_Math" display="inline" id="Sx2.T4.12.10.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>27</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(27)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.13.11.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{2\sqrt{3}-\sqrt{6}}{12},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{2\sqrt{3}+\sqrt{6}}{12},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.13.11.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msqrt><mn>3</mn></msqrt></mrow><mo>−</mo><msqrt><mn>6</mn></msqrt></mrow><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msqrt><mn>3</mn></msqrt></mrow><mo>+</mo><msqrt><mn>6</mn></msqrt></mrow><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{2\sqrt{3}-\sqrt{6}}{12},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{2\sqrt{3}+\sqrt{6}}{12},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.15.13">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.14.12.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(28)" class="ltx_Math" display="inline" id="Sx2.T4.14.12.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>28</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(28)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.15.13.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.15.13.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.17.15">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.16.14.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(29)" class="ltx_Math" display="inline" id="Sx2.T4.16.14.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>29</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(29)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.17.15.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{2\sqrt{3}-\sqrt{6}}{12},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{\sqrt{3}}{6},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{2\sqrt{3}+\sqrt{6}}{12},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.17.15.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msqrt><mn>3</mn></msqrt></mrow><mo>−</mo><msqrt><mn>6</mn></msqrt></mrow><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>3</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msqrt><mn>3</mn></msqrt></mrow><mo>+</mo><msqrt><mn>6</mn></msqrt></mrow><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{2\sqrt{3}-\sqrt{6}}{12},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{\sqrt{3}}{6},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{2\sqrt{3}+\sqrt{6}}{12},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.19.17">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="Sx2.T4.18.16.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(30)" class="ltx_Math" display="inline" id="Sx2.T4.18.16.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>30</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(30)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx2.T4.19.17.2" style="padding:0.75pt 16.0pt;">   <math alttext="\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}" class="ltx_Math" display="inline" id="Sx2.T4.19.17.2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mfrac><mn>5</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>12</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><msqrt><mn>6</mn></msqrt><mn>6</mn></mfrac></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-\tfrac{5}{6},\ -\tfrac{2}{3},\ \pm\tfrac{1}{6},\ \pm\tfrac{\sqrt{6}}{12},\ \pm\tfrac{1}{4},\ \pm\tfrac{1}{3},\ \pm\tfrac{\sqrt{6}}{6},\ \pm\tfrac{1}{2}\}</annotation></semantics></math></td>
+</tr>
+<tr class="ltx_tr" id="Sx2.T4.20.18">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_b" id="Sx2.T4.20.18.1" style="padding:0.75pt 16.0pt;">   <math alttext="K_{\mathrm{new}}(31)" class="ltx_Math" display="inline" id="Sx2.T4.20.18.1.m1" intent=":literal"><semantics><mrow><msub><mi>K</mi><mi>new</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>31</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">K_{\mathrm{new}}(31)</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx2.T4.20.18.2" style="padding:0.75pt 16.0pt;">   The full cosine set is available at the data repository.</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="Sx2.SSx3.p2">
+<p class="ltx_p" id="Sx2.SSx3.p2.5">Remarkably, among the 1146-sphere configurations, we observe a variant that can be partitioned into two components: one containing <math alttext="1008" class="ltx_Math" display="inline" id="Sx2.SSx3.p2.1.m1" intent=":literal"><semantics><mn>1008</mn><annotation encoding="application/x-tex">1008</annotation></semantics></math> spheres and the other <math alttext="138" class="ltx_Math" display="inline" id="Sx2.SSx3.p2.2.m2" intent=":literal"><semantics><mn>138</mn><annotation encoding="application/x-tex">138</annotation></semantics></math> spheres.
+The <math alttext="1008" class="ltx_Math" display="inline" id="Sx2.SSx3.p2.3.m3" intent=":literal"><semantics><mn>1008</mn><annotation encoding="application/x-tex">1008</annotation></semantics></math>-sphere component exhibits two fundamentally distinct forms: one fully antipodal and the other completely non-antipodal.
+In the non-antipodal form, none of the spheres has an antipodal counterpart, corresponding to a cosine set of <math alttext="\{-3/4,0,\pm 1/4,\pm 1/2\}" class="ltx_Math" display="inline" id="Sx2.SSx3.p2.4.m4" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mrow><mn>3</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo>,</mo><mn>0</mn><mo>,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo>,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></mrow><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{-3/4,0,\pm 1/4,\pm 1/2\}</annotation></semantics></math>, excluding <math alttext="-1" class="ltx_Math" display="inline" id="Sx2.SSx3.p2.5.m5" intent=":literal"><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math>.
+At the same time, it exhibits high uniformity, with each sphere tightly contacting 98 neighboring spheres.
+Such a structure is extremely rare and has no known analogues among previously discovered kissing configurations.
+This reveals that even in 13 and higher dimensions, kissing configurations may possess special non-symmetric arrangements that were previously unexplored.</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">Methods</h2>
+<div class="ltx_para" id="Sx3.p1">
+<p class="ltx_p" id="Sx3.p1.1">In this section, we present a learning-based system <span class="ltx_text ltx_font_italic" id="Sx3.p1.1.1">PackingStar</span> to find high-dimensional kissing constructions. First, we extract dominant geometric features of candidate kissing configurations via simulation and Monte Carlo Tree Search. Second, we formulate the search for maximal kissing numbers as a cooperative two-player matrix completion game,
+where one agent iteratively fills the Gram matrix and the other corrects suboptimal entries, jointly maximizing the final matrix size.
+This formulation allows all operations to be parallelized at large scale on NVIDIA GPUs using low-level mathematical operators in cuBLAS library, fully exploiting computational power to accelerate both the game simulation and model training.</p>
+</div>
+<section class="ltx_subsection" id="Sx3.SSx1">
+<h3 class="ltx_title ltx_title_subsection">Identifying geometric features of the kissing configuration via simulation</h3>
+<div class="ltx_para" id="Sx3.SSx1.p1">
+<p class="ltx_p" id="Sx3.SSx1.p1.7">In this step, we will identify the basic geometric features of possible kissing structures through extensive simulations. This process corresponds to Step 1 in Figure <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.F2" title="Figure 2 ‣ Identifying geometric features of the kissing configuration via simulation ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">2</span></a>. Given <math alttext="m" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.1.m1" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> existing spheres in <math alttext="\mathbb{R}^{n}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.2.m2" intent=":literal"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^{n}</annotation></semantics></math> with <math alttext="m\geq n-1" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.3.m3" intent=":literal"><semantics><mrow><mi>m</mi><mo>≥</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></mrow><annotation encoding="application/x-tex">m\geq n-1</annotation></semantics></math>, we iteratively generate new sphere centers by considering every <math alttext="(n-1)" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.4.m4" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(n-1)</annotation></semantics></math>-combination of existing spheres. Let <math alttext="\mathbf{x}_{1},\dots,\mathbf{x}_{n-1}\in\mathbb{R}^{n}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.5.m5" intent=":literal"><semantics><mrow><mrow><msub><mi>𝐱</mi><mn>1</mn></msub><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msub><mi>𝐱</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><mo>∈</mo><msup><mi>ℝ</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{x}_{1},\dots,\mathbf{x}_{n-1}\in\mathbb{R}^{n}</annotation></semantics></math> be the corresponding coordinates, and construct <math alttext="\mathbf{A}=[\mathbf{x}_{1}^{T};\dots;\mathbf{x}_{n-1}^{T}]\in\mathbb{R}^{(n-1)\times n}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.6.m6" intent=":literal"><semantics><mrow><mi>𝐀</mi><mo>=</mo><mrow><mo stretchy="false">[</mo><msubsup><mi>𝐱</mi><mn>1</mn><mi>T</mi></msubsup><mo>;</mo><mi mathvariant="normal">…</mi><mo>;</mo><msubsup><mi>𝐱</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mi>T</mi></msubsup><mo stretchy="false">]</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mo rspace="0.055em" stretchy="false">)</mo></mrow><mo rspace="0.222em">×</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{A}=[\mathbf{x}_{1}^{T};\dots;\mathbf{x}_{n-1}^{T}]\in\mathbb{R}^{(n-1)\times n}</annotation></semantics></math>, which must have full row rank. We solve for a new sphere center <math alttext="\mathbf{x}\in\mathbb{R}^{n}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.7.m7" intent=":literal"><semantics><mrow><mi>𝐱</mi><mo>∈</mo><msup><mi>ℝ</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">\mathbf{x}\in\mathbb{R}^{n}</annotation></semantics></math> on the unit sphere satisfying</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\begin{cases}\mathbf{A}\mathbf{x}=\mathbf{b},\\
+\|\mathbf{x}\|_{2}=1\end{cases}\quad\mathbf{b}=\tfrac{1}{2}\mathbf{1}_{n-1}." class="ltx_Math" display="block" id="Sx3.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><mrow><mo>{</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><mrow><mi>𝐀𝐱</mi><mo>=</mo><mi>𝐛</mi></mrow><mo>,</mo></mrow></mtd><mtd></mtd></mtr><mtr><mtd class="ltx_align_left" columnalign="left"><mrow><msub><mrow><mo stretchy="false">‖</mo><mi>𝐱</mi><mo stretchy="false">‖</mo></mrow><mn>2</mn></msub><mo>=</mo><mn>1</mn></mrow></mtd><mtd></mtd></mtr></mtable></mrow><mspace style="width:1em;" width="1em"></mspace><mi>𝐛</mi></mrow><mo>=</mo><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo lspace="0em" rspace="0em">​</mo><msub><mn>𝟏</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\begin{cases}\mathbf{A}\mathbf{x}=\mathbf{b},\\
+\|\mathbf{x}\|_{2}=1\end{cases}\quad\mathbf{b}=\tfrac{1}{2}\mathbf{1}_{n-1}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx1.p1.19">The feasible solutions are</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{x}=\mathbf{A}^{+}\mathbf{b}\pm\sqrt{1-\|\mathbf{A}^{+}\mathbf{b}\|_{2}^{2}}\,\mathbf{z},\quad\mathbf{z}\in\ker(\mathbf{A}),\ \|\mathbf{z}\|_{2}=1." class="ltx_Math" display="block" id="Sx3.E2.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>𝐱</mi><mo>=</mo><mrow><mrow><msup><mi>𝐀</mi><mo>+</mo></msup><mo lspace="0em" rspace="0em">​</mo><mi>𝐛</mi></mrow><mo>±</mo><mrow><msqrt><mrow><mn>1</mn><mo>−</mo><msubsup><mrow><mo stretchy="false">‖</mo><mrow><msup><mi>𝐀</mi><mo>+</mo></msup><mo lspace="0em" rspace="0em">​</mo><mi>𝐛</mi></mrow><mo stretchy="false">‖</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow></msqrt><mo lspace="0.170em" rspace="0em">​</mo><mi>𝐳</mi></mrow></mrow></mrow><mo rspace="1.167em">,</mo><mrow><mrow><mi>𝐳</mi><mo>∈</mo><mrow><mi>ker</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>𝐀</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="0.667em">,</mo><mrow><msub><mrow><mo stretchy="false">‖</mo><mi>𝐳</mi><mo stretchy="false">‖</mo></mrow><mn>2</mn></msub><mo>=</mo><mn>1</mn></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{x}=\mathbf{A}^{+}\mathbf{b}\pm\sqrt{1-\|\mathbf{A}^{+}\mathbf{b}\|_{2}^{2}}\,\mathbf{z},\quad\mathbf{z}\in\ker(\mathbf{A}),\ \|\mathbf{z}\|_{2}=1.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx1.p1.12">All feasible candidates <math alttext="\mathbf{x}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.8.m1" intent=":literal"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> are added to the search space, and one is selected as a new center using Monte Carlo Tree Search (MCTS).
+Each node in the search tree corresponds to a partial configuration <math alttext="s_{t}=\{\mathbf{x}_{1},\mathbf{x}_{2},\dots,\mathbf{x}_{m_{t}}\}\subset\mathbb{R}^{n\times m_{t}}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.9.m2" intent=":literal"><semantics><mrow><msub><mi>s</mi><mi>t</mi></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><msub><mi>𝐱</mi><mn>1</mn></msub><mo>,</mo><msub><mi>𝐱</mi><mn>2</mn></msub><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msub><mi>𝐱</mi><msub><mi>m</mi><mi>t</mi></msub></msub><mo stretchy="false">}</mo></mrow><mo>⊂</mo><msup><mi>ℝ</mi><mrow><mi>n</mi><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mi>m</mi><mi>t</mi></msub></mrow></msup></mrow><annotation encoding="application/x-tex">s_{t}=\{\mathbf{x}_{1},\mathbf{x}_{2},\dots,\mathbf{x}_{m_{t}}\}\subset\mathbb{R}^{n\times m_{t}}</annotation></semantics></math> of <math alttext="m_{t}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.10.m3" intent=":literal"><semantics><msub><mi>m</mi><mi>t</mi></msub><annotation encoding="application/x-tex">m_{t}</annotation></semantics></math> existing sphere centers at step <math alttext="t" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.11.m4" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>. The MCTS algorithm selects the next candidate <math alttext="\mathbf{x}_{t}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.12.m5" intent=":literal"><semantics><msub><mi>𝐱</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{x}_{t}</annotation></semantics></math> according to the upper confidence bound:</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{x}_{t}=\arg\max_{\mathbf{x}}\Big[Q(s_{t},\mathbf{x})+c\sqrt{\frac{\ln N(s_{t})}{N(s_{t},\mathbf{x})}}\Big]," class="ltx_Math" display="block" id="Sx3.E3.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>𝐱</mi><mi>t</mi></msub><mo>=</mo><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><mrow><munder><mi>max</mi><mi>𝐱</mi></munder><mo>⁡</mo><mrow><mo maxsize="1.600em" minsize="1.600em">[</mo><mrow><mrow><mi>Q</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0em" rspace="0em">​</mo><msqrt><mfrac><mrow><mrow><mi>ln</mi><mo lspace="0.167em">⁡</mo><mi>N</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>N</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac></msqrt></mrow></mrow><mo maxsize="1.600em" minsize="1.600em">]</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{x}_{t}=\arg\max_{\mathbf{x}}\Big[Q(s_{t},\mathbf{x})+c\sqrt{\frac{\ln N(s_{t})}{N(s_{t},\mathbf{x})}}\Big],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx1.p1.18">where <math alttext="Q(s_{t},\mathbf{x})" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.13.m1" intent=":literal"><semantics><mrow><mi>Q</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Q(s_{t},\mathbf{x})</annotation></semantics></math> is the estimated value, <math alttext="N(s_{t})" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.14.m2" intent=":literal"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">N(s_{t})</annotation></semantics></math> and <math alttext="N(s_{t},\mathbf{x})" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.15.m3" intent=":literal"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>t</mi></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">N(s_{t},\mathbf{x})</annotation></semantics></math> are visit counts, and <math alttext="c&gt;0" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.16.m4" intent=":literal"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math> balances exploration and exploitation. The reward, defined as the total number of spheres is backpropagated to guide the MCTS algorithm toward configurations that maximize the kissing number.
+This process repeats until no feasible <math alttext="\mathbf{x}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.17.m5" intent=":literal"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> remain, yielding the cosine set <math alttext="\mathcal{C}_{1}=\{\cos\theta_{1},\dots,\cos\theta_{k}\}" class="ltx_Math" display="inline" id="Sx3.SSx1.p1.18.m6" intent=":literal"><semantics><mrow><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>1</mn></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mi>cos</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mn>1</mn></msub></mrow><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mrow><mi>cos</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mi>k</mi></msub></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{C}_{1}=\{\cos\theta_{1},\dots,\cos\theta_{k}\}</annotation></semantics></math> of allowed cosine values for possible kissing configuration.
+We note that a similar concept of the cosine set appeared in a previous note  [<span class="ltx_text ltx_font_bold ltx_font_italic" id="Sx3.SSx1.p1.18.1">?</span>], but in our method it is used fundamentally differently, with the construction relying solely on cosine relationships.</p>
+</div>
+<figure class="ltx_figure" id="Sx3.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="435" id="Sx3.F2.g1" src="x2.png" width="644"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text ltx_font_bold" id="Sx3.F2.10.1.1">Figure 2</span>: </span><span class="ltx_text ltx_font_bold" id="Sx3.F2.11.2">Overview of <span class="ltx_text ltx_font_italic" id="Sx3.F2.11.2.1">PackingStar</span> system.</span> The workflow consists of three steps for <math alttext="n" class="ltx_Math" display="inline" id="Sx3.F2.3.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> dimensions: <span class="ltx_text ltx_font_bold" id="Sx3.F2.12.3">Step 1.</span> New spheres tangent to <math alttext="n-1" class="ltx_Math" display="inline" id="Sx3.F2.4.m2" intent=":literal"><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math> existing spheres are iteratively solved from equations and added to the search space for simulation. Cosine frequencies are recorded until they converge to a discrete set to capture the geometric features. <span class="ltx_text ltx_font_bold" id="Sx3.F2.13.4">Step 2.</span> The cosine set from Step 1 populates an initial matrix (red region) for the matrix completion game.
+Initialization can leverage geometric priors or start from scratch. <span class="ltx_text ltx_font_bold" id="Sx3.F2.14.5">Step 3.</span> The first agent, Filler, fills the matrix with candidates, while the second agent, Corrector, removes previously added entries that are not good enough. After each round, the matrix is decomposed and reassembled for the next iteration based on geometric feature analysis.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="Sx3.SSx2">
+<h3 class="ltx_title ltx_title_subsection">Finding Kissing Numbers in two-player matrix completion game</h3>
+<div class="ltx_para" id="Sx3.SSx2.p1">
+<p class="ltx_p" id="Sx3.SSx2.p1.5">Let <math alttext="\mathbf{G}^{(m_{0})}\in\mathbb{R}^{m_{0}\times m_{0}}" class="ltx_Math" display="inline" id="Sx3.SSx2.p1.1.m1" intent=":literal"><semantics><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><msub><mi>m</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>m</mi><mn>0</mn></msub><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mi>m</mi><mn>0</mn></msub></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(m_{0})}\in\mathbb{R}^{m_{0}\times m_{0}}</annotation></semantics></math> be the initial partial Gram matrix of the sphere center vectors.
+We formulate the matrix completion process as a two-player sequential game, corresponding to Step 2 and Step 3 in Figure <a class="ltx_ref" href="https://arxiv.org/html/2511.13391v3#Sx3.F2" title="Figure 2 ‣ Identifying geometric features of the kissing configuration via simulation ‣ Methods ‣ Finding Kissing Numbers with Game-theoretic Reinforcement Learning"><span class="ltx_text ltx_ref_tag">2</span></a>.
+Each player is modeled as a learning agent, and the two agents are jointly optimized through game-theoretic reinforcement learning to cooperatively search for larger kissing numbers. This alternating filling-correcting process over <math alttext="N" class="ltx_Math" display="inline" id="Sx3.SSx2.p1.2.m2" intent=":literal"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> rounds can be formulated as a Markov game, where the matrix <math alttext="\mathbf{G}^{(m)}" class="ltx_Math" display="inline" id="Sx3.SSx2.p1.3.m3" intent=":literal"><semantics><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{G}^{(m)}</annotation></semantics></math> represents the state, Player 1’s action is the sampled entry <math alttext="\mathbf{g}" class="ltx_Math" display="inline" id="Sx3.SSx2.p1.4.m4" intent=":literal"><semantics><mi>𝐠</mi><annotation encoding="application/x-tex">\mathbf{g}</annotation></semantics></math> that extends the matrix, Player 2’s action is the selected index set <math alttext="I" class="ltx_Math" display="inline" id="Sx3.SSx2.p1.5.m5" intent=":literal"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> for correcting entries, and the shared team reward is the number of rows of the final matrix.</p>
+</div>
+<section class="ltx_paragraph" id="Sx3.SSx2.SSS0.Px1">
+<h4 class="ltx_title ltx_title_paragraph">Player 1 (Matrix Filler).</h4>
+<div class="ltx_para" id="Sx3.SSx2.SSS0.Px1.p1">
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p1.5">For each step <math alttext="m\geq m_{0}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.1.m1" intent=":literal"><semantics><mrow><mi>m</mi><mo>≥</mo><msub><mi>m</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">m\geq m_{0}</annotation></semantics></math>, Player 1 samples an action according to policy <math alttext="\pi_{1}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.2.m2" intent=":literal"><semantics><msub><mi>π</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\pi_{1}</annotation></semantics></math>, <math alttext="\mathbf{g}\sim\pi_{1}(\cdot\mid\mathbf{G}^{(m)})" class="ltx_math_unparsed" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.3.m3" intent=":literal"><semantics><mrow><mi>𝐠</mi><mo>∼</mo><msub><mi>π</mi><mn>1</mn></msub><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo lspace="0em" rspace="0.167em">∣</mo><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{g}\sim\pi_{1}(\cdot\mid\mathbf{G}^{(m)})</annotation></semantics></math>, where <math alttext="\mathbf{g}\in\mathcal{A}^{(m)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.4.m4" intent=":literal"><semantics><mrow><mi>𝐠</mi><mo>∈</mo><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{g}\in\mathcal{A}^{(m)}</annotation></semantics></math> to extend the current matrix <math alttext="\mathbf{G}^{(m)}\in\mathbb{R}^{m\times m}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.5.m5" intent=":literal"><semantics><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>m</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>m</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(m)}\in\mathbb{R}^{m\times m}</annotation></semantics></math>:</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{G}^{(m+1)}(\mathbf{g})=\begin{bmatrix}\mathbf{G}^{(m)}&amp;\mathbf{g}\\
+\mathbf{g}^{\top}&amp;1\end{bmatrix}." class="ltx_Math" display="block" id="Sx3.E4.m1" intent=":literal"><semantics><mrow><mrow><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐠</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo>[</mo><mtable columnspacing="5pt" displaystyle="true" rowspacing="0pt"><mtr><mtd><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup></mtd><mtd><mi>𝐠</mi></mtd></mtr><mtr><mtd><msup><mi>𝐠</mi><mo>⊤</mo></msup></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(m+1)}(\mathbf{g})=\begin{bmatrix}\mathbf{G}^{(m)}&amp;\mathbf{g}\\
+\mathbf{g}^{\top}&amp;1\end{bmatrix}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p1.8">The constraints for candidate action set <math alttext="\mathcal{A}^{(m)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.6.m1" intent=":literal"><semantics><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathcal{A}^{(m)}</annotation></semantics></math> depends on <math alttext="m" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.7.m2" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>,
+For <math alttext="m&lt;n" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p1.8.m3" intent=":literal"><semantics><mrow><mi>m</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m&lt;n</annotation></semantics></math></p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathcal{A}^{(m)}=\Big\{\mathbf{g}\in\mathcal{C}_{1}^{m}\;\Big|\;\mathbf{G}^{(m+1)}(\mathbf{G})\succeq 0,\;\mathrm{rank}(\mathbf{G}^{(m+1)}(\mathbf{g}))=m+1\Big\}." class="ltx_Math" display="block" id="Sx3.E5.m1" intent=":literal"><semantics><mrow><mrow><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mrow><mo maxsize="1.600em" minsize="1.600em">{</mo><mrow><mi>𝐠</mi><mo>∈</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>1</mn><mi>m</mi></msubsup></mrow><mo lspace="0em" mathsize="1.600em">|</mo><mrow><mrow><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐆</mi><mo stretchy="false">)</mo></mrow></mrow><mo>⪰</mo><mn>0</mn></mrow><mo rspace="0.447em">,</mo><mrow><mrow><mi>rank</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐠</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></mrow></mrow><mo maxsize="1.600em" minsize="1.600em">}</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathcal{A}^{(m)}=\Big\{\mathbf{g}\in\mathcal{C}_{1}^{m}\;\Big|\;\mathbf{G}^{(m+1)}(\mathbf{G})\succeq 0,\;\mathrm{rank}(\mathbf{G}^{(m+1)}(\mathbf{g}))=m+1\Big\}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.SSx2.SSS0.Px1.p2">
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.2">For <math alttext="m\geq n" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.1.m1" intent=":literal"><semantics><mrow><mi>m</mi><mo>≥</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m\geq n</annotation></semantics></math>,
+split <math alttext="\mathbf{g}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.2.m2" intent=":literal"><semantics><mi>𝐠</mi><annotation encoding="application/x-tex">\mathbf{g}</annotation></semantics></math> into two parts:</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{g}=\begin{bmatrix}\mathbf{g}^{(1)}\\
+\mathbf{g}^{(2)}\end{bmatrix},\quad\mathbf{g}^{(1)}\in\mathbb{R}^{n\times 1},\ \mathbf{g}^{(2)}\in\mathbb{R}^{(m-n)\times 1}." class="ltx_Math" display="block" id="Sx3.E6.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>𝐠</mi><mo>=</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup></mtd></mtr><mtr><mtd><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo rspace="1.167em">,</mo><mrow><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>n</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1</mn></mrow></msup></mrow><mo rspace="0.667em">,</mo><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><mo rspace="0.055em" stretchy="false">)</mo></mrow><mo rspace="0.222em">×</mo><mn>1</mn></mrow></msup></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{g}=\begin{bmatrix}\mathbf{g}^{(1)}\\
+\mathbf{g}^{(2)}\end{bmatrix},\quad\mathbf{g}^{(1)}\in\mathbb{R}^{n\times 1},\ \mathbf{g}^{(2)}\in\mathbb{R}^{(m-n)\times 1}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.5">Define the top-left block
+<math alttext="\mathbf{G}^{(m)}_{1:n,\,1:n}\in\mathbb{R}^{n\times n}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.3.m1" intent=":literal"><semantics><mrow><msubsup><mi>𝐆</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>n</mi><mo>,</mo><mn> 1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mi>n</mi></mrow><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>n</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(m)}_{1:n,\,1:n}\in\mathbb{R}^{n\times n}</annotation></semantics></math> and its Cholesky factorization
+<math alttext="\mathbf{G}^{(m)}_{1:n,\,1:n}=\mathbf{M}\mathbf{M}^{\top}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.4.m2" intent=":literal"><semantics><mrow><msubsup><mi>𝐆</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>n</mi><mo>,</mo><mn> 1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mi>n</mi></mrow><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>=</mo><msup><mi>𝐌𝐌</mi><mo>⊤</mo></msup></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(m)}_{1:n,\,1:n}=\mathbf{M}\mathbf{M}^{\top}</annotation></semantics></math>, with pseudo-inverse <math alttext="\mathbf{M}^{+}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.5.m3" intent=":literal"><semantics><msup><mi>𝐌</mi><mo>+</mo></msup><annotation encoding="application/x-tex">\mathbf{M}^{+}</annotation></semantics></math>.
+Let</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E7">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{G}^{\prime}=\mathbf{G}^{(m)}_{\,n+1:m,\,1:n}\in\mathbb{R}^{(m-n)\times n}." class="ltx_Math" display="block" id="Sx3.E7.m1" intent=":literal"><semantics><mrow><mrow><msup><mi>𝐆</mi><mo>′</mo></msup><mo>=</mo><msubsup><mi>𝐆</mi><mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>m</mi><mo>,</mo><mn> 1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mi>n</mi></mrow><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow><mo rspace="0.055em" stretchy="false">)</mo></mrow><mo rspace="0.222em">×</mo><mi>n</mi></mrow></msup></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{G}^{\prime}=\mathbf{G}^{(m)}_{\,n+1:m,\,1:n}\in\mathbb{R}^{(m-n)\times n}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.10">Compute the remaining part:</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E8">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{g}^{(2)}={\mathbf{G}^{\prime}}(\mathbf{G}^{(m)}_{1:n,\,1:n})^{+}\mathbf{g}^{(1)}\," class="ltx_Math" display="block" id="Sx3.E8.m1" intent=":literal"><semantics><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mrow><msup><mi>𝐆</mi><mo>′</mo></msup><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">(</mo><msubsup><mi>𝐆</mi><mrow><mn>1</mn><mo lspace="0.278em" rspace="0.278em">:</mo><mrow><mi>n</mi><mo>,</mo><mn> 1</mn></mrow><mo lspace="0.278em" rspace="0.278em">:</mo><mi>n</mi></mrow><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msubsup><mo stretchy="false">)</mo></mrow><mo>+</mo></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\mathbf{g}^{(2)}={\mathbf{G}^{\prime}}(\mathbf{G}^{(m)}_{1:n,\,1:n})^{+}\mathbf{g}^{(1)}\,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.11">Then the candidate action set is</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E9">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathcal{A}^{(m)}=\Big\{\mathbf{g}=[\mathbf{g}^{(1)};\mathbf{g}^{(2)}]\;\Big|\;\mathbf{g}^{(1)}\in\mathcal{C}_{1}^{n},\;\|\mathbf{M}^{+}\mathbf{g}^{(1)}\|_{2}=1,\;\mathbf{g}^{(2)}\in\mathcal{C}_{2}^{\,m-n}\Big\}." class="ltx_Math" display="block" id="Sx3.E9.m1" intent=":literal"><semantics><mrow><mrow><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mrow><mo maxsize="1.600em" minsize="1.600em">{</mo><mrow><mi>𝐠</mi><mo>=</mo><mrow><mo stretchy="false">[</mo><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>;</mo><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">]</mo></mrow></mrow><mo mathsize="1.600em">|</mo><mrow><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>1</mn><mi>n</mi></msubsup></mrow><mo rspace="0.447em">,</mo><mrow><mrow><msub><mrow><mo stretchy="false">‖</mo><mrow><msup><mi>𝐌</mi><mo>+</mo></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup></mrow><mo stretchy="false">‖</mo></mrow><mn>2</mn></msub><mo>=</mo><mn>1</mn></mrow><mo rspace="0.447em">,</mo><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msubsup><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>2</mn><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></msubsup></mrow></mrow></mrow><mo maxsize="1.600em" minsize="1.600em">}</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathcal{A}^{(m)}=\Big\{\mathbf{g}=[\mathbf{g}^{(1)};\mathbf{g}^{(2)}]\;\Big|\;\mathbf{g}^{(1)}\in\mathcal{C}_{1}^{n},\;\|\mathbf{M}^{+}\mathbf{g}^{(1)}\|_{2}=1,\;\mathbf{g}^{(2)}\in\mathcal{C}_{2}^{\,m-n}\Big\}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(9)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.8"><math alttext="\mathcal{C}_{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.6.m1" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathcal{C}_{2}</annotation></semantics></math> is a predefined subset of allowed cosine values.
+<math alttext="\mathcal{C}_{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.7.m2" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathcal{C}_{2}</annotation></semantics></math> may coincide with <math alttext="\mathcal{C}_{1}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.8.m3" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\mathcal{C}_{1}</annotation></semantics></math>, differ from it, or represent a continuous constraint set in different settings, e.g.,</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E10">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathcal{C}_{2}=\Big\{\mathbf{g}^{(2)}\in\mathbb{R}^{\,m-n}\;\Big|\;g^{(2)}_{i}\leq 0.5,\ i=1,\dots,m-n\Big\}." class="ltx_Math" display="block" id="Sx3.E10.m1" intent=":literal"><semantics><mrow><mrow><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mn>2</mn></msub><mo>=</mo><mrow><mo maxsize="1.600em" minsize="1.600em">{</mo><mrow><msup><mi>𝐠</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msup><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></msup></mrow><mo lspace="0em" mathsize="1.600em">|</mo><mrow><mrow><msubsup><mi>g</mi><mi>i</mi><mrow><mo stretchy="false">(</mo><mn>2</mn><mo stretchy="false">)</mo></mrow></msubsup><mo>≤</mo><mn>0.5</mn></mrow><mo rspace="0.667em">,</mo><mrow><mi>i</mi><mo>=</mo><mrow><mn>1</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mrow><mi>m</mi><mo>−</mo><mi>n</mi></mrow></mrow></mrow></mrow><mo maxsize="1.600em" minsize="1.600em">}</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathcal{C}_{2}=\Big\{\mathbf{g}^{(2)}\in\mathbb{R}^{\,m-n}\;\Big|\;g^{(2)}_{i}\leq 0.5,\ i=1,\dots,m-n\Big\}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(10)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px1.p2.9">In specific cases, an additional constraint set <math alttext="\mathcal{C}_{*}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px1.p2.9.m1" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo>∗</mo></msub><annotation encoding="application/x-tex">\mathcal{C}_{*}</annotation></semantics></math> can be directly applied to the candidate action set,</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E11">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathcal{A}^{(m)}\leftarrow\mathcal{A}^{(m)}\cap\mathcal{C}_{*}" class="ltx_Math" display="block" id="Sx3.E11.m1" intent=":literal"><semantics><mrow><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">←</mo><mrow><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></msup><mo>∩</mo><msub><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo>∗</mo></msub></mrow></mrow><annotation encoding="application/x-tex">\mathcal{A}^{(m)}\leftarrow\mathcal{A}^{(m)}\cap\mathcal{C}_{*}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(11)</span></td>
+</tr></tbody>
+</table>
+</div>
+</section>
+<section class="ltx_paragraph" id="Sx3.SSx2.SSS0.Px2">
+<h4 class="ltx_title ltx_title_paragraph">Player 2 (Matrix Corrector).</h4>
+<div class="ltx_para" id="Sx3.SSx2.SSS0.Px2.p1">
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px2.p1.2">Once Player 1 completes <math alttext="M" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px2.p1.1.m1" intent=":literal"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> steps (or no feasible <math alttext="\mathbf{g}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px2.p1.2.m2" intent=":literal"><semantics><mi>𝐠</mi><annotation encoding="application/x-tex">\mathbf{g}</annotation></semantics></math> remains), Player 2 samples an index set</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E12">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="I\sim\pi_{2}(\cdot\mid\mathbf{G}^{(M)})" class="ltx_math_unparsed" display="block" id="Sx3.E12.m1" intent=":literal"><semantics><mrow><mi>I</mi><mo>∼</mo><msub><mi>π</mi><mn>2</mn></msub><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo lspace="0em" rspace="0.167em">∣</mo><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">I\sim\pi_{2}(\cdot\mid\mathbf{G}^{(M)})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(12)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px2.p1.4">where <math alttext="\pi_{2}(\cdot\mid\mathbf{G}^{(M)})" class="ltx_math_unparsed" display="inline" id="Sx3.SSx2.SSS0.Px2.p1.3.m1" intent=":literal"><semantics><mrow><msub><mi>π</mi><mn>2</mn></msub><mrow><mo stretchy="false">(</mo><mo lspace="0em" rspace="0em">⋅</mo><mo lspace="0em" rspace="0.167em">∣</mo><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_{2}(\cdot\mid\mathbf{G}^{(M)})</annotation></semantics></math> denotes a probability distribution on <math alttext="\{1,2,\dots,M\}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px2.p1.4.m2" intent=":literal"><semantics><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>M</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{1,2,\dots,M\}</annotation></semantics></math>, and constructs the refined matrix</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E13">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{G}^{*}=\mathbf{G}^{(M)}_{I,I}." class="ltx_Math" display="block" id="Sx3.E13.m1" intent=":literal"><semantics><mrow><mrow><msup><mi>𝐆</mi><mo>∗</mo></msup><mo>=</mo><msubsup><mi>𝐆</mi><mrow><mi>I</mi><mo>,</mo><mi>I</mi></mrow><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msubsup></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{G}^{*}=\mathbf{G}^{(M)}_{I,I}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(13)</span></td>
+</tr></tbody>
+</table>
+</div>
+</section>
+<section class="ltx_paragraph" id="Sx3.SSx2.SSS0.Px3">
+<h4 class="ltx_title ltx_title_paragraph">Game Dynamics and Cooperative Learning Process.</h4>
+<div class="ltx_para" id="Sx3.SSx2.SSS0.Px3.p1">
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px3.p1.3">The policy <math alttext="\pi_{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.1.m1" intent=":literal"><semantics><msub><mi>π</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\pi_{2}</annotation></semantics></math> is learned to identify and remove suboptimal entries filled by Player 1,
+so that in subsequent filling steps, Player 1 can expand the matrix further. Then the Player 1 resumes filling starting from <math alttext="\mathbf{G}^{*}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.2.m2" intent=":literal"><semantics><msup><mi>𝐆</mi><mo>∗</mo></msup><annotation encoding="application/x-tex">\mathbf{G}^{*}</annotation></semantics></math>, producing a new feasible set
+<math alttext="\mathcal{A}^{(M-|I|)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.3.m3" intent=":literal"><semantics><msup><mi class="ltx_font_mathcaligraphic">𝒜</mi><mrow><mo stretchy="false">(</mo><mrow><mi>M</mi><mo>−</mo><mrow><mo stretchy="false">|</mo><mi>I</mi><mo stretchy="false">|</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathcal{A}^{(M-|I|)}</annotation></semantics></math>, and this alternation continues:</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E14">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{G}^{(M)}\xrightarrow{\pi_{2}}\mathbf{G}^{*}\xrightarrow{\pi_{1}}\mathbf{G}^{(M^{\prime})}\xrightarrow{\pi_{2}}\cdots." class="ltx_Math" display="block" id="Sx3.E14.m1" intent=":literal"><semantics><mrow><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mover accent="true"><mo>→</mo><msub><mi mathsize="0.700em">π</mi><mn mathsize="0.710em">2</mn></msub></mover><msup><mi>𝐆</mi><mo>∗</mo></msup><mover accent="true"><mo>→</mo><msub><mi mathsize="0.700em">π</mi><mn mathsize="0.710em">1</mn></msub></mover><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><msup><mi>M</mi><mo>′</mo></msup><mo stretchy="false">)</mo></mrow></msup><mover accent="true"><mo>→</mo><msub><mi mathsize="0.700em">π</mi><mn mathsize="0.710em">2</mn></msub></mover><mi mathvariant="normal">⋯</mi></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(M)}\xrightarrow{\pi_{2}}\mathbf{G}^{*}\xrightarrow{\pi_{1}}\mathbf{G}^{(M^{\prime})}\xrightarrow{\pi_{2}}\cdots.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(14)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px3.p1.7">The alternating filling-correcting process continues until no further feasible entries exist for Player 1, and Player 2 cannot correct suboptimal entries.
+Let <math alttext="\mathbf{G}^{(M)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.4.m1" intent=":literal"><semantics><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{G}^{(M)}</annotation></semantics></math> denote the final completed matrix.
+The cooperative reinforcement learning objective of the <span class="ltx_text ltx_font_italic" id="Sx3.SSx2.SSS0.Px3.p1.7.1">PackingStar</span> system is to maximize the shared team reward <math alttext="R_{\text{team}}=\left\|\operatorname{diag}\bigl(\mathbf{G}^{(M)}\bigr)\right\|_{F}^{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.5.m2" intent=":literal"><semantics><mrow><msub><mi>R</mi><mtext>team</mtext></msub><mo>=</mo><msubsup><mrow><mo>‖</mo><mrow><mi>diag</mi><mo>⁡</mo><mrow><mo maxsize="1.200em" minsize="1.200em">(</mo><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mo maxsize="1.200em" minsize="1.200em">)</mo></mrow></mrow><mo>‖</mo></mrow><mi>F</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">R_{\text{team}}=\left\|\operatorname{diag}\bigl(\mathbf{G}^{(M)}\bigr)\right\|_{F}^{2}</annotation></semantics></math>, where <math alttext="\|\cdot\|_{F}" class="ltx_math_unparsed" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.6.m3" intent=":literal"><semantics><mrow><mo rspace="0em">∥</mo><mo lspace="0em" rspace="0em">⋅</mo><msub><mo lspace="0em">∥</mo><mi>F</mi></msub></mrow><annotation encoding="application/x-tex">\|\cdot\|_{F}</annotation></semantics></math> denotes the Frobenius norm. The higher reward corresponds to a larger kissing number.
+Formally, the optimal joint policies <math alttext="(\pi_{1}^{*},\pi_{2}^{*})" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.7.m4" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mi>π</mi><mn>1</mn><mo>∗</mo></msubsup><mo>,</mo><msubsup><mi>π</mi><mn>2</mn><mo>∗</mo></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\pi_{1}^{*},\pi_{2}^{*})</annotation></semantics></math> are obtained by solving</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E15">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="(\pi_{1}^{*},\pi_{2}^{*})=\arg\max_{\pi_{1},\pi_{2}}\;\mathbb{E}_{\mathbf{g}\sim\pi_{1},I\sim\pi_{2}}\biggl[\bigl\|\operatorname{diag}\bigl(\mathbf{G}^{(M)}(\{\mathbf{g}\},I)\bigr)\bigr\|_{F}^{2}\biggr]," class="ltx_Math" display="block" id="Sx3.E15.m1" intent=":literal"><semantics><mrow><mrow><mrow><mo stretchy="false">(</mo><msubsup><mi>π</mi><mn>1</mn><mo>∗</mo></msubsup><mo>,</mo><msubsup><mi>π</mi><mn>2</mn><mo>∗</mo></msubsup><mo stretchy="false">)</mo></mrow><mo>=</mo><mrow><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><mrow><munder><mi>max</mi><mrow><msub><mi>π</mi><mn>1</mn></msub><mo>,</mo><msub><mi>π</mi><mn>2</mn></msub></mrow></munder><mo lspace="0.167em">⁡</mo><msub><mi>𝔼</mi><mrow><mrow><mi>𝐠</mi><mo>∼</mo><msub><mi>π</mi><mn>1</mn></msub></mrow><mo>,</mo><mrow><mi>I</mi><mo>∼</mo><msub><mi>π</mi><mn>2</mn></msub></mrow></mrow></msub></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo maxsize="2.100em" minsize="2.100em">[</mo><msubsup><mrow><mo maxsize="1.200em" minsize="1.200em" stretchy="true">‖</mo><mrow><mi>diag</mi><mo>⁡</mo><mrow><mo maxsize="1.200em" minsize="1.200em">(</mo><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">{</mo><mi>𝐠</mi><mo stretchy="false">}</mo></mrow><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow><mo maxsize="1.200em" minsize="1.200em">)</mo></mrow></mrow><mo maxsize="1.200em" minsize="1.200em" stretchy="true">‖</mo></mrow><mi>F</mi><mn>2</mn></msubsup><mo maxsize="2.100em" minsize="2.100em">]</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">(\pi_{1}^{*},\pi_{2}^{*})=\arg\max_{\pi_{1},\pi_{2}}\;\mathbb{E}_{\mathbf{g}\sim\pi_{1},I\sim\pi_{2}}\biggl[\bigl\|\operatorname{diag}\bigl(\mathbf{G}^{(M)}(\{\mathbf{g}\},I)\bigr)\bigr\|_{F}^{2}\biggr],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(15)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px3.p1.10">where the expectation accounts for the stochasticity of both policies, and <math alttext="\mathbf{G}^{(M)}(\{\mathbf{g}\},I)" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.8.m1" intent=":literal"><semantics><mrow><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">{</mo><mi>𝐠</mi><mo stretchy="false">}</mo></mrow><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(M)}(\{\mathbf{g}\},I)</annotation></semantics></math> denotes the matrix obtained after all filling and correcting steps under policies <math alttext="\pi_{1}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.9.m2" intent=":literal"><semantics><msub><mi>π</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\pi_{1}</annotation></semantics></math> and <math alttext="\pi_{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px3.p1.10.m3" intent=":literal"><semantics><msub><mi>π</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\pi_{2}</annotation></semantics></math>. In short, the policy of Player 1 is implemented as a tree-search learner, where node values are updated based on the team reward obtained after each episode. The policy of Player 2 is parameterized by a neural network and optimized via policy gradient. After each round, both the tree search statistics of Player 1 and the policy parameters of Player 2 are jointly updated under the same team reward, enabling the two players to mutually improve and construct larger kissing configurations. More implementation details will be provided in the supplementary materials of a future version.</p>
+</div>
+</section>
+<section class="ltx_paragraph" id="Sx3.SSx2.SSS0.Px4">
+<h4 class="ltx_title ltx_title_paragraph">Matrix Decompositionn and Initialization for Subsequent Games.</h4>
+<div class="ltx_para" id="Sx3.SSx2.SSS0.Px4.p1">
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px4.p1.1">Once a final completed matrix <math alttext="\mathbf{G}^{(M)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.1.m1" intent=":literal"><semantics><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{G}^{(M)}</annotation></semantics></math> is obtained, it is iteratively decomposed into a collection of submatrices</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E16">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{G}^{(M)}_{J,J},\quad J\subset\{1,2,\dots,M\}," class="ltx_Math" display="block" id="Sx3.E16.m1" intent=":literal"><semantics><mrow><mrow><mrow><msubsup><mi>𝐆</mi><mrow><mi>J</mi><mo>,</mo><mi>J</mi></mrow><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msubsup><mo rspace="1.167em">,</mo><mi>J</mi></mrow><mo>⊂</mo><mrow><mo stretchy="false">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>M</mi><mo stretchy="false">}</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{G}^{(M)}_{J,J},\quad J\subset\{1,2,\dots,M\},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(16)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.SSx2.SSS0.Px4.p1.7">where each index set <math alttext="J" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.2.m1" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> selects a subset of rows and columns from <math alttext="\mathbf{G}^{(M)}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.3.m2" intent=":literal"><semantics><msup><mi>𝐆</mi><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{G}^{(M)}</annotation></semantics></math>.
+These submatrices capture representative geometric patterns and serve as distilled structural bases.
+For subsequent filling games, each submatrix <math alttext="\mathbf{G}^{(M)}_{J,J}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.4.m3" intent=":literal"><semantics><msubsup><mi>𝐆</mi><mrow><mi>J</mi><mo>,</mo><mi>J</mi></mrow><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msubsup><annotation encoding="application/x-tex">\mathbf{G}^{(M)}_{J,J}</annotation></semantics></math> is used as an initialization matrix,
+providing structured guidance and constraints for Player 1 while exploring new entries. Multiple such submatrices can be used to initialize parallel filling games, allowing the system to explore diverse regions of the high-dimensional search space simultaneously.
+Formally, for each submatrix <math alttext="\mathbf{G}^{*}=\mathbf{G}^{(M)}_{J,J}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.5.m4" intent=":literal"><semantics><mrow><msup><mi>𝐆</mi><mo>∗</mo></msup><mo>=</mo><msubsup><mi>𝐆</mi><mrow><mi>J</mi><mo>,</mo><mi>J</mi></mrow><mrow><mo stretchy="false">(</mo><mi>M</mi><mo stretchy="false">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">\mathbf{G}^{*}=\mathbf{G}^{(M)}_{J,J}</annotation></semantics></math>, Player 1 resumes filling according to policy <math alttext="\pi_{1}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.6.m5" intent=":literal"><semantics><msub><mi>π</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\pi_{1}</annotation></semantics></math>,
+and Player 2 applies corrections via <math alttext="\pi_{2}" class="ltx_Math" display="inline" id="Sx3.SSx2.SSS0.Px4.p1.7.m6" intent=":literal"><semantics><msub><mi>π</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\pi_{2}</annotation></semantics></math>, continuing the alternating process.</p>
+</div>
+</section>
+</section>
+</section>
+<section class="ltx_section" id="Sx4">
+<h2 class="ltx_title ltx_title_section">Conclusion</h2>
+<div class="ltx_para" id="Sx4.p1">
+<p class="ltx_p" id="Sx4.p1.1">Trained from scratch without any human-designed priors, <span class="ltx_text ltx_font_italic" id="Sx4.p1.1.1">PackingStar</span> automatically discovers high-dimensional kissing configurations that outperform all known constructions and exhibit clear mathematical structure. The key idea is to reformulate the Kissing Number Problem as a two-player matrix completion game over the Gram-matrix domain, enabling efficient exploration of an extremely large and sparse space without explicit coordinate representations. Notably, <span class="ltx_text ltx_font_italic" id="Sx4.p1.1.2">PackingStar</span> improves all known lower bounds from dimensions 25 to 31 and sets new records for generalized kissing configurations under various angular constraints. A current limitation is that <span class="ltx_text ltx_font_italic" id="Sx4.p1.1.3">PackingStar</span> cannot provide optimality proofs for these new configurations. We anticipate that the interaction between reinforcement learning and rigorous proof techniques will not only open new pathways for the Kissing Number Problem, but also extend to broader geometry problems.</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bib1">
+<span class="ltx_tag ltx_tag_bibitem">1.</span>
+<span class="ltx_bibblock">
+Jeremy Gray.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib1.1.1">The Hilbert Challenge</span>.
+
+</span>
+<span class="ltx_bibblock">OUP Oxford, 2000.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib2">
+<span class="ltx_tag ltx_tag_bibitem">2.</span>
+<span class="ltx_bibblock">
+Henry Cohn and Anqi Li.
+
+</span>
+<span class="ltx_bibblock">Improved kissing numbers in seventeen through twenty-one dimensions.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib2.1.1">arXiv preprint arXiv:2411.04916</span>, 2024.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib3">
+<span class="ltx_tag ltx_tag_bibitem">3.</span>
+<span class="ltx_bibblock">
+Peter Boyvalenkov, Stefan Dodunekov, and Oleg R Musin.
+
+</span>
+<span class="ltx_bibblock">A survey on the kissing numbers.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib3.1.1">arXiv preprint arXiv:1507.03631</span>, 2015.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib4">
+<span class="ltx_tag ltx_tag_bibitem">4.</span>
+<span class="ltx_bibblock">
+Leo Liberti.
+
+</span>
+<span class="ltx_bibblock">Mathematical programming bounds for kissing numbers.
+
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_font_italic" id="bib.bib4.1.1">International Conference on Optimization and Decision Science</span>, pages 213–222. Springer, 2017.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib5">
+<span class="ltx_tag ltx_tag_bibitem">5.</span>
+<span class="ltx_bibblock">
+Yi Liu, Wei Cheng, Olivier Rioul, Sylvain Guilley, and Patrick Solé.
+
+</span>
+<span class="ltx_bibblock">Kissing number of codes: A survey.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib5.1.1">Coding Theory and applications (tentative title)</span>, 2023.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib6">
+<span class="ltx_tag ltx_tag_bibitem">6.</span>
+<span class="ltx_bibblock">
+Henry Cohn.
+
+</span>
+<span class="ltx_bibblock">Table of kissing number bounds.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib6.1.1">.</span>, 2024.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib7">
+<span class="ltx_tag ltx_tag_bibitem">7.</span>
+<span class="ltx_bibblock">
+Kurt Schütte and Bartel Leendert van der Waerden.
+
+</span>
+<span class="ltx_bibblock">Das problem der dreizehn kugeln.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib7.1.1">Mathematische Annalen</span>, 125(1):325–334, 1952.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib8">
+<span class="ltx_tag ltx_tag_bibitem">8.</span>
+<span class="ltx_bibblock">
+Oleg R Musin.
+
+</span>
+<span class="ltx_bibblock">The kissing number in four dimensions.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib8.1.1">Annals of Mathematics</span>, pages 1–32, 2008.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib9">
+<span class="ltx_tag ltx_tag_bibitem">9.</span>
+<span class="ltx_bibblock">
+Aleksandr Korkine and G Zolotareff.
+
+</span>
+<span class="ltx_bibblock">Sur les formes quadratiques.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib9.1.1">Mathematische Annalen</span>, 6(3):366–389, 1873.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib10">
+<span class="ltx_tag ltx_tag_bibitem">10.</span>
+<span class="ltx_bibblock">
+John Leech.
+
+</span>
+<span class="ltx_bibblock">Notes on sphere packings.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib10.1.1">Canadian Journal of Mathematics</span>, 19:251–267, 1967.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib11">
+<span class="ltx_tag ltx_tag_bibitem">11.</span>
+<span class="ltx_bibblock">
+John Leech.
+
+</span>
+<span class="ltx_bibblock">Some sphere packings in higher space.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib11.1.1">Canadian Journal of Mathematics</span>, 16:657–682, 1964.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib12">
+<span class="ltx_tag ltx_tag_bibitem">12.</span>
+<span class="ltx_bibblock">
+Maryna S Viazovska.
+
+</span>
+<span class="ltx_bibblock">The sphere packing problem in dimension 8.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib12.1.1">Annals of mathematics</span>, pages 991–1015, 2017.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib13">
+<span class="ltx_tag ltx_tag_bibitem">13.</span>
+<span class="ltx_bibblock">
+Henry Cohn, Abhinav Kumar, Stephen Miller, Danylo Radchenko, and Maryna Viazovska.
+
+</span>
+<span class="ltx_bibblock">The sphere packing problem in dimension 24.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib13.1.1">Annals of mathematics</span>, 185(3):1017–1033, 2017.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib14">
+<span class="ltx_tag ltx_tag_bibitem">14.</span>
+<span class="ltx_bibblock">
+John Horton Conway and Neil James Alexander Sloane.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib14.1.1">Sphere packings, lattices and groups</span>, volume 290.
+
+</span>
+<span class="ltx_bibblock">Springer Science &amp; Business Media, 2013.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib15">
+<span class="ltx_tag ltx_tag_bibitem">15.</span>
+<span class="ltx_bibblock">
+John Leech and NJA Sloane.
+
+</span>
+<span class="ltx_bibblock">Sphere packings and error-correcting codes.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib15.1.1">Canadian Journal of Mathematics</span>, 23(4):718–745, 1971.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib16">
+<span class="ltx_tag ltx_tag_bibitem">16.</span>
+<span class="ltx_bibblock">
+Mikhail Ganzhinov.
+
+</span>
+<span class="ltx_bibblock">Highly symmetric lines.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib16.1.1">arXiv preprint arXiv:2207.08266</span>, 2022.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib17">
+<span class="ltx_tag ltx_tag_bibitem">17.</span>
+<span class="ltx_bibblock">
+Victor Alexandrovich Zinov’ev and Thomas Ericson.
+
+</span>
+<span class="ltx_bibblock">New lower bounds for contact numbers in small dimensions.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib17.1.1">Problemy Peredachi Informatsii</span>, 35(4):3–11, 1999.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib18">
+<span class="ltx_tag ltx_tag_bibitem">18.</span>
+<span class="ltx_bibblock">
+Kenz Kallal, Tomoka Kan, and Eric Wang.
+
+</span>
+<span class="ltx_bibblock">Improved lower bounds for kissing numbers in dimensions 25 through 31.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib18.1.1">SIAM Journal on Discrete Mathematics</span>, 31(3):1895–1908, 2017.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib19">
+<span class="ltx_tag ltx_tag_bibitem">19.</span>
+<span class="ltx_bibblock">
+Henry Cohn, Yang Jiao, Abhinav Kumar, and Salvatore Torquato.
+
+</span>
+<span class="ltx_bibblock">Rigidity of spherical codes.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib19.1.1">Geometry &amp; Topology</span>, 15(4):2235–2273, 2011.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib20">
+<span class="ltx_tag ltx_tag_bibitem">20.</span>
+<span class="ltx_bibblock">
+Alexander Novikov, Ngân Vũ, Marvin Eisenberger, Emilien Dupont, Po-Sen Huang, Adam Zsolt Wagner, Sergey Shirobokov, Borislav Kozlovskii, Francisco JR Ruiz, Abbas Mehrabian, et al.
+
+</span>
+<span class="ltx_bibblock">Alphaevolve: A coding agent for scientific and algorithmic discovery.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib20.1.1">arXiv preprint arXiv:2506.13131</span>, 2025.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib21">
+<span class="ltx_tag ltx_tag_bibitem">21.</span>
+<span class="ltx_bibblock">
+Mikhail Ganzhinov and Patric RJ Östergård.
+
+</span>
+<span class="ltx_bibblock">Spherical codes with prescribed signed permutation automorphisms inside shells of low-dimensional integer lattices.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib21.1.1">IEEE Transactions on Information Theory</span>, 70(12):8669–8674, 2024.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib22">
+<span class="ltx_tag ltx_tag_bibitem">22.</span>
+<span class="ltx_bibblock">
+Thomas Ericson and Victor Zinoviev.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib22.1.1">Codes on Euclidean spheres</span>, volume 63.
+
+</span>
+<span class="ltx_bibblock">Elsevier, 2001.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib23">
+<span class="ltx_tag ltx_tag_bibitem">23.</span>
+<span class="ltx_bibblock">
+Henry Cohn.
+
+</span>
+<span class="ltx_bibblock">Table of spherical codes.
+
+</span>
+<span class="ltx_bibblock">https://dspace.mit.edu/handle/1721.1/153543, 2024.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib24">
+<span class="ltx_tag ltx_tag_bibitem">24.</span>
+<span class="ltx_bibblock">
+T. Ericson and V. Zinoviev.
+
+</span>
+<span class="ltx_bibblock">Spherical codes generated by binary partitions of symmetric pointsets.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib24.1.1">IEEE Transactions on Information Theory</span>, 41(1):107–129, 1995.
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bib25">
+<span class="ltx_tag ltx_tag_bibitem">25.</span>
+<span class="ltx_bibblock">
+Ferenc Szöllősi.
+
+</span>
+<span class="ltx_bibblock">A note on five dimensional kissing arrangements.
+
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_font_italic" id="bib.bib25.1.1">arXiv preprint arXiv:2301.08272</span>, 2023.
+
+</span>
+</li>
+</ul>
+</section>
+<section class="ltx_section" id="Sx5">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+<div class="ltx_para" id="Sx5.p1">
+<p class="ltx_p" id="Sx5.p1.1">We are grateful to Professor Henry Cohn for his influential work on the Kissing Number Problem, which has been a source of inspiration for this research.
+We are also deeply grateful for his guidance and valuable insights, particularly for helping us identify the new structures we discovered and providing constructive suggestions that greatly facilitated our progress in generalized kissing configurations.
+We appreciate the assistance of Ao Li and Xingmeng Zhang in program optimization and computing cluster deployment. We thank Mingzhi Wang and Juntao Dai in coordinating GPU resources. We thank Chiyuan Wang and Xinmian Sun for the early discussions on this topic.</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx6">
+<h2 class="ltx_title ltx_title_section">Author contributions</h2>
+<div class="ltx_para" id="Sx6.p1">
+<p class="ltx_p" id="Sx6.p1.1">C.M. conceived and led the project. T.T.Z. established geometric metrics and interpreted the properties of the structures.
+C.M. established the matrix completion game and developed the game-theoretic reinforcement learning method.
+M.L., T.T.Z., Z.M. and C.M. explored geometric relationships between structures of different dimensions.
+H.C. explored the training of geometric generative models for high-dimensional structures.
+C.M., H.C. and M.L. modeled the process of cosine feature simulation and designed the simulation algorithm.
+M.L., C.M. and T.T.Z. discovered the cosine feature of constructions via numerical simulation.
+C.M., H.C., T.T.Z., M.L., P.L., Z.M. completed the formulation of matrix completion.
+Z.M. provided practical insights and metrics for exploring lattices and error-correcting codes, particularly for the 31-dimensional construction.
+C.M., P.L., M.L., T.T.Z. and H.C. developed the project code. C.M. and P.L. optimized the efficiency of overall system.
+C.M., T.T.Z., P.L. and H.C. conducted the experiments.
+C.M. and Y.Y. wrote the manuscript.
+Y.Q., Y.Y., and Y.C. provided computational resources and planned directions for improving the parallel efficiency.
+Y.Q. and Y.C. analyzed the computational time cost of the program, optimized the operator, and ensured the stable training.</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx7">
+<h2 class="ltx_title ltx_title_section">Competing interests</h2>
+<div class="ltx_para" id="Sx7.p1">
+<p class="ltx_p" id="Sx7.p1.1">The authors declare no competing interests.</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</section>
+<section class="ltx_appendix" id="Ax1">
+<h2 class="ltx_title ltx_title_appendix">Supplementary Information</h2>
+</section>
+<section class="ltx_appendix" id="A1">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix A </span>Key difference to <span class="ltx_text ltx_font_italic" id="A1.1.1">AlphaEvolve</span>
+</h2>
+<div class="ltx_para" id="A1.p1">
+<p class="ltx_p" id="A1.p1.1">The key difference between <span class="ltx_text ltx_font_italic" id="A1.p1.1.1">PackingStar</span> and <span class="ltx_text ltx_font_italic" id="A1.p1.1.2">AlphaEvolve</span> lies in the search space. <span class="ltx_text ltx_font_italic" id="A1.p1.1.3">AlphaEvolve</span> optimizes explicit coordinates in <math alttext="\mathbb{R}^{n}" class="ltx_Math" display="inline" id="A1.p1.1.m1" intent=":literal"><semantics><msup><mi>ℝ</mi><mi>n</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^{n}</annotation></semantics></math>, which is numerically unstable and scales exponentially with dimension; increasing computational resources cannot overcome this fundamental limitation. In contrast, <span class="ltx_text ltx_font_italic" id="A1.p1.1.4">PackingStar</span> operates in the Gram-matrix domain with strict geometric constraints, combined with iterative decomposition into representative substructures and cooperative game dynamics that compress and distill high-dimensional search spaces. These techniques fundamentally render exploration of extremely large and complex spaces tractable, enabling efficient large-scale sampling. This fundamental distinction explains why <span class="ltx_text ltx_font_italic" id="A1.p1.1.5">PackingStar</span> scales to higher dimensions while <span class="ltx_text ltx_font_italic" id="A1.p1.1.6">AlphaEvolve</span> cannot  [<span class="ltx_text" id="A1.p1.1.7" style="--ltx-fg-color:#003366;">?</span>].</p>
+</div>
+<div class="ltx_para" id="A1.p2">
+<p class="ltx_p" id="A1.p2.1">Although <span class="ltx_text ltx_font_italic" id="A1.p2.1.1">AlphaEvolve</span> improved the kissing number in 11 dimensions from 592 to 593, likely by adjusting the coordinates of the known 592-sphere configuration, the result lacks clear geometric structure. Furthermore, <span class="ltx_text ltx_font_italic" id="A1.p2.1.2">AlphaEvolve</span> relies on a specific 11-dimensional structure with 592 spheres, which is not jammed, making it difficult to transfer similar techniques to structures in other dimensions. In contrast, <span class="ltx_text ltx_font_italic" id="A1.p2.1.3">PackingStar</span> not only sets new bounds across higher dimensions but also discovers geometrically meaningful, analyzable configurations, providing concrete objects for further mathematical study.</p>
+</div>
+<div class="ltx_para" id="A1.p3">
+<p class="ltx_p" id="A1.p3.1">In summary, <span class="ltx_text ltx_font_italic" id="A1.p3.1.1">AlphaEvolve</span> demonstrates that AI can “optimize” geometry, <span class="ltx_text ltx_font_italic" id="A1.p3.1.2">PackingStar</span> shows that AI can truly “create” geometry. This represents the first genuinely systematic breakthrough of AI in high-dimensional discrete geometry and coding theory: it is not merely a numerical improvement, but a methodological advance, illustrating how AI can uncover new structures and insights in previously unexplored high-dimensional spaces.</p>
+</div>
+</section>
+<section class="ltx_appendix" id="A2">
+<h2 class="ltx_title ltx_title_appendix">
+<span class="ltx_tag ltx_tag_appendix">Appendix B </span>Diverse constructions in different dimensions</h2>
+<div class="ltx_para" id="A2.p1">
+<p class="ltx_p" id="A2.p1.1">Beyond the specific breakthroughs in 13 and in dimensions 25 through 31, <span class="ltx_text ltx_font_italic" id="A2.p1.1.1">PackingStar</span> uncovers a rich diversity of kissing configurations whose kissing number reaches current lower bound across multiple other dimensions.
+Among the thousands of discovered variants, we consistently observe the presence of asymmetric structures with cosine set <math alttext="C_{1}=C_{2}=\{-1,\ -3/4,\ 0,\ \pm 1/4,\ \pm 1/2\}" class="ltx_Math" display="inline" id="A2.p1.1.m1" intent=":literal"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mrow><mo stretchy="false">{</mo><mrow><mo>−</mo><mn>1</mn></mrow><mo rspace="0.667em">,</mo><mrow><mo>−</mo><mrow><mn>3</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo>,</mo><mn> 0</mn><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></mrow><mo rspace="0.667em">,</mo><mrow><mo>±</mo><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">C_{1}=C_{2}=\{-1,\ -3/4,\ 0,\ \pm 1/4,\ \pm 1/2\}</annotation></semantics></math>, similar to those identified in the 13-dimensional rational configuration.</p>
+</div>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Wed Feb 11 16:10:24 2026 by <a class="ltx_LaTeXML_logo" href="http://dlmf.nist.gov/LaTeXML/"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img alt="Mascot Sammy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg=="/></a>
+</div></footer>
+</div>
+</body>
+</html>
