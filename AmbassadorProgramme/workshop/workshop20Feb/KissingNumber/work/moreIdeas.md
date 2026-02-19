@@ -1,6 +1,6 @@
 # More ideas for SCMP letter — from PKU/WeChat video (Ref/PKU_wechat)
 
-**Source:** Ref/PKU_wechat.txt (transcript of 王浩 港浸会 shared audio, ~16 min). Processed with learnCoze pipeline (process_session.py from Knowledge-Hub/project/learnCoze).  
+**Source:** Ref/PKU_wechat.txt (transcript of PKU WeChat video, ~16 min). Processed with learnCoze pipeline (process_session.py from Knowledge-Hub/project/learnCoze).  
 **Use:** Supplement work/ideas4letters.md with insights that only appear in the video, for a reader’s letter that feels closer to the team’s own story and language.
 
 ---

@@ -51,7 +51,7 @@
 # Ref video/transcript processing (learnCoze scripts)
 
 [STEP 9] 2026-02-19 — Process Ref videos and transcripts
-- Source: Ref/PKU_wechat.mp4, Ref/PKU_wechat.txt (王浩 港浸会 shared audio, ~16 min).
+- Source: Ref/PKU_wechat.mp4, Ref/PKU_wechat.txt (PKU WeChat video, ~16 min).
 - Scripts: Knowledge-Hub/project/learnCoze/process_session.py (run with venv).
 - Command (from learnCoze): python process_session.py <Ref_path> PKU_wechat.mp4 PKU_wechat.txt
 - Pipeline: keyframe extraction (20s + hash dedup) → OCR (easyocr) → transcript parse & align → notes generation.
@@ -163,8 +163,8 @@
 - Updated draft02.md: replaced summary sources table with sentence-by-sentence source annotations, including exact quotes (Chinese originals + English translations for video sources) and precise locations:
   - Sentence 1 (overturned assumptions): Paper §Intro ¶4 — "fundamentally challenge long-held antipodal paradigms"
   - Sentence 2 (extracted new principles): Paper §Intro ¶4 — "inspired mathematicians to extract new and more general construction principles… a productive feedback loop"; also Paper Abstract — "humans devised further improved constructions"
-  - Sentence 3 (interpreting AI black box): PKU video ~15:22 — 王浩 on 解释神 (interpreter of the gods)
-  - Sentence 4 (second agent from human instinct): PKU video ~09:35 — 王浩 on manually deleting bad balls in 14D; also Paper §Intro ¶3 — description of the second agent's design
+  - Sentence 3 (interpreting AI black box): PKU video ~15:22 — speaker on 解释神 (interpreter of the gods)
+  - Sentence 4 (second agent from human instinct): PKU video ~09:35 — speaker on manually deleting bad balls in 14D; also Paper §Intro ¶3 — description of the second agent's design
 
 [DONE] 2026-02-19
 
@@ -224,5 +224,51 @@
   - "The creative loop" — the non-trivial human-AI argument from draft02
   - Draft02 letter (~186 words)
 - Fixed nav bar with links to all 21 sections.
+
+[DONE] 2026-02-19
+
+---
+# explain04.html — visual narrative with arrow navigation
+
+[USER — chat message]
+- Bottom index in explain03.html is too cluttered.
+- Learn from ChineseNotesCoze.md; borrow pictures and ideas for a new narrative.
+- Navigate slides by clicking arrows, etc.
+- Commit and push all changes; publish via GitHub Pages and get URL.
+
+[STEP 21] 2026-02-19 — explain04.html
+- Reviewed keyframe images from Ref/keyframes/ to select best visuals for the narrative.
+- Created work/explain04.html: 21-slide visual story with:
+  - Arrow-key / button / swipe navigation (replaced cluttered nav bar)
+  - Progress bar at top, slide counter (e.g. "5 / 21")
+  - Keyframe images from PKU video: sphere structures (帧 6), Filler game (帧 15), Two-Player game (帧 32), Fragment Expansion (帧 39), Checkpoint mechanism (帧 25), kissing number chart (帧 19)
+  - All 8 PackingStar visualizations embedded
+  - Narrative arc: question → cosine idea → single player → 14D nightmare → two players → engineering → fragments → results → visualizations → creative loop → letter draft
+
+[STEP 22] 2026-02-19 — git commit, push, GitHub Pages
+- Removed embedded .git from PackingStar clone.
+- Updated .gitignore to exclude large .npy, .zip files and cloned repo internals.
+- Committed 92 files (10,213 insertions) and pushed to origin/main.
+- GitHub Pages already enabled; build completed. URL:
+  https://tesolchina.github.io/genAI2026/AmbassadorProgramme/workshop/workshop20Feb/KissingNumber/work/explain04.html
+
+[DONE] 2026-02-19
+
+---
+# Final letter + AI collaboration notes
+
+[USER — chat message]
+- Add the final version of the SCMP letter to the slides.
+- Add notes on how AI helped with the user's input.
+
+[STEP 23] 2026-02-19 — explain04.html slides 22–23
+- Added slide 22: "Final Letter — submitted to SCMP" — the full ~186-word letter (draft02) with green border to mark it as the submission version.
+- Added slide 23: "How AI helped me write this letter" — transparent account of human–AI collaboration:
+  - What the human brought: hook, angle, critical pushback ("this sounds trivial"), source selection, quality control.
+  - What AI contributed: research at scale (paper, Chinese transcript, GitHub), three drafting iterations, source-checking with exact quotes, 8 visualizations, explainer deck.
+  - 15-step process table (each step labelled Human or AI).
+  - Closing parallel: the letter itself was produced through the same creative loop it describes.
+- Updated slide counter from 21 to 23.
+- Committed and pushed; GitHub Pages updated.
 
 [DONE] 2026-02-19

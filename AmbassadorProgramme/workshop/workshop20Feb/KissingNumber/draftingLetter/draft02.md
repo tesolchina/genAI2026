@@ -26,7 +26,7 @@ Draft 01's thesis was "the importance of human input at every stage of AI-driven
 
 2. **Evidence chosen for surprise value**  
    - *AI overturned decades-old assumptions:* The paper reports that PackingStar's configurations "fundamentally challenge long-held antipodal paradigms." This is not AI doing what humans already expected—it's AI showing that humans were wrong. That inversion is what makes the loop interesting.  
-   - *Human interpretation was the hardest part:* From the PKU video, the mathematician (王浩) said his most time-consuming job was acting as "解释神" (interpreter)—reading meaning out of the AI's black-box outputs. This reframes the human role: not a supervisor pressing "approve," but an interpreter doing the hardest intellectual work.  
+   - *Human interpretation was the hardest part:* From the PKU video, the mathematician said his most time-consuming job was acting as "解释神" (interpreter)—reading meaning out of the AI's black-box outputs. This reframes the human role: not a supervisor pressing "approve," but an interpreter doing the hardest intellectual work.  
    - *Human instinct baked into AI design:* The second agent came from watching a mathematician manually delete bad entries during the "14D nightmare." Human intuition was not just applied after AI; it was encoded into the AI's own architecture.
 
 3. **Closing reframed**  
@@ -64,7 +64,7 @@ Draft 01's thesis was "the importance of human input at every stage of AI-driven
 
 > "我觉得我花了最多时间的工作，就是我去尝试解读 AI 这个黑箱带给我的这个数据。英文中有一个很好的词，可以描述我的工作……在古希腊里叫做解释神。AI 作为一个黑箱子，他就告诉你说，我比人类我比之前做到的所有值都更优，那么我们到底去怎么样去解读这个 AI 给我们这样子的灵感。"  
 > Translation: "The work I spent the most time on was trying to interpret the data that the AI black box gave me. There's a good English word for my role… in ancient Greek it means 'interpreter of the gods.' The AI, as a black box, just tells you: I'm better than everything humans have achieved before. So how do we actually interpret the inspiration the AI gives us?"  
-> — *PKU WeChat video, 王浩 (HKBU), timestamp ~15:22*
+> — *PKU WeChat video, timestamp ~15:22*
 
 ---
 
@@ -72,7 +72,7 @@ Draft 01's thesis was "the importance of human input at every stage of AI-driven
 
 > "复原14维到最后的时候，我需要手动的删掉一些球，它就可以复原。1932人类是有这样的能力，但是当时机器是没有的，有一些球它有点像一个老鼠害一锅汤那种感觉……那如果是这样的话，是否我们可以有一种修正的机制去识别一下这种加的不太好的球，也就是再用一个智能体来模拟人类手动修正的操作。"  
 > Translation: "When recovering 14 dimensions, at the very end I needed to manually delete some balls for it to work. Humans had this ability, but the machine didn't. Some balls were like 'one bad apple spoils the barrel'—once added, they immediately destroyed the whole structure. So we thought: can we have a correction mechanism to identify badly placed balls? That is, use a second agent to simulate the human manual correction."  
-> — *PKU WeChat video, 王浩 (HKBU), timestamp ~09:35*
+> — *PKU WeChat video, timestamp ~09:35*
 
 > (Paper's description of the resulting design): "the second agent performs delayed and selective corrections by leveraging a more global understanding of matrix, dynamically removing invalid or inconsistent entries and compressing the first agent's search space."  
 > — *Paper, §Introduction ¶3 (line 171 of html)*
