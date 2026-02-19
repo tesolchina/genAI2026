@@ -406,7 +406,7 @@ const btnNext=document.getElementById('btnNext');
 function go(n){
   if(n<0||n>=total)return;
   slides[cur].classList.remove('active');
-  slides[cur].classList.add(n>cur?'prev':'');
+  if(n>cur) slides[cur].classList.add('prev');
   cur=n;
   slides.forEach((s,i)=>{s.classList.remove('active','prev');if(i<cur)s.classList.add('prev')});
   slides[cur].classList.add('active');
