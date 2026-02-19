@@ -320,12 +320,77 @@ th{background:var(--card);color:var(--gold)}
 </div>
 </div>
 
+<!-- ═══ 21: FINAL LETTER ═══ -->
+<div class="slide" data-i="21">
+<div class="content">
+<h1>Final Letter — submitted to SCMP</h1>
+<div class="letter-box" style="border-color:var(--green)">
+<p><strong>Simon Wang</strong></p>
+<p>I refer to your report on the Chinese team's use of AI to advance the "kissing number" problem ("Romance between scientists and AI," 19 February).</p>
+<p>The kissing number asks how many identical balls can touch one central ball without overlapping — a question posed by Newton in 1694, still unsolved in most dimensions. PackingStar's record-breaking results, including the first advance in 13 dimensions since 1971, deserve celebration.</p>
+<p>But the deeper lesson is that this breakthrough emerged from a genuine creative loop, not mere human supervision of AI. PackingStar discovered sphere arrangements that overturned assumptions mathematicians had held for decades. Mathematicians then interpreted those surprises and extracted new principles to push results further still. As the team said, the work they spent the most time on was "interpreting the data from the AI black box." Even a key design idea — a second agent that removes flawed choices — came from watching a mathematician delete bad entries by hand.</p>
+<p>This is not the familiar story of AI as a faster calculator checked by humans. If we want AI-driven research to bear fruit, we should invest not just in algorithms, but in the human expertise to question, interpret, and build on what AI reveals.</p>
+<p style="color:var(--muted);font-size:.85rem;margin-top:.8rem">~186 words</p>
+</div>
+</div>
+</div>
+
+<!-- ═══ 22: HOW AI HELPED ═══ -->
+<div class="slide" data-i="22">
+<div class="content">
+<h1>How AI helped me write this letter</h1>
+<p class="center" style="color:var(--muted);font-size:.9rem">A transparent account of the human–AI collaboration behind this letter.</p>
+
+<h2>What I (the human) brought</h2>
+<ul>
+<li><strong>The hook:</strong> I chose the SCMP report and decided this was worth a letter.</li>
+<li><strong>The angle:</strong> I proposed "human in the loop" as the core argument, based on my reading of the paper and the PKU video.</li>
+<li><strong>The sharpening:</strong> When the first draft sounded like a platitude ("of course humans matter"), I pushed back — "readers will say they don't need me to tell them that." This forced a reframe from supervision to creative loop.</li>
+<li><strong>Source selection:</strong> I pointed the AI to the paper, the PKU WeChat video, the SCMP report, and the GitHub repo.</li>
+<li><strong>Quality control:</strong> I reviewed each draft, checked claims against sources, and decided what to keep or cut.</li>
+</ul>
+
+<h2>What AI contributed</h2>
+<ul>
+<li><strong>Research at scale:</strong> AI read the full paper (HTML), the PKU video transcript (Chinese), and the GitHub codebase, extracting specific quotes and evidence I could not have processed as quickly.</li>
+<li><strong>Drafting iterations:</strong> AI produced three drafts (firstDraft → draft01 → draft02), each responding to my feedback on thesis, tone, jargon, and word count.</li>
+<li><strong>Source-checking:</strong> AI traced each claim in the letter to an exact quote and location (paper paragraph, video timestamp).</li>
+<li><strong>Visualisations:</strong> AI generated 8 data visualisations from PackingStar's raw data, which deepened my understanding of what the AI system actually found.</li>
+<li><strong>Explainer deck:</strong> AI built this presentation (explain01–04.html) to help me understand the problem from scratch — essential since I have no advanced maths background.</li>
+</ul>
+
+<h2>The process, step by step</h2>
+<table style="font-size:.82rem">
+<tr><th>Step</th><th>Who led</th><th>What happened</th></tr>
+<tr><td>1</td><td><span class="tag green">Human</span></td><td>Found the SCMP report; decided to write a letter</td></tr>
+<tr><td>2</td><td><span class="tag green">Human</span></td><td>Pointed AI to the arXiv paper, PKU video, SCMP report</td></tr>
+<tr><td>3</td><td><span class="tag blue">AI</span></td><td>Located paper on arXiv, downloaded, extracted key findings</td></tr>
+<tr><td>4</td><td><span class="tag green">Human</span></td><td>Proposed "human in the loop" angle; asked for brainstorming</td></tr>
+<tr><td>5</td><td><span class="tag blue">AI</span></td><td>Created ideas4letters.md, moreIdeas.md from paper + video</td></tr>
+<tr><td>6</td><td><span class="tag blue">AI</span></td><td>Built explainer decks (explain01–02) to teach me the problem</td></tr>
+<tr><td>7</td><td><span class="tag blue">AI</span></td><td>Wrote firstDraft.md (~148 words)</td></tr>
+<tr><td>8</td><td><span class="tag green">Human</span></td><td>Feedback: stronger thesis, less jargon, more celebration</td></tr>
+<tr><td>9</td><td><span class="tag blue">AI</span></td><td>Wrote draft01.md (~199 words) with revised thesis</td></tr>
+<tr><td>10</td><td><span class="tag green">Human</span></td><td>"This sounds trivial — readers will say 'of course humans matter'"</td></tr>
+<tr><td>11</td><td><span class="tag blue">AI</span></td><td>Re-read all sources; reframed from platitude to "creative loop"</td></tr>
+<tr><td>12</td><td><span class="tag blue">AI</span></td><td>Wrote draft02.md (~186 words) with sourced evidence</td></tr>
+<tr><td>13</td><td><span class="tag green">Human</span></td><td>Approved draft; requested exact source quotes for each claim</td></tr>
+<tr><td>14</td><td><span class="tag blue">AI</span></td><td>Added sentence-by-sentence source annotations (paper + video)</td></tr>
+<tr><td>15</td><td><span class="tag green">Human</span></td><td>Final review, fact-check, submission</td></tr>
+</table>
+
+<div class="highlight" style="margin-top:.8rem">
+<strong>The parallel:</strong> Just as PackingStar's breakthrough came from a creative loop between AI and mathematicians, this letter itself was produced through a creative loop between a human author and AI. The human set direction, pushed back on clichés, and owned every claim. The AI processed sources at scale, iterated on feedback, and handled the research grunt work. Neither could have produced this alone.
+</div>
+</div>
+</div>
+
 </div><!-- /deck -->
 
 <!-- Navigation -->
 <div class="nav-arrows">
 <button id="btnPrev" aria-label="Previous slide">&#8592;</button>
-<span class="counter" id="counter">1 / 21</span>
+<span class="counter" id="counter">1 / 23</span>
 <button id="btnNext" aria-label="Next slide">&#8594;</button>
 </div>
 
