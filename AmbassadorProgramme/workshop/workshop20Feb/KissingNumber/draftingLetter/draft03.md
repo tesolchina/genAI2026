@@ -1,42 +1,36 @@
-# AI maths breakthrough shows the real value lies in the creative loop
+# AI maths romance is a two-way street
 
 I refer to your report on the Chinese team's use of AI to advance the "kissing number" problem ("Romance between scientists and AI," 19 February).
 
-The kissing number asks how many identical balls can touch one central ball without overlapping—a question posed by Newton in 1694, still unsolved in most dimensions. PackingStar's record-breaking results, including the first advance in 13 dimensions since 1971, deserve celebration.
+The kissing number asks how many identical balls can touch one central ball without overlapping—a question Newton posed in 1694, still unsolved in most dimensions. PackingStar's record-breaking results, including the first advance in 13 dimensions since 1971, deserve celebration.
 
-But the deeper lesson is that this breakthrough emerged from a genuine creative loop, not mere human supervision of AI. PackingStar discovered sphere arrangements that overturned assumptions mathematicians had held for decades. Mathematicians then interpreted those surprises and extracted new principles to push results further still. As the team said, the work they spent the most time on was "interpreting the data from the AI black box." Even a key design idea—a second agent that removes flawed choices—came from watching a mathematician delete bad entries by hand.
+Your headline calls this a "romance," and the metaphor runs deeper than it might seem. A key design idea—a second AI agent that removes flawed choices—came from watching a mathematician delete bad entries by hand: the team taught their machine to mimic human instinct. But the machine returned the favour, discovering sphere arrangements that overturned assumptions held for decades. Their hardest task was "interpreting the data from the AI black box"—reading meaning into surprises neither side could have produced alone.
 
-This is not the familiar story of AI as a faster calculator checked by humans. If we want AI-driven research to bear fruit, we should invest not just in algorithms, but in the human expertise to question, interpret, and build on what AI reveals.
-
----
-
-**Word count:** ~186 words.
+That is what makes this a genuine romance, not mere human oversight of a fast calculator: each partner transforms the other. If we want AI-driven research to bear fruit, we should invest not just in algorithms, but in the human expertise to question, interpret, and build on what AI reveals.
 
 ---
 
-## Notes: how draft 02 addresses the "sounds trivial" problem
+**Word count:** ~194 words.
 
-### Core problem with draft 01
-Draft 01's thesis was "the importance of human input at every stage of AI-driven research." A reader could reasonably respond: *of course humans are important—why are you telling me this?* The argument listed human roles (posing questions, designing methods, checking meaning) but did not explain what was surprising or non-obvious about them.
+---
 
-### What changed
+## Notes: how this revision strengthens the argument
 
-1. **From platitude to specific, non-obvious claim**  
-   The new thesis is that the breakthrough **"emerged from a genuine creative loop, not mere human supervision of AI."** This immediately signals that the letter is not about the obvious need for oversight. It's about a two-way process: AI overturned human assumptions, and humans then built new theory from those surprises. That's a claim that could surprise a reader.
+### What changed from the previous draft
 
-2. **Evidence chosen for surprise value**  
-   - *AI overturned decades-old assumptions:* The paper reports that PackingStar's configurations "fundamentally challenge long-held antipodal paradigms." This is not AI doing what humans already expected—it's AI showing that humans were wrong. That inversion is what makes the loop interesting.  
-   - *Human interpretation was the hardest part:* From the PKU video, the mathematician said his most time-consuming job was acting as "解释神" (interpreter)—reading meaning out of the AI's black-box outputs. This reframes the human role: not a supervisor pressing "approve," but an interpreter doing the hardest intellectual work.  
-   - *Human instinct baked into AI design:* The second agent came from watching a mathematician manually delete bad entries during the "14D nightmare." Human intuition was not just applied after AI; it was encoded into the AI's own architecture.
+1. **Echoes the SCMP "romance" metaphor**  
+   The previous draft introduced "creative loop" as a standalone concept. This revision picks up the SCMP's own word—"romance"—and shows it is not just poetic language but structurally accurate. A romance is bidirectional: both partners change each other. That framing makes the argument immediately intuitive to readers of the original report.
 
-3. **Closing reframed**  
-   Draft 01 ended with "keep humans in the loop"—the very cliché we want to avoid. Draft 02 ends with a concrete ask: **invest in the human expertise to question, interpret, and build on what AI reveals.** This specifies the *kind* of human contribution (questioning, interpreting, building), not just human presence.
+2. **Two-way transformation made explicit**  
+   - *Human → AI:* The Corrector agent was literally designed to simulate what a mathematician did by hand—deleting "bad balls" during the 14D problem. Human instinct was encoded into the AI's architecture.  
+   - *AI → Human:* PackingStar discovered configurations that "fundamentally challenge long-held antipodal paradigms." The AI did not confirm what mathematicians expected; it showed them they were wrong, inspiring new construction principles.  
+   - This bidirectional exchange is what elevates the partnership beyond the familiar "AI as tool" narrative.
 
-4. **What was cut from draft 01**  
-   - "The problem itself was posed by generations of mathematicians" (true but obvious).  
-   - "the team had to reproduce known results before claiming new ones" (good practice, not an argument).  
-   - "Verification and interpretation… still rest with people" (too close to "of course").  
-   - Quote "human and machine exploring the universe together" (poetic but vague; replaced with the more specific "interpreting the data from the AI black box").
+3. **"Returned the favour" as pivot**  
+   The sentence "But the machine returned the favour" is the rhetorical turn. It moves from the expected (humans design AI) to the surprising (AI teaches humans something new). This is the non-obvious claim that prevents readers from thinking "of course humans matter."
+
+4. **Closing ties back to "romance"**  
+   "That is what makes this a genuine romance, not mere human oversight of a fast calculator" — the closing now directly echoes and reinterprets the headline, giving readers a richer understanding of the word they already read.
 
 ### Sentence-by-sentence sources
 
