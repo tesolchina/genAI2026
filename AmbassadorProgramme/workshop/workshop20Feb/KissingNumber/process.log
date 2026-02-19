@@ -272,3 +272,32 @@
 - Committed and pushed; GitHub Pages updated.
 
 [DONE] 2026-02-19
+
+---
+
+[STEP 24] 2026-02-19 — Remove personal name
+- Removed 王浩 from all authored files (explain04.html, explain03.html, draft02.md,
+  process.log, moreIdeas.md, ChineseNotesCoze.md) and raw data files
+  (PKU_wechat.txt, aligned_data.json, ocr_results.json).
+- Replaced with generic references ("a mathematician", "the team", "PKU video", "讲师").
+- Committed and pushed.
+
+[STEP 25] 2026-02-19 — Add letter title
+- Added title "AI maths breakthrough shows the real value lies in the creative loop"
+  to draft02.md (heading) and explain04.html (slide 22).
+- Committed and pushed.
+
+[STEP 26] 2026-02-19 — Rewrite letter with "romance" theme
+- User insight: the SCMP "romance" metaphor is structurally accurate —
+  AI was taught to mimic human instinct (Corrector agent from manual deletion),
+  and AI returned the favour by surprising humans with new discoveries.
+  This bidirectional transformation is what makes the partnership a genuine romance.
+- Rewrote letter body in draft02.md (~194 words):
+  - "Your headline calls this a 'romance,' and the metaphor runs deeper than it might seem."
+  - Pivot sentence: "But the machine returned the favour"
+  - Closing: "That is what makes this a genuine romance, not mere human oversight"
+- Updated notes section explaining the rhetorical strategy.
+- Updated explain04.html: both slide 20 (draft) and slide 22 (final letter).
+- Committed and pushed.
+
+[DONE] 2026-02-19
