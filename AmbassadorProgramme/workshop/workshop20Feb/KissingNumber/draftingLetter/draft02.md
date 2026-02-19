@@ -1,4 +1,4 @@
-# Draft 02 — SCMP letter (kissing number / PackingStar)
+# AI maths breakthrough shows the real value lies in the creative loop
 
 I refer to your report on the Chinese team's use of AI to advance the "kissing number" problem ("Romance between scientists and AI," 19 February).
 
