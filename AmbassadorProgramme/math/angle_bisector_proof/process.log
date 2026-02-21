@@ -1,0 +1,645 @@
+[2026-02-21 09:35:00] === 解题过程日志 ===
+[2026-02-21 09:35:00] 题目: 角分线对称性证明
+[2026-02-21 09:35:00] 求证: AC·BC = √(AD·DB·BE·EA) + CD·CE
+
+=== 第一轮: 初始分析与证明 ===
+
+[2026-02-21 09:35:01] 步骤1: 分析题目条件
+- CF 是 ∠ACB 的角平分线
+- D, E 在 AB 上, CD 和 CE 关于 CF 对称 (等角共轭)
+- 点的顺序: A - D - F - E - B
+- ∠ACF = ∠BCF = α, ∠DCF = ∠ECF = β
+- ∠ACD = α - β, ∠BCE = α - β (关键等角!)
+- ∠ACE = α + β, ∠BCD = α + β
+
+[2026-02-21 09:36:00] 步骤2: 数值验证 → 全部通过 (verify.py, 1006组数据)
+
+[2026-02-21 09:36:30] 步骤3: 网络搜索 → 未找到完全匹配, 确认为isogonal cevian性质
+
+[2026-02-21 09:37:00] 步骤4: 选定证明方法 → 正弦定理 + 面积法 + 三角恒等式
+- 尝试过: 直接相似三角形, Ptolemy, Stewart, 面积法
+- 最终采用正弦定理系统方法
+
+[2026-02-21 09:38:00] 步骤5-7: 完成证明, 生成 solution.html
+
+=== 第二轮: 用户反馈 ===
+
+[2026-02-21 09:50:00] 用户要求:
+1. 加入相似三角形构造的讨论 (题目备注要求用相似三角形方法)
+2. 搜索结果要加入链接和网页信息
+
+[2026-02-21 09:50:01] 思考: 相似三角形方法
+
+当前证明用了正弦定理, 但题目偏好相似三角形. 两者有什么关系?
+
+关键观察: 正弦定理本身可以由相似三角形推导!
+- 正弦定理 a/sinA = b/sinB = c/sinC = 2R
+- 这来自外接圆的圆周角定理, 本质上是相似三角形
+
+但题目想要的是 *构造* 相似三角形, 即找到具体的三角形对.
+
+[2026-02-21 09:50:02] 思考: 寻找相似三角形对
+
+条件: ∠ACD = ∠BCE = α-β, ∠ACE = ∠BCD = α+β
+
+配对1: △ACD 与 △ECB
+- ∠ACD = α-β = ∠ECB ✓ (一个角相等)
+- ∠CAD = A, ∠CEB = π - B - (α-β) = π - B - α + β
+  由 A+B+2α=π → A = π-B-2α
+  所以 ∠CEB = π-B-α+β, ∠CAD = π-B-2α
+  不等 (除非 α=β, 退化情况)
+→ 不相似 ✗
+
+配对2: △ACE 与 △DCB  
+- ∠ACE = α+β = ∠DCB ✓ (一个角相等)
+- 同理第二个角不一定相等
+→ 不相似 ✗
+
+[2026-02-21 09:50:03] 思考: 需要辅助构造来制造相似!
+
+方法A: 外接圆 + Ptolemy (经典方法)
+- 作外接圆, 延长CD交圆于P, 延长CE交圆于Q
+- 利用圆周角制造相似三角形
+- Ptolemy定理本身就是通过构造相似三角形证明的
+
+方法B: 构造辅助点
+- 在CA上取点X使 △CXD ~ △CEB (通过角度匹配)
+- 或在CB上取点Y使 △CYE ~ △CDA
+
+[2026-02-21 09:50:04] 思考: 方法A详细展开 (Ptolemy = 相似三角形)
+
+作 △ACB 的外接圆 ω.
+延长 CD 交 ω 于 P (P ≠ C).
+延长 CE 交 ω 于 Q (Q ≠ C).
+
+相交弦定理 (也可由相似三角形推导):
+  D 是弦 AB 和弦 CP 的交点:
+  △ADC ~ △PDC? 不对...
+  △ADP ~ △CPB? 
+  
+  实际上: △CDA ~ △PDB (圆周角: ∠DCA = ∠DPA, ∠CAD = ∠BPD)
+  等等, ∠CDA 和 ∠PDB 是对顶角, 这不是相似的条件...
+
+  正确的配对: △CDA 与 △BDP
+  ∠ACD = ∠BPD (同弧AD的圆周角? 不, P在弧上)
+  
+  让我仔细想:
+  ∠CAD 和 ∠CPD 是同弧CD上的圆周角? 不对, A不一定在圆上... 
+  等等, A IS 在圆上! A, C, B 都在外接圆 ω 上!
+  
+  所以:
+  ∠PAB = ∠PAB (A在圆上)
+  ∠APB = ∠ACB (同弧AB... 不一定, 要看P在哪一侧)
+
+  让我重新来:
+  A, C, B 在圆 ω 上. P 也在 ω 上 (CP延长交圆于P).
+  D 是 CP 与 AB 的交点.
+  
+  △CDA 与 △PDA: 没有明显的角度关系
+  
+  △CDA 与 △PDB:
+  ∠CDA = ∠PDB (对顶角) ✓
+  ∠DCA (= ∠PCA = ∠ACD = α-β) 和 ∠DPB:
+  ∠DPB = ∠CPB. 弧CB对应的圆周角: ∠CAB = A (从A看弧CB) = ∠CPB (从P看弧CB)
+  所以 ∠CPB = A. 
+  而 ∠DCA = α - β.
+  A ≠ α-β 一般来说. 所以不相似.
+  
+  △CDB 与 △PDA:
+  ∠CDB = ∠PDA (对顶角) ✓
+  ∠DCB = α+β, ∠DPA = ∠CPA.
+  弧CA对应: ∠CBA = B (从B看) = ∠CPA (从P看)
+  所以 ∠CPA = B.
+  需要 α+β = B? 不一定.
+
+[2026-02-21 09:50:05] 思考: 换思路 — 不用外接圆, 直接构造辅助点
+
+构造: 在射线 CB 上取点 E' 使得 CE' = CE.
+由于 ∠DCF = ∠ECF = β, CF 是 ∠DCE 的角平分线.
+所以 CF 也是 △CDE 中角C的角平分线.
+
+不对, E' 在 CB 上, 不是 CE 上.
+
+换: 在射线 CA 上取 D' 使 CD' = CD.
+在射线 CB 上取 E' 使 CE' = CE.
+
+△CD'E' 中:
+∠D'CE' = 2α = ∠ACB
+CD' = CD, CE' = CE
+但 △CD'E' 与 △CDE 不一定全等 (∠D'CE' = 2α, ∠DCE = 2β)
+
+[2026-02-21 09:50:06] 思考: 最直接的相似三角形构造
+
+关键: 在 △ACD 中, ∠ACD = α-β, ∠CAD = A
+      在 △BCE 中, ∠BCE = α-β, ∠CBE = B
+
+这两个三角形有一个角相等 (∠ACD = ∠BCE).
+
+如果能构造第三个三角形同时与两者有关系...
+
+想法: 构造 △ACD 的 "镜像"
+
+在 CA 延长线(或CA上)取点 G, 在 CB 上取点 H, 使 △CGH ~ △CDA
+
+∠GCH = ∠DCA = α-β (在C处取等角)
+如果G在CA上, H在CB上: ∠GCH = ∠ACB = 2α ≠ α-β. 不行.
+
+需要更巧妙的构造...
+
+[2026-02-21 09:50:07] 思考: 回到 Ptolemy 的相似三角形证法
+
+Ptolemy 定理的标准证明方法:
+对圆内接四边形 AXBY, 在对角线 XY 上取点 M 使 ∠XAM = ∠BAY.
+则 △XAM ~ △BAY (AA相似), 以及 △XAB ~ △MAY (AA相似).
+
+类比到本题:
+A, C, B 在外接圆上, P 也在圆上 (CD延长).
+ACBP 是圆内接四边形 (或 APBC, 要看顺序).
+
+在对角线 AB 上取点... D 已经在 AB 上!
+
+所以: 在 △ACB 的外接圆上, CD 交 AB 于 D, CP 交圆于 P.
+ACPB 或 APBC 是圆内接四边形.
+D 在对角线 AB 上, 也在对角线 CP 上 — D 就是两条对角线的交点!
+
+对于圆内接四边形 ACPB (假设P在弧AB上, 与C异侧):
+- △ACD ~ △BPD (AA: ∠ACD=∠BPD 同弧AP, ∠ADC=∠BDP 对顶角)
+  ∠ACD = α-β
+  ∠BPD = ∠BPC = ∠BAC = A? 不, 需要看弧.
+  
+  ∠ACP 是从C看弧AP. ∠ABP 也是从B看弧AP.
+  所以 ∠ACP = ∠ABP.
+  ∠ACP = ∠ACD = α-β.
+  所以 ∠ABP = α-β.
+
+  同时: ∠CAP = ∠CBP (同弧CP).
+  ∠CAP = ∠CAD = A (因为D在AB上, 所以∠CAD=∠CAB=A)
+  没错但这用不上...
+  
+  对于 △CDA 和 △PDB:
+  ∠CDA = ∠PDB (对顶角) ✓
+  ∠ACD = ∠ABP = α-β (刚证明) ✓ ... 但 ∠ACD 是 △CDA 的角, ∠ABP=∠DBP 是 △PDB 的角
+  
+  所以 △CDA ~ △PDB (AA) !!!
+  
+  由相似: CA/PB = CD/PD = DA/DB
+  → CA·DB = PB·DA  ... (i)
+  → CD·DB = PD·CA  ... 不对, 让我仔细写.
+  
+  △CDA ~ △PDB:
+  CA/PB = DA/DB = CD/PD
+  
+  从 CA/PB = DA/DB: CA·DB = PB·DA → 不直接有用
+  从 DA/DB = CD/PD: DA·PD = CD·DB
+  从 CA/PB = CD/PD: CA·PD = PB·CD
+
+  相交弦: CD·DP = AD·DB ✓ (这正好与 DA·PD = CD·DB 一致? 
+  DA·PD = CD·DB → DA/CD = DB/PD → AD/CD = DB/DP → AD·DP = CD·DB ✓)
+
+[2026-02-21 09:50:08] 思考: 类似地对 CE 和 Q
+
+CE 延长交圆于 Q. ACQB 或 AQBC 是圆内接四边形.
+
+∠BCQ = ∠BCE = α-β
+所以 ∠BAQ = ∠BCQ = α-β (... 不对, 需要同弧)
+
+∠ACQ = ∠ACE = α+β
+∠ABQ = ∠ACQ = α+β? 不, ∠ABQ 对应弧 AQ, ∠ACQ 对应弧... 
+
+让我更仔细: 
+∠BCQ = ∠BCE = α-β. Q在弧上.
+由圆周角: ∠BAQ = ∠BCQ (两者都对弧BQ... 不对)
+
+实际上 ∠BCQ 和 ∠BAQ 对的是同一段弧 BQ (C和A在同一侧? 取决于四边形顺序).
+
+如果 AQBC 的顺序 (A, Q 在弧的一侧, B, C 在另一侧), 不对...
+
+让我想清楚P和Q的位置:
+- C 在弧AB的上方 (包含C的弧)
+- P 在弧AB的下方 (CD延长穿过AB交到下弧)
+- Q 在弧AB的下方 (CE延长穿过AB交到下弧)
+
+圆上顺序 (逆时针): A, P, Q, B, C (或类似)
+
+P 在下弧上使得 ∠APC = ∠ABC = B... 不, 要看具体弧.
+
+对于 P 在弧 AB (不含C) 上:
+∠ACB = 2α, ∠APB = π - 2α (互补, 因为 ACBP 圆内接)
+∠ACP = ∠ACD = α-β (因为CPD共线, D在AB上)
+
+弧AP对应的圆周角:
+从C看弧AP: ∠ACP = α-β
+从B看弧AP: ∠ABP = α-β ✓
+
+弧BP对应的圆周角:
+从C看弧BP: ∠BCP = ∠BCD = α+β
+从A看弧BP: ∠BAP = α+β
+
+对于 Q:
+∠ACQ = ∠ACE = α+β
+弧AQ: ∠ACQ = α+β (从C看)
+弧AQ: ∠ABQ = α+β (从B看)
+
+∠BCQ = ∠BCE = α-β
+弧BQ: ∠BCQ = α-β (从C看)
+弧BQ: ∠BAQ = α-β (从A看)
+
+[2026-02-21 09:50:09] 思考: 注意到重要对称!
+
+从B看: ∠ABP = α-β, ∠ABQ = α+β
+从A看: ∠BAP = α+β, ∠BAQ = α-β
+
+这说明:
+∠PBA = α-β = ∠QAB !!!
+∠PBA = ∠QAB
+
+而且 ∠PAB = α+β = ∠QBA !!!
+
+所以 △PAB 和 △QBA 有:
+∠PAB = ∠QBA = α+β
+∠PBA = ∠QAB = α-β
+
+→ △APB ~ △BQA (AA相似!) ← 这是一个很好的相似三角形!
+
+由此: AP/BQ = PB/QA = AB/BA = 1? 不, AB/BA = 1, 所以 AP=BQ, PB=QA.
+等等这意味着 △APB ≅ △BQA? 
+AP/BQ = AB/BA = 1, 所以 AP = BQ.
+PB/QA = AB/BA = 1, 所以 PB = QA.
+
+有趣! 所以 AP = BQ, BP = AQ.
+
+[2026-02-21 09:50:10] 思考: 对圆内接四边形 APQB 用 Ptolemy
+
+顺序: A, P, Q, B 在圆上 (在不含C的弧上, 可能P和Q的顺序需要确认)
+
+由 ∠ABP = α-β < ∠ABQ = α+β, 从B看P更靠近A, Q更靠近B.
+所以弧上顺序: A, P, Q, B.
+
+Ptolemy 定理对 APQB:
+AP·BQ + AQ·BP = AB·PQ
+
+由 AP = BQ, AQ = BP:
+AP² + AQ² = AB·PQ ... (不直接有用)
+
+换: 对圆内接四边形 ACPB:
+AC·BP + CP·AB = AP·BC  (Ptolemy)
+或 AC·PB + BC·PA = AB·CP ... 要看点的顺序
+
+圆上顺序: A, C, B, P (逆时针, C在上弧, P在下弧)
+
+Ptolemy: AC·BP + CB·AP = AB·CP
+
+CP = CD + DP, 由相交弦 CD·DP = AD·DB → DP = AD·DB/CD
+CP = CD + AD·DB/CD = (CD² + AD·DB)/CD
+
+类似对 ACQB (顺序 A, C, B, Q):
+Ptolemy: AC·BQ + CB·AQ = AB·CQ
+CQ = CE + EQ = CE + AE·EB/CE = (CE² + AE·EB)/CE
+
+[2026-02-21 09:50:11] 思考: 这变得很复杂, 让我用另一种相似三角形方法
+
+回到: △CDA ~ △PDB (已证)
+CA/PB = DA/DB = CD/PD
+
+类似: △CDB ~ △PDA (? 验证一下)
+∠CDB = ∠PDA (对顶角) ✓
+∠BCD = α+β, ∠APD = ∠APC
+弧AC: ∠APC (从P看) = ∠ABC = B (从B看同弧AC)
+所以 ∠APD = ∠APC = B
+需要 ∠BCD = B? 即 α+β = B? 不一定.
+→ 不相似 (一般情况)
+
+那 △CEB ~ △QEA?
+∠CEB = ∠QEA (对顶角) ✓  
+∠BCE = α-β, ∠AQE = ∠AQC = ? 
+弧AC: ∠AQC (从Q看) = ∠ABC = B
+∠AQE = B
+需要 ∠BCE = B? 即 α-β = B? 不一定.
+→ 不相似
+
+△CEA ~ △QEB?
+∠CEA = ∠QEB (对顶角) ✓
+∠ACE = α+β, ∠BQE = ∠BQC = ?
+弧BC: ∠BQC (从Q看) = ∠BAC = A
+所以 ∠BQE = A
+需要 α+β = A? 不一定.
+→ 不相似
+
+[2026-02-21 09:50:12] 思考: 正确的相似三角形对!
+
+回到更基本的:
+
+△CDA ~ △PDB (已证, AA: 对顶角 + 圆周角)
+→ CD/PD = CA/PB = DA/DB
+
+△CEB ~ △QEA (验证):
+∠CEB = ∠QEA (对顶角) ✓
+∠CBE = B, ∠QAE = ?
+弧QC: ∠QAC (从A看) = ? 不直接等于B.
+
+让我换配对:
+△CEB 与 △QEA:
+∠CEB = ∠QEA ✓
+∠BCE = α-β
+∠QAE = ∠QAB = α-β (之前已证!) ✓✓✓
+
+所以 △CEB ~ △QEA (AA相似!) ✓✓
+
+→ CE/QE = CB/QA = EB/EA
+
+[2026-02-21 09:50:13] 思考: 利用这两组相似三角形
+
+相似1: △CDA ~ △PDB
+  CD·DB = PD·CA ... 不对, 比例是 CD/PD = CA/PB = DA/DB
+  → CD·PB = PD·CA ... 不对
+  → CD/PD = CA/PB → CD·PB = CA·PD
+  → DA/DB = CA/PB → DA·PB = CA·DB
+  → DA/DB = CD/PD → DA·PD = CD·DB → AD·DP = CD·DB ← 相交弦 ✓
+
+相似2: △CEB ~ △QEA
+  CE/QE = CB/QA = EB/EA
+  → CE·QA = CB·QE
+  → EB/EA = CE/QE → EB·QE = CE·EA → CE·EQ = BE·EA ← 相交弦 ✓
+
+好, 相似三角形给出了相交弦定理. 
+
+[2026-02-21 09:50:14] 思考: 现在用 Ptolemy 的相似三角形证法
+
+对圆内接四边形 ACPB (或 CAPB):
+Ptolemy 的标准相似三角形证法:
+在对角线 CP 上取点 K 使 ∠ACK = ∠BCP... 不, CP 已经有特定方向了.
+
+在对角线 AB 上取点... D 已经在那了.
+
+实际上, Ptolemy 的证法是: 在一条对角线上取辅助点, 构造两组相似三角形.
+但这里 D 就是两对角线 AB 和 CP 的交点, 我们已经有了 △CDA ~ △PDB.
+
+还需要另一组: 在四边形 CAPB 中 (C, A, P, B 依序在圆上... 不确定顺序):
+顺序应为 C, A, P, B (假设如此, 可能是 A, C, B, P)
+
+让我用正确的 Ptolemy:
+对 ACBP (A, C, B, P 按圆上顺序):
+AC·BP + BC·AP = AB·CP ... (Ptolemy-1)
+
+对 ACBQ (A, C, B, Q 按圆上顺序):
+AC·BQ + BC·AQ = AB·CQ ... (Ptolemy-2)
+
+[2026-02-21 09:50:15] 思考: Ptolemy-1 和 Ptolemy-2 的乘积
+
+(AC·BP + BC·AP)(AC·BQ + BC·AQ) = AB²·CP·CQ
+
+由 AP = BQ, AQ = BP (步骤9的结论):
+(AC·BP + BC·AP)(AC·AP + BC·BP) = AB²·CP·CQ
+
+设 x = AP = BQ, y = AQ = BP:
+(AC·y + BC·x)(AC·x + BC·y) = AB²·CP·CQ
+
+左边 = AC²·xy + AC·BC·y² + AC·BC·x² + BC²·xy
+     = (AC² + BC²)xy + AC·BC(x² + y²)
+
+CP = CD + DP, DP = AD·DB/CD → CP = (CD² + AD·DB)/CD
+CQ = CE + EQ, EQ = AE·EB/CE → CQ = (CE² + AE·EB)/CE
+CP·CQ = (CD² + AD·DB)(CE² + AE·EB)/(CD·CE)
+
+这太复杂了...
+
+[2026-02-21 09:50:16] 思考: 简化 — 用 Ptolemy 乘以 Ptolemy 的另一种方式
+
+对 ACBP: AC·BP + CP·AB = BC·AP (需确认点的顺序!)
+
+我对点的顺序搞混了. 让我固定:
+圆上逆时针顺序: A, C, B 在上半圆, P, Q 在下半圆.
+具体: 逆时针为 A, C, B, Q, P (从A开始)? 
+或者 A, P, Q, B, C?
+
+由 ∠ABP = α-β (B看AP弧), 弧AP较小.
+由 ∠ABQ = α+β (B看AQ弧), 弧AQ较大.
+所以 P 更靠近 A, Q 更靠近 B (在下弧上).
+
+逆时针顺序: C, A, P, Q, B (如果C在上方).
+或: A, P, Q, B, C (逆时针).
+
+对四边形 CAPB (C, A, P, B): 不是按圆周顺序...
+按顺序应该是 C, A, P, B:
+  对边: CA & PB, AP & CB
+  对角线: CP & AB
+  Ptolemy: CA·PB + AP·CB = CP·AB? 
+  不对, Ptolemy是 对边乘积之和 = 对角线乘积:
+  CA·PB + CB·AP = AB·CP (? 需看哪两对是对边)
+  
+  在 CAPB 中: 边是 CA, AP, PB, BC. 对角线是 CP 和 AB.
+  对边: (CA, PB) 和 (AP, BC)
+  Ptolemy: CA·PB + AP·BC = CP·AB ✓
+
+好, 对 CAPB: CA·PB + AP·BC = CP·AB ... (P-1)
+对 CAQB: CA·QB + AQ·BC = CQ·AB ... (P-2)
+
+(P-1) × (P-2):
+(CA·PB + AP·BC)(CA·QB + AQ·BC) = CP·CQ·AB²
+
+用 PB = AQ, QB = AP:
+(CA·AQ + AP·BC)(CA·AP + AQ·BC) = CP·CQ·AB²
+
+这是关于 AP 和 AQ 对称的表达式.
+
+设 s = AP, t = AQ:
+(CA·t + s·BC)(CA·s + t·BC) = CP·CQ·AB²
+
+左边 = CA²·st + CA·BC·t² + CA·BC·s² + BC²·st
+     = (CA² + BC²)st + CA·BC(s² + t²)
+
+CP·CQ = (CD + DP)(CE + EQ)
+
+由相交弦: CD·DP = AD·DB, CE·EQ = AE·EB
+所以: DP = AD·DB/CD, EQ = AE·EB/CE
+
+这还是很复杂...
+
+[2026-02-21 09:50:17] 思考: 直接的相似三角形证法 (换一种构造)
+
+让我试一种全新的方法:
+
+构造: 在 CB 上取点 G 使 ∠CDG = ∠B.
+
+在 △CDG 中: ∠DCG = ∠BCD = α+β, ∠CDG = B (构造)
+所以 ∠DGC = π - (α+β) - B = π - α - β - B = A - β + α... 
+用 A + B + 2α = π → A = π - B - 2α:
+∠DGC = π - (α+β) - B = π - α - β - B = (π - B - 2α) + α - β = A + α - β
+
+这不太简洁.
+
+换: 在 CB 上取 G 使 △ACE ~ △GCB (以C为公共顶点):
+∠ACE = α+β = ∠GCB → ∠GCB = α+β, 但 ∠GCB = ∠ACB 只有当 G=A 时... 不对, G在CB上, ∠GCB 就是0... 不对, G在CB上意味着 CG 沿 CB 方向, ∠GCB = 0.
+
+那取 G 不在 CB 上, 而是用 ∠ 匹配.
+
+[2026-02-21 09:50:18] 思考: 最简单的相似三角形观察
+
+△ACD: 角 A, ∠ACD=α-β, ∠ADC=π-A-(α-β)
+△BCE: 角 B, ∠BCE=α-β, ∠BEC=π-B-(α-β)
+
+这两个三角形虽然有一个角 (α-β) 相等, 但不相似.
+
+然而, 通过正弦定理:
+在 △ACD: AC/sin∠ADC = CD/sinA → AC·sinA 相关
+在 △BCE: BC/sin∠BEC = CE/sinB → BC·sinB 相关
+
+正弦定理实质上就是利用了 △ACD 与其外接圆的关系, 即 △ACD 与直径三角形的相似.
+
+所以我们的证明虽然写成 "正弦定理", 但其本质就是相似三角形!
+每次用正弦定理, 其实都是在说 "这个三角形与外接圆的直径三角形相似".
+
+[2026-02-21 09:50:19] 思考: 纯相似三角形的替代证明 (更直观)
+
+最后, 让我尝试一种完全基于相似三角形的方法:
+
+构造: 过 D 作 △ACB 的外接圆交 CD 于 P.
+
+△CDA ~ △PDB (AA: ∠CDA=∠PDB 对顶角, ∠DCA=∠DPB 圆周角同弧AB段)
+
+等等, ∠DCA 和 ∠DPB:
+∠DCA = ∠ACD = α-β
+∠DPB = ∠BPC = ? (P在圆上)
+
+弧上: ∠BPC 对弧BC (从P看). 但也 ∠BAC = A 对弧BC (从A看).
+如果P和A在弧BC的同侧, 则 ∠BPC = ∠BAC = A.
+如果P和A在弧BC的异侧, 则 ∠BPC = π - A.
+
+P 在下弧 (不含C), A 也在圆上但在上弧... 
+实际上 A 和 C 都在圆上. P 在 CD 延长线与圆的另一个交点.
+C 在上方, D 在 AB 上, CD 延长到 P, P 在下弧.
+A 和 P 在弧 BC 的不同侧 (A在上, P在下), 所以 ∠BPC = π - ∠BAC? 
+
+不对: 如果 A 和 P 都在 "弧BC" 的同一侧 (都不在弧BC上), 则 ∠BAC = ∠BPC.
+如果在不同侧 (即一个在优弧一个在劣弧), 则互补.
+
+A 和 P: A 在上弧 (含C), P 在下弧. 
+弧BC: 有两段, 一段含 A (和 C), 一段含 P.
+所以 A 和 P 在弧BC的不同侧.
+∠BPC + ∠BAC = π → ∠BPC = π - A.
+不等于 α-β (一般情况).
+
+让我换: ∠APC 和 ∠ABC
+弧AC (不含 P 和不含 B?):
+如果 P 和 B 在弧 AC 同侧 (都在下弧), 则 ∠APC = ∠ABC = B.
+如果异侧, 则互补.
+
+P 在下弧, B 在... B 在圆上, 在 A 的 "右侧". 
+顺序 (逆时针): A, C, B (上弧), P, Q (下弧).
+弧 AC (从A到C, 短弧在上): P 和 B 在弧AC的同一侧 (都在弧AC的 "外侧" 即 下方+B侧).
+
+实际上让我用更清楚的方式: P和B都在弧AC(不含P的对弧)的同一侧吗?
+
+圆上顺序: A, C, B, Q, P (逆时针). 
+弧AC (短弧 A→C): B, Q, P 在另一段弧上.
+∠APC (从P看弧AC) = ∠ABC (从B看弧AC) — 对, 因为P和B在同侧!
+
+所以 ∠APC = ∠ABC = B.
+
+现在, ∠APD = ∠APC = B (因为D在CP上, 即P,D,C共线, 所以∠APD=∠APC=B)
+
+对 △CDA 和 △PDA:
+不, 让我找对的相似.
+
+△ADP 和 △ADC 共用边 AD, 但角度不匹配.
+
+关键: △ACD 与 △APB 有关系吗?
+∠ACD = α-β = ∠ABP (已证) ✓
+∠CAD = A, ∠PAB = α+β
+不等 → 不相似
+
+△ACB 与 △ACP:
+∠ACB = 2α, ∠ACP = α-β. 不等.
+
+好, 让我回到已经确认的:
+△CDA ~ △PDB: ∠CDA = ∠PDB (对顶角), 第二个角?
+
+∠DCA = α-β
+∠DPB = ∠CPB
+弧CB (从P看和从A看): 
+∠CPB = ∠CAB = A (P和A在弧CB的同侧)? 
+
+圆上顺序: A, C, B, Q, P.
+弧CB (从C到B, 短弧): A 和 P 在另一段弧上. 但 A 紧邻 C, P 紧邻 B...
+∠CAB (从A看弧CB) 和 ∠CPB (从P看弧CB):
+A 和 P 都在弧CB (不含C和B的那段? 不, 弧CB有两段: 短弧C→B 和 长弧C→P→...→A→...→B).
+
+A 和 P 都在长弧 C→B (经过A和P). 
+所以 ∠CAB 和 ∠CPB 对的是短弧 CB.
+两者都是从长弧上的点看短弧 CB → ∠CAB = ∠CPB? 
+
+对! 同弧上的圆周角相等 (inscribed angles subtending the same arc from the same side).
+∠CAB 和 ∠CPB 都是从长弧上看短弧 CB.
+
+BUT ∠CAB 是 ∠A (三角形 ACB 的角 A). 所以 ∠CPB = A.
+
+而 ∠DPB = ∠CPB = A (D在线段CP上).
+
+对 △CDA 和 △PDB:
+∠CDA = ∠PDB (对顶角) ✓
+∠ACD = α-β, ∠PBD = ∠ABP = ? 
+
+∠ABP: 从B看弧AP.
+弧AP (短弧): 从A→P (逆时针经过 下弧).
+∠ABP (从B看这段弧) 和 ∠ACP (从C看这段弧):
+B 和 C 都在长弧 A→P 的同侧? 
+圆上: A, C, B, Q, P.
+弧AP (从A到P, 经过C,B,Q): 这是长弧.
+弧AP (从P到A, 短弧): 这不经过其他点.
+
+∠ABP 对短弧AP (从B看, B在长弧侧): ∠ABP
+∠ACP 对短弧AP (从C看, C在长弧侧): ∠ACP
+
+同侧 → ∠ABP = ∠ACP = α - β ✓✓✓
+
+所以 △CDA ~ △PDB 因为:
+∠CDA = ∠PDB (对顶角)
+∠DCA = ∠DBP = α-β (圆周角)
+→ AA 相似 ✓
+
+由相似比: CA/BP = CD/DP = DA/DB
+
+同理, △CEB ~ △QEA 因为:
+∠CEB = ∠QEA (对顶角)
+∠BCE = ∠BAQ = α-β (圆周角) ✓ (之前已证)
+→ AA 相似 ✓
+
+由相似比: CB/QA = CE/EQ = EB/EA
+
+[2026-02-21 09:50:20] 总结: 需要添加到HTML的内容
+
+1. 相似三角形部分:
+   - 构造外接圆, CD交圆于P, CE交圆于Q
+   - △CDA ~ △PDB (AA: 对顶角 + 圆周角=α-β)
+   - △CEB ~ △QEA (AA: 对顶角 + 圆周角=α-β)  
+   - 相交弦定理由相似三角形推出
+   - 正弦定理本身也由相似三角形推出 (三角形与外接圆直径关系)
+   - 带辅助构造的图
+
+2. 搜索结果链接:
+   - Ptolemy定理: cut-the-knot, Wikipedia, MathWorld
+   - isogonal conjugate: Wikipedia, Evan Chen blog, AoPS
+   - Stewart定理: Wikipedia
+   - 角分线定理: 科数网, 科普中国
+   
+[2026-02-21 09:50:21] 开始修改 solution.html...
+
+[2026-02-21 09:52:00] 完成修改:
+
+1. 新增 "六、相似三角形视角" 部分:
+   - 6.1 辅助构造: 外接圆上的点P和Q (CD延长交圆于P, CE延长交圆于Q)
+   - 新SVG图: 包含外接圆、P、Q 和两组相似三角形的高亮
+   - 6.2 两组关键相似三角形:
+     * △CDA ~ △PDB (AA: 对顶角 + 圆周角=α-β) → 推出相交弦 CD·DP=AD·DB
+     * △CEB ~ △QEA (AA: 对顶角 + 圆周角=α-β) → 推出相交弦 CE·EQ=BE·EA
+   - 6.3 与主证明的联系: 表格对比正弦定理 ↔ 相似三角形
+   - 6.4 第三组相似: △APB ~ △BQA (实际上全等, AP=BQ, BP=AQ)
+
+2. 搜索结果添加链接:
+   - 等角共轭: Wikipedia, Evan Chen blog, AoPS Wiki, MathWorld (4个链接)
+   - Ptolemy: Cut-the-Knot, Wikipedia, ProofWiki (3个链接)
+   - 角平分线/Stewart: Wikipedia, Cut-the-Knot, ProofWiki, StudyX (4个链接)
+   - 中文: 科数网, 科普中国 (2个链接)
+   共13个外部参考链接
+
+[2026-02-21 09:52:30] === 第二轮修改完成 ===

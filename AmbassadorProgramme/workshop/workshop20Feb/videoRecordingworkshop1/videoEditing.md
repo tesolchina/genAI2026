@@ -1,0 +1,2 @@
+when we have a video recording a zoom meeting (workshop) will you be able to edit it automatically
+search github for such tools and create a editingTools.md to provide options with links and summaries of the tool functions and make recommendations

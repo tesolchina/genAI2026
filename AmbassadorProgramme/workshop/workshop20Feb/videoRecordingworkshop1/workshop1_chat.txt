@@ -1,0 +1,53 @@
+00:08:44	Cici Luo :	1
+00:08:46	24240826 LamYiYung:	yes
+00:08:47	李丰贤2:	1
+00:09:15	Simon Wang:	https://simon.hkbu.me/aiworkshop/
+00:10:10	李丰贤2:	digital textbook, great!
+00:17:36	Simon Wang:	https://simon.hkbu.me/aiworkshop/
+00:18:35	Martha Qi:	2
+00:18:37	Ruby:	2
+00:18:38	Ng Suen Hei 伍璿熙:	2
+00:18:38	Craig COOPER:	2
+00:18:39	Cici Luo :	2
+00:18:41	25219057 Lui Wing Lam:	2
+00:18:42	Ng Ho Fung 24231681:	2
+00:18:43	24240826 LamYiYung:	2
+00:18:43	Yue NI:	2
+00:18:44	Yuen Ching Yau 24224138:	2
+00:25:54	Simon Wang:	https://simon.hkbu.me/aiworkshop/20feb
+00:54:02	Cici Luo :	Yes
+00:54:07	Yue NI:	very inspiring!
+01:22:37	Ng Suen Hei 伍璿熙:	25236121
+01:22:45	24219843 Luk Yee Man Benjamin:	24219843
+01:22:45	tszwai:	24235881
+01:22:46	Ng Ho Fung 24231681:	24231681
+01:22:50	Cici Luo :	24203904
+01:22:51	Jonathan Lau:	24226386
+01:22:52	Ho Hing SUN:	25242954
+01:22:53	Curtis:	25236415
+01:22:54	Yitian YE:	24257567
+01:22:55	MAK Tsz Yu 24230340:	24230340
+01:22:58	24240826 LamYiYung:	24240826
+01:23:15	Simon Wang:	https://simon.hkbu.me/aiworkshop/20feb/survey
+01:24:07	24231029 Lam Ho Kan:	24231029
+01:24:14	Cici Luo :	Hi
+01:24:29	tszwai:	Hi, I'm Regina
+01:24:35	Lucia:	Hi
+01:25:24	Chan Tsz Ying  25200135:	25200135
+01:25:28	24236225_Yip Sze Ching:	24236225
+01:25:38	Yi Lam HUI:	24238430
+01:25:48	Ruby:	24482757
+01:26:54	Lok Yiu HUNG:	24228524
+01:31:34	24229075_Lui Cheuk Tung:	24229075
+01:39:06	Simon Wang:	Clone https://github.com/tesolchina/genai2026  to the folder
+01:40:59	25219057 Lui Wing Lam:	25219057
+01:48:33	zengli:	I was just able to download VScode and couldn’t catch up with you now. Can we have access to the playback  video of this hand-on part?
+01:49:36	Krista Yingzi DU:	can I ask for github
+01:49:46	Krista Yingzi DU:	because GitHub is not free right?
+01:51:48	tszwai:	you can apply for an educational benefit for github
+01:51:55	Krista Yingzi DU:	thanks
+01:51:57	李丰贤2:	thank you!
+01:52:28	tszwai:	I recommend everyone to apply:)
+01:52:35	Krista Yingzi DU:	yes, fully support your idea
+01:53:20	doulu:	thank you for these game-changing ideas and tools!
+01:53:27	Cici Luo :	Thank you~

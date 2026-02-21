@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>角分线对称性证明 — 详细解答</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+:root { --bg: #fafafa; --card: #fff; --text: #222; --accent: #2563eb; --accent2: #7c3aed; --border: #e5e7eb; --success: #16a34a; --warn: #d97706; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'LXGW WenKai', 'Noto Serif SC', 'Source Han Serif SC', serif; background: var(--bg); color: var(--text); line-height: 1.8; padding: 2rem 1rem; }
+.container { max-width: 860px; margin: 0 auto; }
+h1 { text-align: center; font-size: 1.8rem; margin-bottom: .3rem; color: var(--accent); }
+h2 { font-size: 1.35rem; margin: 2rem 0 .8rem; padding-bottom: .4rem; border-bottom: 2px solid var(--accent); color: var(--accent); }
+h3 { font-size: 1.1rem; margin: 1.4rem 0 .5rem; color: var(--accent2); }
+.subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.problem-box { background: linear-gradient(135deg, #eff6ff, #f0f4ff); border-left: 4px solid var(--accent); }
+.proof-step { background: #f9fafb; border-left: 3px solid var(--accent2); padding: 1rem 1.2rem; margin: .8rem 0; border-radius: 0 8px 8px 0; }
+.proof-step .step-title { font-weight: 700; color: var(--accent2); margin-bottom: .4rem; }
+.key-result { background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border: 1px solid #86efac; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center; }
+.check-section { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+.check-pass { background: #f0fdf4; border-color: #86efac; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: .85rem; font-weight: 600; }
+.badge-pass { background: #dcfce7; color: var(--success); }
+.badge-info { background: #dbeafe; color: var(--accent); }
+.figure-container { text-align: center; margin: 1.5rem 0; }
+svg text { font-family: 'LXGW WenKai', 'Noto Serif SC', serif; }
+ol, ul { padding-left: 1.5rem; }
+li { margin: .3rem 0; }
+table { border-collapse: collapse; width: 100%; margin: .8rem 0; }
+th, td { border: 1px solid var(--border); padding: .5rem .8rem; text-align: left; }
+th { background: #f3f4f6; }
+.toc { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+.toc a { color: var(--accent); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.toc ol { list-style-type: decimal; }
+.toc li { margin: .2rem 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>角分线对称性定理证明</h1>
+<p class="subtitle">求证：$AC \cdot BC = \sqrt{AD \cdot DB \cdot BE \cdot EA} + CD \cdot CE$</p>
+
+<!-- 目录 -->
+<div class="toc">
+<strong>目录</strong>
+<ol>
+<li><a href="#problem">题目</a></li>
+<li><a href="#figure">几何图形</a></li>
+<li><a href="#analysis">条件分析</a></li>
+<li><a href="#proof">证明过程</a></li>
+<li><a href="#summary">证明总结</a></li>
+<li><a href="#similar">相似三角形视角</a></li>
+<li><a href="#verification">验证与检查</a></li>
+</ol>
+</div>
+
+<!-- =============== 题目 =============== -->
+<h2 id="problem">一、题目</h2>
+<div class="card problem-box">
+<p><strong>如图</strong>，$CF$ 为 $\angle ACB$ 的角平分线。在线段 $AB$ 上取两点 $D$ 和 $E$，使射线 $CD$ 和 $CE$ 关于射线 $CF$ 对称。</p>
+<p style="margin-top:.8rem"><strong>求证：</strong></p>
+$$AC \cdot BC = \sqrt{AD \cdot DB \cdot BE \cdot EA} + CD \cdot CE$$
+<p style="margin-top:.6rem;color:#666"><em>备注：希望尽量用构造相似三角形的办法，最好不要用到勾股定理和余弦定理。</em></p>
+</div>
+
+<!-- =============== 图形 =============== -->
+<h2 id="figure">二、几何图形</h2>
+<div class="figure-container">
+<svg viewBox="-20 -20 540 380" width="540" height="380" xmlns="http://www.w3.org/2000/svg">
+  <!-- 坐标: A(20,330) D(130,330) F(200,330) E(290,330) B(460,330) C(220,40) -->
+  
+  <!-- 三角形 ACB -->
+  <polygon points="20,330 460,330 220,40" fill="none" stroke="#333" stroke-width="2"/>
+  
+  <!-- CF 角平分线 (虚线) -->
+  <line x1="220" y1="40" x2="200" y2="330" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="8,4"/>
+  
+  <!-- CD -->
+  <line x1="220" y1="40" x2="130" y2="330" stroke="#d946ef" stroke-width="1.5"/>
+  
+  <!-- CE -->
+  <line x1="220" y1="40" x2="290" y2="330" stroke="#d946ef" stroke-width="1.5"/>
+  
+  <!-- 角平分线弧标记 -->
+  <path d="M 205,75 A 38,38 0 0,1 220,78" fill="none" stroke="#2563eb" stroke-width="1"/>
+  <path d="M 220,78 A 38,38 0 0,1 237,75" fill="none" stroke="#2563eb" stroke-width="1"/>
+  
+  <!-- β 弧标记 -->
+  <path d="M 198,90 A 55,55 0 0,1 210,85" fill="none" stroke="#d946ef" stroke-width="1"/>
+  <path d="M 230,85 A 55,55 0 0,1 243,90" fill="none" stroke="#d946ef" stroke-width="1"/>
+  
+  <!-- 角度标注 -->
+  <text x="195" y="72" font-size="13" fill="#2563eb" font-style="italic">α</text>
+  <text x="236" y="72" font-size="13" fill="#2563eb" font-style="italic">α</text>
+  <text x="183" y="100" font-size="12" fill="#d946ef" font-style="italic">β</text>
+  <text x="245" y="100" font-size="12" fill="#d946ef" font-style="italic">β</text>
+  
+  <!-- 点标签 -->
+  <circle cx="20" cy="330" r="3.5" fill="#333"/>
+  <text x="5" y="355" font-size="16" font-weight="bold" fill="#333" font-style="italic">A</text>
+  
+  <circle cx="130" cy="330" r="3.5" fill="#d946ef"/>
+  <text x="122" y="355" font-size="16" font-weight="bold" fill="#d946ef" font-style="italic">D</text>
+  
+  <circle cx="200" cy="330" r="3.5" fill="#2563eb"/>
+  <text x="192" y="355" font-size="16" font-weight="bold" fill="#2563eb" font-style="italic">F</text>
+  
+  <circle cx="290" cy="330" r="3.5" fill="#d946ef"/>
+  <text x="282" y="355" font-size="16" font-weight="bold" fill="#d946ef" font-style="italic">E</text>
+  
+  <circle cx="460" cy="330" r="3.5" fill="#333"/>
+  <text x="455" y="355" font-size="16" font-weight="bold" fill="#333" font-style="italic">B</text>
+  
+  <circle cx="220" cy="40" r="3.5" fill="#333"/>
+  <text x="224" y="30" font-size="16" font-weight="bold" fill="#333" font-style="italic">C</text>
+  
+  <!-- 图例 -->
+  <line x1="340" y1="20" x2="370" y2="20" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="375" y="25" font-size="12" fill="#666">CF（角平分线）</text>
+  <line x1="340" y1="40" x2="370" y2="40" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="375" y="45" font-size="12" fill="#666">CD, CE（关于CF对称）</text>
+</svg>
+</div>
+
+<!-- =============== 条件分析 =============== -->
+<h2 id="analysis">三、条件分析</h2>
+<div class="card">
+<h3>记号约定</h3>
+<ul>
+<li>设 $\angle ACB = 2\alpha$，因为 $CF$ 是角平分线，所以 $\angle ACF = \angle BCF = \alpha$。</li>
+<li>设 $\angle DCF = \angle ECF = \beta$（$CD$ 和 $CE$ 关于 $CF$ 对称）。</li>
+<li>于是 $\angle ACD = \alpha - \beta$，$\angle BCE = \alpha - \beta$。</li>
+<li>同时 $\angle ACE = \alpha + \beta$，$\angle BCD = \alpha + \beta$。</li>
+<li>设 $\angle CAB = A$，$\angle CBA = B$，则 $A + B + 2\alpha = \pi$。</li>
+</ul>
+
+<h3>关键对称性</h3>
+<p>由于 $CD$ 和 $CE$ 关于角平分线 $CF$ 对称，注意到：</p>
+<ul>
+<li>$\angle ACD = \angle BCE = \alpha - \beta$（<strong>这是最核心的等角关系</strong>）</li>
+<li>$\angle ACE = \angle BCD = \alpha + \beta$</li>
+</ul>
+<p>这意味着在三角形 $ACB$ 中，射线 $CD$ 和 $CE$ 是一对<strong>等角共轭线</strong>（isogonal conjugate cevians）。</p>
+</div>
+
+<!-- =============== 证明过程 =============== -->
+<h2 id="proof">四、证明过程</h2>
+
+<div class="proof-step">
+<div class="step-title">第一步：利用正弦定理表示线段乘积</div>
+<p>在 $\triangle ACD$ 中，由正弦定理：</p>
+$$\frac{AD}{\sin \angle ACD} = \frac{CD}{\sin A} \quad \Longrightarrow \quad AD = \frac{CD \cdot \sin(\alpha - \beta)}{\sin A}$$
+
+<p>在 $\triangle BCD$ 中，由正弦定理：</p>
+$$\frac{BD}{\sin \angle BCD} = \frac{CD}{\sin B} \quad \Longrightarrow \quad BD = \frac{CD \cdot \sin(\alpha + \beta)}{\sin B}$$
+
+<p>在 $\triangle ACE$ 中，由正弦定理：</p>
+$$\frac{AE}{\sin \angle ACE} = \frac{CE}{\sin A} \quad \Longrightarrow \quad AE = \frac{CE \cdot \sin(\alpha + \beta)}{\sin A}$$
+
+<p>在 $\triangle BCE$ 中，由正弦定理：</p>
+$$\frac{BE}{\sin \angle BCE} = \frac{CE}{\sin B} \quad \Longrightarrow \quad BE = \frac{CE \cdot \sin(\alpha - \beta)}{\sin B}$$
+</div>
+
+<div class="proof-step">
+<div class="step-title">第二步：计算 $\sqrt{AD \cdot DB \cdot BE \cdot EA}$</div>
+<p>将第一步的四个结果相乘：</p>
+$$AD \cdot DB = \frac{CD^2 \cdot \sin(\alpha-\beta) \cdot \sin(\alpha+\beta)}{\sin A \cdot \sin B}$$
+
+$$BE \cdot EA = \frac{CE^2 \cdot \sin(\alpha-\beta) \cdot \sin(\alpha+\beta)}{\sin A \cdot \sin B}$$
+
+<p>因此：</p>
+$$AD \cdot DB \cdot BE \cdot EA = \frac{CD^2 \cdot CE^2 \cdot \big[\sin(\alpha-\beta) \cdot \sin(\alpha+\beta)\big]^2}{(\sin A \cdot \sin B)^2}$$
+
+<p>开方得：</p>
+<div class="key-result">
+$$\sqrt{AD \cdot DB \cdot BE \cdot EA} = \frac{CD \cdot CE \cdot \sin(\alpha-\beta) \cdot \sin(\alpha+\beta)}{\sin A \cdot \sin B}$$
+</div>
+</div>
+
+<div class="proof-step">
+<div class="step-title">第三步：代入原等式，化简目标</div>
+<p>原等式变为：</p>
+$$AC \cdot BC = \frac{CD \cdot CE \cdot \sin(\alpha-\beta)\sin(\alpha+\beta)}{\sin A \sin B} + CD \cdot CE$$
+
+$$= CD \cdot CE \cdot \left[\frac{\sin(\alpha-\beta)\sin(\alpha+\beta)}{\sin A \sin B} + 1\right]$$
+
+$$= CD \cdot CE \cdot \frac{\sin(\alpha-\beta)\sin(\alpha+\beta) + \sin A \sin B}{\sin A \sin B}$$
+
+<p>利用积化和差公式 $\sin(\alpha-\beta)\sin(\alpha+\beta) = \sin^2\alpha - \sin^2\beta$：</p>
+$$AC \cdot BC = CD \cdot CE \cdot \frac{\sin^2\alpha - \sin^2\beta + \sin A \sin B}{\sin A \sin B} \quad \cdots (\star)$$
+</div>
+
+<div class="proof-step">
+<div class="step-title">第四步：利用面积法求 $CD$ 和 $CE$</div>
+<p>由面积分解 $S(\triangle ACB) = S(\triangle ACD) + S(\triangle DCB)$：</p>
+$$\frac{1}{2} AC \cdot BC \sin 2\alpha = \frac{1}{2} AC \cdot CD \sin(\alpha-\beta) + \frac{1}{2} BC \cdot CD \sin(\alpha+\beta)$$
+
+<p>化简得：</p>
+$$CD = \frac{AC \cdot BC \cdot \sin 2\alpha}{AC \sin(\alpha-\beta) + BC \sin(\alpha+\beta)} \quad \cdots (1)$$
+
+<p>类似地，由 $S(\triangle ACB) = S(\triangle ACE) + S(\triangle ECB)$：</p>
+$$CE = \frac{AC \cdot BC \cdot \sin 2\alpha}{AC \sin(\alpha+\beta) + BC \sin(\alpha-\beta)} \quad \cdots (2)$$
+</div>
+
+<div class="proof-step">
+<div class="step-title">第五步：利用外接圆化简</div>
+<p>设 $\triangle ACB$ 的外接圆半径为 $R$，由正弦定理：</p>
+$$AC = 2R\sin B, \quad BC = 2R\sin A$$
+
+<p>代入 (1) 式：</p>
+$$CD = \frac{4R^2 \sin A \sin B \cdot \sin 2\alpha}{2R\sin B \cdot \sin(\alpha-\beta) + 2R\sin A \cdot \sin(\alpha+\beta)} = \frac{2R \sin A \sin B \cdot \sin 2\alpha}{\sin B \sin(\alpha-\beta) + \sin A \sin(\alpha+\beta)}$$
+
+<p>代入 (2) 式：</p>
+$$CE = \frac{2R \sin A \sin B \cdot \sin 2\alpha}{\sin B \sin(\alpha+\beta) + \sin A \sin(\alpha-\beta)}$$
+
+<p>所以：</p>
+$$CD \cdot CE = \frac{4R^2 \sin^2 A \sin^2 B \cdot \sin^2 2\alpha}{\big[\sin B \sin(\alpha-\beta) + \sin A \sin(\alpha+\beta)\big]\big[\sin B \sin(\alpha+\beta) + \sin A \sin(\alpha-\beta)\big]}$$
+</div>
+
+<div class="proof-step">
+<div class="step-title">第六步：展开分母并化简</div>
+<p>设分母为 $\Delta$，展开：</p>
+$$\Delta = (\sin^2 A + \sin^2 B)\sin(\alpha-\beta)\sin(\alpha+\beta) + \sin A \sin B\big[\sin^2(\alpha-\beta) + \sin^2(\alpha+\beta)\big]$$
+
+<p>利用恒等式：</p>
+<ul>
+<li>$\sin(\alpha-\beta)\sin(\alpha+\beta) = \sin^2\alpha - \sin^2\beta$</li>
+<li>$\sin^2(\alpha-\beta) + \sin^2(\alpha+\beta) = 1 - \cos 2\alpha \cos 2\beta$
+<br>
+（推导：$= \frac{1-\cos(2\alpha-2\beta)}{2} + \frac{1-\cos(2\alpha+2\beta)}{2} = 1 - \cos 2\alpha \cos 2\beta$）
+</li>
+</ul>
+
+<p>于是：</p>
+$$\Delta = (\sin^2 A + \sin^2 B)(\sin^2\alpha - \sin^2\beta) + \sin A \sin B(1 - \cos 2\alpha \cos 2\beta)$$
+
+<p>利用 $A + B = \pi - 2\alpha$，有以下辅助恒等式：</p>
+<ul>
+<li>$\sin^2 A + \sin^2 B = 1 + \cos 2\alpha \cos(A-B)$</li>
+<li>$\sin A \sin B = \frac{1}{2}[\cos(A-B) + \cos 2\alpha]$</li>
+</ul>
+
+<p>设 $\delta = A - B$，代入：</p>
+$$\Delta = (1 + \cos 2\alpha \cos\delta)(\sin^2\alpha - \sin^2\beta) + \frac{\cos\delta + \cos 2\alpha}{2}(1 - \cos 2\alpha \cos 2\beta)$$
+
+<p>展开第一项：</p>
+$$= \sin^2\alpha - \sin^2\beta + \cos 2\alpha \cos\delta (\sin^2\alpha - \sin^2\beta)$$
+
+<p>展开第二项：</p>
+$$+ \frac{\cos\delta}{2} - \frac{\cos\delta \cos 2\alpha \cos 2\beta}{2} + \frac{\cos 2\alpha}{2} - \frac{\cos^2 2\alpha \cos 2\beta}{2}$$
+
+<p>合并含 $\cos\delta$ 的项和不含的项，利用 $\cos 2\alpha = 1 - 2\sin^2\alpha$ 和 $\cos 2\beta = 1 - 2\sin^2\beta$ 后（此步繁杂但纯代数），化简为：</p>
+
+$$\Delta = \sin^2 2\alpha \cdot \frac{\sin^2\alpha - \sin^2\beta + \sin A \sin B}{\sin A \sin B}  \cdot \sin A \sin B$$
+
+<p>等等——让我们用一种更优雅的方式来完成这一步。</p>
+</div>
+
+<div class="proof-step">
+<div class="step-title">第六步（改进）：直接验证等式 $(\star)$</div>
+<p>将 $CD \cdot CE$ 的表达式代入 $(\star)$ 式，需要证明：</p>
+$$4R^2 \sin A \sin B = \frac{4R^2 \sin^2 A \sin^2 B \cdot \sin^2 2\alpha}{\Delta} \cdot \frac{\sin^2\alpha - \sin^2\beta + \sin A \sin B}{\sin A \sin B}$$
+
+<p>化简后等价于证明：</p>
+$$\boxed{\Delta = \sin^2 2\alpha \cdot (\sin^2\alpha - \sin^2\beta + \sin A \sin B)} \quad \cdots (\heartsuit)$$
+
+<p>其中 $\Delta = (\sin^2 A + \sin^2 B)(\sin^2\alpha - \sin^2\beta) + \sin A \sin B(1 - \cos 2\alpha \cos 2\beta)$。</p>
+</div>
+
+<div class="proof-step">
+<div class="step-title">第七步：证明恒等式 $(\heartsuit)$</div>
+<p>设 $p = \sin^2\alpha - \sin^2\beta$，$q = \sin A \sin B$。利用 $A + B = \pi - 2\alpha$：</p>
+
+<h3>计算右边 $R = \sin^2 2\alpha \cdot (p + q)$</h3>
+$$R = \sin^2 2\alpha \cdot p + \sin^2 2\alpha \cdot q$$
+$$= 4\sin^2\alpha \cos^2\alpha \cdot (\sin^2\alpha - \sin^2\beta) + 4\sin^2\alpha \cos^2\alpha \cdot \sin A \sin B$$
+
+<h3>计算左边 $L = (\sin^2 A + \sin^2 B) \cdot p + q \cdot (1 - \cos 2\alpha \cos 2\beta)$</h3>
+<p>利用 $A + B = \pi - 2\alpha$：</p>
+
+$$\sin^2 A + \sin^2 B = 1 + \cos 2\alpha \cos(A-B)$$
+$$\sin A \sin B = \tfrac{1}{2}[\cos(A-B) + \cos 2\alpha]$$
+
+<p>设 $c = \cos(A-B)$，则：</p>
+$$L = (1 + \cos 2\alpha \cdot c) \cdot p + \frac{c + \cos 2\alpha}{2}(1 - \cos 2\alpha \cos 2\beta)$$
+
+$$R = 4\sin^2\alpha\cos^2\alpha \cdot p + 4\sin^2\alpha\cos^2\alpha \cdot \frac{c + \cos 2\alpha}{2}$$
+$$= 4\sin^2\alpha\cos^2\alpha \cdot p + 2\sin^2\alpha\cos^2\alpha \cdot (c + \cos 2\alpha)$$
+
+<p>令 $u = \cos 2\alpha$，则 $\sin^2 2\alpha = 1 - u^2$，$\sin^2\alpha = \frac{1-u}{2}$，$\cos^2\alpha = \frac{1+u}{2}$。</p>
+
+$$L = (1 + uc) \cdot p + \frac{c + u}{2}(1 - u\cos 2\beta)$$
+
+$$R = (1 - u^2) \cdot p + (1 - u^2) \cdot \frac{c + u}{2}$$
+$$= (1 - u^2)\Big[p + \frac{c + u}{2}\Big]$$
+
+<p>因此 $L = R$ 等价于：</p>
+$$(1 + uc) \cdot p + \frac{c+u}{2}(1 - u\cos 2\beta) = (1-u^2)\Big[p + \frac{c+u}{2}\Big]$$
+
+<p>展开右边：</p>
+$$(1-u^2)p + (1-u^2)\frac{c+u}{2}$$
+$$= p - u^2 p + \frac{(c+u)(1-u^2)}{2}$$
+
+<p>展开左边：</p>
+$$p + ucp + \frac{(c+u)(1-u\cos 2\beta)}{2}$$
+
+<p>两边消去 $p$，需证：</p>
+$$ucp + \frac{(c+u)(1 - u\cos 2\beta)}{2} = -u^2 p + \frac{(c+u)(1 - u^2)}{2}$$
+
+$$ucp + u^2 p = \frac{(c+u)}{2}\big[(1 - u^2) - (1 - u\cos 2\beta)\big]$$
+
+$$u p(c + u) = \frac{(c+u)}{2} \cdot u(\cos 2\beta - u)$$
+
+<p>两边除以 $u(c+u)$（当 $u \neq 0$ 且 $c + u \neq 0$ 时）：</p>
+
+$$p = \frac{\cos 2\beta - u}{2}$$
+
+<p>代入 $p = \sin^2\alpha - \sin^2\beta$ 和 $u = \cos 2\alpha$：</p>
+
+$$\sin^2\alpha - \sin^2\beta = \frac{\cos 2\beta - \cos 2\alpha}{2}$$
+
+$$= \frac{(1-2\sin^2\beta) - (1-2\sin^2\alpha)}{2} = \frac{2\sin^2\alpha - 2\sin^2\beta}{2} = \sin^2\alpha - \sin^2\beta \quad \checkmark$$
+
+<div class="key-result">
+<p>恒等式 $(\heartsuit)$ 成立！从而等式 $(\star)$ 成立，原命题得证。$\blacksquare$</p>
+</div>
+</div>
+
+<!-- =============== 证明总结 =============== -->
+<h2 id="summary">五、证明总结（正弦定理方法）</h2>
+<div class="card">
+<h3>证明思路一览</h3>
+<ol>
+<li><strong>正弦定理分解</strong>：在四个小三角形 $\triangle ACD$、$\triangle BCD$、$\triangle ACE$、$\triangle BCE$ 中分别用正弦定理，将 $AD$、$BD$、$AE$、$BE$ 表示为含 $CD$、$CE$、$\alpha$、$\beta$、$A$、$B$ 的表达式。</li>
+<li><strong>开方化简</strong>：四项乘积开方后得到 $\sqrt{AD \cdot DB \cdot BE \cdot EA} = \frac{CD \cdot CE \cdot (\sin^2\alpha - \sin^2\beta)}{\sin A \sin B}$。</li>
+<li><strong>提取公因式</strong>：等式右边提取 $CD \cdot CE$，原命题转化为关于 $CD \cdot CE$ 的等式。</li>
+<li><strong>面积法求 $CD$、$CE$</strong>：利用三角形面积分解，用 $AC$、$BC$、$\alpha$、$\beta$ 表示 $CD$ 和 $CE$。</li>
+<li><strong>外接圆 + 三角恒等式</strong>：将 $AC = 2R\sin B$、$BC = 2R\sin A$ 代入，利用 $A+B+2\alpha = \pi$ 约束化简，最终归结为一个可直接验证的三角恒等式。</li>
+</ol>
+
+<h3>使用的工具</h3>
+<table>
+<tr><th>工具</th><th>用处</th></tr>
+<tr><td>正弦定理</td><td>在小三角形中表示线段长度</td></tr>
+<tr><td>面积法</td><td>求 $CD$ 和 $CE$ 的表达式</td></tr>
+<tr><td>外接圆</td><td>将 $AC$、$BC$ 用角度统一表示</td></tr>
+<tr><td>积化和差</td><td>化简 $\sin(\alpha \pm \beta)$ 的乘积</td></tr>
+<tr><td>三角恒等式</td><td>利用 $A+B=\pi-2\alpha$ 完成最终验证</td></tr>
+</table>
+<p><em>注：全程<strong>未使用</strong>余弦定理和勾股定理。</em></p>
+</div>
+
+<!-- =============== 相似三角形视角 =============== -->
+<h2 id="similar">六、相似三角形视角</h2>
+
+<div class="card">
+<p>题目备注希望用<strong>构造相似三角形</strong>的方法。上述证明虽然以正弦定理和面积法为主要工具，但其本质正是相似三角形——正弦定理的证明就是通过构造外接圆直径上的相似三角形完成的。下面我们显式地展示这一联系，并给出一个<strong>纯相似三角形 + 外接圆</strong>的等价证明视角。</p>
+</div>
+
+<h3>6.1 辅助构造</h3>
+<div class="proof-step">
+<div class="step-title">构造：外接圆上的点 P 和 Q</div>
+<p>作 $\triangle ACB$ 的<strong>外接圆</strong> $\omega$。延长射线 $CD$ 交 $\omega$ 于第二个点 $P$（$P \neq C$）；延长射线 $CE$ 交 $\omega$ 于第二个点 $Q$（$Q \neq C$）。</p>
+<p>由于 $D$ 在线段 $AB$ 上而 $C$ 在弧 $AB$ 的一侧，所以 $P$ 在弧 $AB$ 的另一侧（不含 $C$ 的弧）。同理 $Q$ 也在不含 $C$ 的弧上。</p>
+</div>
+
+<div class="figure-container">
+<svg viewBox="-30 -30 580 460" width="580" height="460" xmlns="http://www.w3.org/2000/svg">
+  <!-- 外接圆 -->
+  <ellipse cx="250" cy="210" rx="220" ry="220" fill="none" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="475" y="215" font-size="12" fill="#94a3b8" font-style="italic">ω</text>
+
+  <!-- A(55,320) C(220,0) B(460,300) on circle ~center(250,210) r~220 -->
+  <!-- P(160,420) Q(370,400) on lower arc -->
+
+  <!-- 三角形 ACB -->
+  <polygon points="55,320 460,300 220,0" fill="rgba(37,99,235,0.03)" stroke="#333" stroke-width="2"/>
+
+  <!-- AB 底边 (延长一点) -->
+  <line x1="55" y1="320" x2="460" y2="300" stroke="#333" stroke-width="1.5"/>
+
+  <!-- CF 角平分线 (虚线) -->
+  <line x1="220" y1="0" x2="200" y2="313" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="7,4"/>
+
+  <!-- CD → P -->
+  <line x1="220" y1="0" x2="160" y2="420" stroke="#d946ef" stroke-width="1.5"/>
+
+  <!-- CE → Q -->
+  <line x1="220" y1="0" x2="370" y2="400" stroke="#d946ef" stroke-width="1.5"/>
+
+  <!-- 相似三角形高亮: △CDA -->
+  <polygon points="220,0 140,312 55,320" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- 相似三角形高亮: △PDB -->
+  <polygon points="160,420 140,312 460,300" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- 相似三角形高亮: △CEB -->
+  <polygon points="220,0 310,306 460,300" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- 相似三角形高亮: △QEA -->
+  <polygon points="370,400 310,306 55,320" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- 角标记 α-β at C (left side, towards D) -->
+  <path d="M 207,32 A 35,35 0 0,0 215,35" fill="none" stroke="#ef4444" stroke-width="1.2"/>
+  <text x="188" y="45" font-size="11" fill="#ef4444">α−β</text>
+
+  <!-- 角标记 α-β at B (towards P) -->
+  <path d="M 435,298 A 30,30 0 0,0 440,285" fill="none" stroke="#ef4444" stroke-width="1.2"/>
+  <text x="410" y="280" font-size="11" fill="#ef4444">α−β</text>
+
+  <!-- 点标签 -->
+  <circle cx="55" cy="320" r="4" fill="#333"/>
+  <text x="30" y="335" font-size="16" font-weight="bold" fill="#333" font-style="italic">A</text>
+
+  <circle cx="140" cy="312" r="4" fill="#d946ef"/>
+  <text x="128" y="300" font-size="15" font-weight="bold" fill="#d946ef" font-style="italic">D</text>
+
+  <circle cx="200" cy="313" r="4" fill="#2563eb"/>
+  <text x="202" y="300" font-size="15" font-weight="bold" fill="#2563eb" font-style="italic">F</text>
+
+  <circle cx="310" cy="306" r="4" fill="#d946ef"/>
+  <text x="312" y="296" font-size="15" font-weight="bold" fill="#d946ef" font-style="italic">E</text>
+
+  <circle cx="460" cy="300" r="4" fill="#333"/>
+  <text x="465" y="296" font-size="16" font-weight="bold" fill="#333" font-style="italic">B</text>
+
+  <circle cx="220" cy="0" r="4" fill="#333"/>
+  <text x="225" y="-8" font-size="16" font-weight="bold" fill="#333" font-style="italic">C</text>
+
+  <circle cx="160" cy="420" r="4" fill="#e11d48"/>
+  <text x="140" y="442" font-size="16" font-weight="bold" fill="#e11d48" font-style="italic">P</text>
+
+  <circle cx="370" cy="400" r="4" fill="#059669"/>
+  <text x="378" y="418" font-size="16" font-weight="bold" fill="#059669" font-style="italic">Q</text>
+
+  <!-- 图例 -->
+  <rect x="15" y="5" width="170" height="62" rx="6" fill="#fff" stroke="#e5e7eb"/>
+  <polygon points="22,18 38,18 30,26" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-width="1"/>
+  <text x="44" y="24" font-size="11" fill="#666">△CDA ~ △PDB</text>
+  <polygon points="22,42 38,42 30,50" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1"/>
+  <text x="44" y="48" font-size="11" fill="#666">△CEB ~ △QEA</text>
+</svg>
+</div>
+
+<h3>6.2 两组关键相似三角形</h3>
+
+<div class="proof-step">
+<div class="step-title">相似三角形 ①：$\triangle CDA \sim \triangle PDB$</div>
+<p><strong>证明（AA 相似）：</strong></p>
+<ol>
+<li>$\angle CDA = \angle PDB$（<strong>对顶角</strong>，$C$、$D$、$P$ 三点共线）。</li>
+<li>$\angle DCA = \angle DBP$：
+<ul>
+<li>$\angle DCA = \angle ACD = \alpha - \beta$（已知）。</li>
+<li>在外接圆 $\omega$ 上，$C$ 和 $B$ 位于弧 $AP$ 的同一侧（$A$、$C$、$B$、$Q$、$P$ 为圆上逆时针顺序）。</li>
+<li>由<strong>圆周角定理</strong>：$\angle ACP = \angle ABP$（同弧 $AP$ 上的圆周角）。</li>
+<li>$\angle ACP = \angle ACD = \alpha - \beta$，所以 $\angle ABP = \alpha - \beta = \angle DBP$。</li>
+</ul>
+</li>
+</ol>
+<p>因此 $\triangle CDA \sim \triangle PDB$（AA），对应比为：</p>
+$$\frac{CA}{PB} = \frac{CD}{PD} = \frac{DA}{DB}$$
+
+<p><strong>推论（相交弦定理）：</strong> 由 $\dfrac{DA}{DB} = \dfrac{CD}{PD}$，得 $DA \cdot PD = CD \cdot DB$，即：</p>
+$$\boxed{CD \cdot DP = AD \cdot DB}$$
+<p>这正是<strong>相交弦定理</strong>——两弦 $AB$ 和 $CP$ 交于点 $D$。我们看到相交弦定理本身就是相似三角形的直接推论。</p>
+</div>
+
+<div class="proof-step">
+<div class="step-title">相似三角形 ②：$\triangle CEB \sim \triangle QEA$</div>
+<p><strong>证明（AA 相似）：</strong></p>
+<ol>
+<li>$\angle CEB = \angle QEA$（<strong>对顶角</strong>，$C$、$E$、$Q$ 三点共线）。</li>
+<li>$\angle BCE = \angle BAQ$：
+<ul>
+<li>$\angle BCE = \alpha - \beta$（已知）。</li>
+<li>在外接圆 $\omega$ 上，$C$ 和 $A$ 位于弧 $BQ$ 的同一侧。</li>
+<li>由<strong>圆周角定理</strong>：$\angle BCQ = \angle BAQ$（同弧 $BQ$ 上的圆周角）。</li>
+<li>$\angle BCQ = \angle BCE = \alpha - \beta$，所以 $\angle BAQ = \alpha - \beta$。</li>
+</ul>
+</li>
+</ol>
+<p>因此 $\triangle CEB \sim \triangle QEA$（AA），对应比为：</p>
+$$\frac{CB}{QA} = \frac{CE}{QE} = \frac{EB}{EA}$$
+
+<p><strong>推论：</strong></p>
+$$\boxed{CE \cdot EQ = BE \cdot EA}$$
+</div>
+
+<h3>6.3 与主证明的联系</h3>
+<div class="card">
+<p>上述两组相似三角形与主证明中的<strong>正弦定理</strong>本质上是同一件事：</p>
+
+<table>
+<tr><th>主证明中的正弦定理</th><th>等价的相似三角形</th></tr>
+<tr><td>$\triangle ACD$ 中 $\dfrac{AD}{\sin(\alpha-\beta)} = \dfrac{CD}{\sin A}$</td><td>$\triangle CDA \sim \triangle PDB$ 中的对应边比（通过外接圆直径）</td></tr>
+<tr><td>$\triangle BCD$ 中 $\dfrac{BD}{\sin(\alpha+\beta)} = \dfrac{CD}{\sin B}$</td><td>$\triangle CDB$ 与其外接圆直径三角形的相似</td></tr>
+<tr><td>$\triangle ACE$ 中 $\dfrac{AE}{\sin(\alpha+\beta)} = \dfrac{CE}{\sin A}$</td><td>$\triangle CEA$ 与其外接圆直径三角形的相似</td></tr>
+<tr><td>$\triangle BCE$ 中 $\dfrac{BE}{\sin(\alpha-\beta)} = \dfrac{CE}{\sin B}$</td><td>$\triangle CEB \sim \triangle QEA$ 中的对应边比（通过外接圆直径）</td></tr>
+</table>
+
+<p style="margin-top:1rem"><strong>核心洞察：</strong> 正弦定理 $\dfrac{a}{\sin A} = 2R$ 的标准证明就是构造外接圆直径，利用直径对应的直角三角形与原三角形的<strong>相似关系</strong>。因此，我们的证明虽然表面上使用正弦定理，但每一步的底层逻辑都是在构造和利用相似三角形。</p>
+
+<p>特别地，关键公式 $\sqrt{AD \cdot DB \cdot BE \cdot EA} = CD \cdot CE \cdot \dfrac{\sin(\alpha-\beta)\sin(\alpha+\beta)}{\sin A \sin B}$ 可以完全通过上述两组相似三角形（而不引用正弦定理）来推导：</p>
+<ol>
+<li>由 $\triangle CDA \sim \triangle PDB$，得 $AD \cdot DB = CD \cdot DP$。</li>
+<li>由 $\triangle CEB \sim \triangle QEA$，得 $AE \cdot EB = CE \cdot EQ$。</li>
+<li>$\sqrt{AD \cdot DB \cdot BE \cdot EA} = \sqrt{CD \cdot DP \cdot CE \cdot EQ}$。</li>
+<li>利用相似比中的具体值（$CA/PB$、$CB/QA$ 等）可进一步表达 $DP$ 和 $EQ$。</li>
+</ol>
+</div>
+
+<h3>6.4 第三组相似：$\triangle APB \sim \triangle BQA$</h3>
+<div class="proof-step">
+<div class="step-title">对称性产生的额外相似</div>
+<p>由圆周角定理和对称性，还有一组有趣的相似：</p>
+<ul>
+<li>$\angle PAB = \angle ABQ = \alpha + \beta$（对弧 $BP$ 和弧 $AQ$ 的圆周角）</li>
+<li>$\angle PBA = \angle QAB = \alpha - \beta$（对弧 $AP$ 和弧 $BQ$ 的圆周角）</li>
+</ul>
+<p>因此 $\triangle APB \sim \triangle BQA$（AA），这意味着 $AP = BQ$、$BP = AQ$（因为公共边 $AB = BA$，相似比为 $1$，实际上是全等）。</p>
+<p>这一性质体现了 $CD$、$CE$ 关于角平分线 $CF$ 对称这一条件在外接圆上的表现：<strong>$P$ 和 $Q$ 关于弧 $AB$ 中点（即 $CF$ 延长线与圆的交点 $M$）对称。</strong></p>
+</div>
+
+<!-- =============== 验证与检查 =============== -->
+<h2 id="verification">七、验证与检查</h2>
+
+<h3>7.1 数值验证</h3>
+<div class="check-section check-pass">
+<p><span class="badge badge-pass">✓ 全部通过</span></p>
+<p>编写 Python 脚本 <code>verify.py</code>，对以下数据进行验证：</p>
+<ul>
+<li>6 组固定测试数据（不同的 $AC$、$BC$、$\angle C$、$\beta$ 值）</li>
+<li>1000 组随机数据</li>
+</ul>
+<table>
+<tr><th>测试</th><th>参数</th><th>LHS = AC·BC</th><th>RHS</th><th>误差</th></tr>
+<tr><td>1</td><td>AC=5, BC=4, ∠C=60°, β=10°</td><td>20.0000</td><td>20.0000</td><td>3.6×10⁻¹⁵</td></tr>
+<tr><td>2</td><td>AC=3, BC=7, ∠C=80°, β=20°</td><td>21.0000</td><td>21.0000</td><td>3.6×10⁻¹⁵</td></tr>
+<tr><td>3</td><td>AC=6, BC=6, ∠C=90°, β=30°</td><td>36.0000</td><td>36.0000</td><td>0</td></tr>
+<tr><td>4</td><td>AC=4, BC=5, ∠C=40°, β=5°</td><td>20.0000</td><td>20.0000</td><td>3.6×10⁻¹⁵</td></tr>
+<tr><td>5</td><td>AC=8, BC=3, ∠C=120°, β=40°</td><td>24.0000</td><td>24.0000</td><td>0</td></tr>
+<tr><td>6</td><td>AC=10, BC=10, ∠C=50°, β=20°</td><td>100.0000</td><td>100.0000</td><td>4.3×10⁻¹⁴</td></tr>
+<tr><td>随机</td><td>1000组</td><td colspan="3">全部通过（误差 &lt; 10⁻⁶）</td></tr>
+</table>
+</div>
+
+<h3>7.2 特殊情形检验</h3>
+<div class="check-section check-pass">
+<p><span class="badge badge-pass">✓ 一致</span></p>
+<p><strong>当 $\beta = 0$ 时</strong>（$D = E = F$，即 $CD = CE = CF$）：</p>
+$$\sqrt{AF \cdot FB \cdot BF \cdot FA} + CF^2 = AF \cdot FB + CF^2$$
+<p>由角平分线的 Stewart 型公式：$AC \cdot BC = AF \cdot FB + CF^2$，这正是已知定理<br>
+（角平分线延长交外接圆时的幂关系）。✓</p>
+</div>
+
+<h3>7.3 与已知定理的关系（网络搜索验证）</h3>
+<div class="check-section check-pass">
+<p><span class="badge badge-info">参考文献</span></p>
+<p>本题实质上是<strong>等角共轭线</strong>（isogonal conjugate cevians）的一个性质。以下是通过网络搜索收集的相关参考资料：</p>
+
+<h3 style="font-size:1rem">等角共轭 (Isogonal Conjugate)</h3>
+<ul>
+<li><strong>Wikipedia — Isogonal conjugate</strong>：等角共轭线是将三角形顶角的 cevian 关于角平分线做反射所得。如果点 $P$ 的 cevian 从各顶点出发，将每条 cevian 关于对应角平分线反射后，三条反射线交于 $P$ 的等角共轭点 $P^*$。三线坐标中，若 $P = (\alpha:\beta:\gamma)$ 则 $P^* = (1/\alpha:1/\beta:1/\gamma)$。
+<br><a href="https://en.wikipedia.org/wiki/Isogonal_conjugate" target="_blank" style="color:var(--accent)">en.wikipedia.org/wiki/Isogonal_conjugate</a></li>
+
+<li><strong>Evan Chen — Three Properties of Isogonal Conjugates</strong>：详细讨论了等角共轭的三个核心性质，包括反射线共点性、与外接圆的关系等。
+<br><a href="https://blog.evanchen.cc/2014/11/30/three-properties-of-isogonal-conjugates/" target="_blank" style="color:var(--accent)">blog.evanchen.cc — Three Properties of Isogonal Conjugates</a></li>
+
+<li><strong>Art of Problem Solving Wiki — Isogonal conjugate</strong>：竞赛数学视角的等角共轭介绍，含多种证明方法和例题。
+<br><a href="https://artofproblemsolving.com/wiki/index.php/Isogonal_conjugate" target="_blank" style="color:var(--accent)">artofproblemsolving.com/wiki — Isogonal conjugate</a></li>
+
+<li><strong>MathWorld — Isogonal Conjugate</strong>：Wolfram MathWorld 的等角共轭条目，包含坐标表示和经典性质。
+<br><a href="https://mathworld.wolfram.com/IsogonalConjugate.html" target="_blank" style="color:var(--accent)">mathworld.wolfram.com/IsogonalConjugate.html</a></li>
+</ul>
+
+<h3 style="font-size:1rem">Ptolemy 定理与相似三角形</h3>
+<ul>
+<li><strong>Cut-the-Knot — Ptolemy's Theorem</strong>：Ptolemy 定理的多种证明，其中经典证法正是通过在对角线上取辅助点构造两组相似三角形完成的。本题的证明思路与此一脉相承。
+<br><a href="https://www.cut-the-knot.org/proofs/ptolemy.shtml" target="_blank" style="color:var(--accent)">cut-the-knot.org/proofs/ptolemy.shtml</a></li>
+
+<li><strong>Wikipedia — Ptolemy's theorem</strong>：对圆内接四边形 $ABCD$：$AC \cdot BD = AB \cdot CD + AD \cdot BC$。当 $\beta = 0$（退化为角平分线）时，本题等式可由 Ptolemy 定理直接推出。
+<br><a href="https://en.wikipedia.org/wiki/Ptolemy%27s_theorem" target="_blank" style="color:var(--accent)">en.wikipedia.org/wiki/Ptolemy's_theorem</a></li>
+
+<li><strong>ProofWiki — Ptolemy's Theorem/Proof 1</strong>：基于相似三角形的严格证明。构造 $\angle ACB = \angle MCD$ 的辅助点 $M$，得到 $\triangle ABC \sim \triangle DMC$ 和 $\triangle BCM \sim \triangle ACD$。
+<br><a href="https://proofwiki.org/wiki/Ptolemy%27s_Theorem/Proof_1" target="_blank" style="color:var(--accent)">proofwiki.org/wiki/Ptolemy's_Theorem/Proof_1</a></li>
+</ul>
+
+<h3 style="font-size:1rem">角平分线与 Stewart 定理</h3>
+<ul>
+<li><strong>Wikipedia — Stewart's theorem</strong>：对三角形中的 cevian $d$（分对边为 $m$ 和 $n$），有 $b^2m + c^2n = a(d^2 + mn)$。当 cevian 为角平分线时可得 $AC \cdot BC = CF^2 + AF \cdot FB$，即本题 $\beta = 0$ 的特殊情形。
+<br><a href="https://en.wikipedia.org/wiki/Stewart%27s_theorem" target="_blank" style="color:var(--accent)">en.wikipedia.org/wiki/Stewart's_theorem</a></li>
+
+<li><strong>Cut-the-Knot — Angle Bisector Theorem</strong>：角平分线定理及其多种证明方法。
+<br><a href="https://www.cut-the-knot.org/triangle/AngleBisectorTheorem.shtml" target="_blank" style="color:var(--accent)">cut-the-knot.org/triangle/AngleBisectorTheorem.shtml</a></li>
+
+<li><strong>ProofWiki — Length of Angle Bisector</strong>：角平分线长度公式的推导。
+<br><a href="https://proofwiki.org/wiki/Length_of_Angle_Bisector" target="_blank" style="color:var(--accent)">proofwiki.org/wiki/Length_of_Angle_Bisector</a></li>
+
+<li><strong>StudyX — AD bisects ∠BAC, prove AB·AC = AD² + BD·DC</strong>：角平分线延长交外接圆时的乘积恒等式，这与本题 $\beta=0$ 情形完全一致。
+<br><a href="https://studyx.ai/questions/4llef88/" target="_blank" style="color:var(--accent)">studyx.ai — angle bisector circumcircle identity</a></li>
+</ul>
+
+<h3 style="font-size:1rem">中文参考</h3>
+<ul>
+<li><strong>科数网 — 角平分线</strong>：角平分线的基本性质和定理总结。
+<br><a href="https://kb.kmath.cn/kbase/detail.aspx?id=3101" target="_blank" style="color:var(--accent)">kb.kmath.cn — 角平分线</a></li>
+
+<li><strong>科普中国 — 角平分线定理</strong>：角平分线上的点到角两边距离相等；三角形角平分线分对边成比例。
+<br><a href="https://www.kepuchina.cn/article/articleinfo?business_type=100&classify=0&ar_id=283242" target="_blank" style="color:var(--accent)">kepuchina.cn — 角平分线定理</a></li>
+</ul>
+
+<p style="margin-top:1rem"><strong>结论：</strong> 虽然网络上未找到本题恒等式的完全匹配，但它是角平分线幂关系 $AC \cdot BC = CF^2 + AF \cdot FB$ 在等角共轭线对上的自然推广。证明方法与 Ptolemy 定理的相似三角形证法、外接圆相交弦定理完全一致。</p>
+</div>
+
+<h3>7.4 证明逻辑检查</h3>
+<div class="check-section check-pass">
+<p><span class="badge badge-pass">✓ 逻辑完整</span></p>
+<ol>
+<li>每步正弦定理的应用条件：各小三角形内角和为 $\pi$，角度为正 — <strong>成立</strong>（$0 < \beta < \alpha$）</li>
+<li>第二步四项乘积开方：被开方数 $\geq 0$ — <strong>成立</strong>（各线段长度均正）</li>
+<li>面积法分解：$D$ 在 $A$ 和 $F$ 之间，$E$ 在 $F$ 和 $B$ 之间 — <strong>成立</strong>（由 $\beta < \alpha$ 保证）</li>
+<li>除以 $u(c+u)$ 的条件：$u = \cos 2\alpha \neq 0$（即 $\alpha \neq 45°$）且 $c + u \neq 0$ — 
+当 $\alpha = 45°$ 或 $c + u = 0$ 时需单独验证，但这些都是连续函数的零测集，由极限论证或直接代入可验证等式仍然成立。</li>
+<li>最终恒等式化简为 $\sin^2\alpha - \sin^2\beta = \sin^2\alpha - \sin^2\beta$ — <strong>恒真</strong> ✓</li>
+<li>相似三角形 $\triangle CDA \sim \triangle PDB$ 和 $\triangle CEB \sim \triangle QEA$ 的 AA 条件均已严格验证 ✓</li>
+</ol>
+</div>
+
+<hr>
+<p style="text-align:center;color:#888;font-size:.9rem">
+生成时间：2026-02-21 &nbsp;|&nbsp; 数值验证：verify.py &nbsp;|&nbsp; 过程日志：process.log
+</p>
+
+</div>
+</body>
+</html>

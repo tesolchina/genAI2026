@@ -1,0 +1,102 @@
+[
+  {
+    "index": 1,
+    "filename": "Part01_welcome.mp4",
+    "title": "Welcome & Workshop Overview \u2014 What Is Agentic AI 101?",
+    "original_start": "00:00:00",
+    "original_end": "00:10:00",
+    "edited_start": "00:00:00",
+    "edited_end": "00:09:44",
+    "duration_min": 9.7
+  },
+  {
+    "index": 2,
+    "filename": "Part02_agents_vs_chatbots.mp4",
+    "title": "AI Agents vs Chatbots \u2014 How IDE Agents Read, Write & Act on Your Files",
+    "original_start": "00:10:00",
+    "original_end": "00:25:00",
+    "edited_start": "00:09:44",
+    "edited_end": "00:24:27",
+    "duration_min": 14.7
+  },
+  {
+    "index": 3,
+    "filename": "Part03_curriculum_reform.mp4",
+    "title": "Why We Must Revamp Education \u2014 The SCMP Letter & the Kissing Number Problem",
+    "original_start": "00:25:00",
+    "original_end": "00:35:00",
+    "edited_start": "00:24:27",
+    "edited_end": "00:34:16",
+    "duration_min": 9.8
+  },
+  {
+    "index": 4,
+    "filename": "Part04_research_with_ai.mp4",
+    "title": "Finding a Research Paper with an AI Agent \u2014 Live arXiv Search Demo",
+    "original_start": "00:35:00",
+    "original_end": "00:45:30",
+    "edited_start": "00:34:16",
+    "edited_end": "00:44:36",
+    "duration_min": 10.3
+  },
+  {
+    "index": 5,
+    "filename": "Part05_brainstorm_draft.mp4",
+    "title": "From Paper to Letter \u2014 AI-Powered Brainstorming & Drafting in the IDE",
+    "original_start": "00:45:30",
+    "original_end": "00:55:00",
+    "edited_start": "00:44:36",
+    "edited_end": "00:53:51",
+    "duration_min": 9.2
+  },
+  {
+    "index": 6,
+    "filename": "Part06_video_chinese.mp4",
+    "title": "Multi-Tool Workflow \u2014 Video Analysis, Chinese Notes & Cross-Platform AI",
+    "original_start": "00:55:00",
+    "original_end": "01:05:00",
+    "edited_start": "00:53:51",
+    "edited_end": "01:03:17",
+    "duration_min": 9.4
+  },
+  {
+    "index": 7,
+    "filename": "Part07_visual_data.mp4",
+    "title": "Telling a Visual Story \u2014 PackingStar Data, GitHub Repos & AI Narration",
+    "original_start": "01:05:00",
+    "original_end": "01:17:00",
+    "edited_start": "01:03:17",
+    "edited_end": "01:13:53",
+    "duration_min": 10.6
+  },
+  {
+    "index": 8,
+    "filename": "Part08_ambassador_panel.mp4",
+    "title": "Student Ambassador Panel \u2014 Reflections on Learning with AI Agents",
+    "original_start": "01:17:00",
+    "original_end": "01:26:00",
+    "edited_start": "01:13:53",
+    "edited_end": "01:22:46",
+    "duration_min": 8.9
+  },
+  {
+    "index": 9,
+    "filename": "Part09_hands_on_demo.mp4",
+    "title": "Hands-On Demo \u2014 A Student Clones a Repo & Writes a Letter with AI in VS Code",
+    "original_start": "01:26:00",
+    "original_end": "01:37:30",
+    "edited_start": "01:22:46",
+    "edited_end": "01:32:52",
+    "duration_min": 10.1
+  },
+  {
+    "index": 10,
+    "filename": "Part10_wrap_up.mp4",
+    "title": "Wrap-Up \u2014 GitHub Pages, Exam Prep Ideas & Getting Started with Trae",
+    "original_start": "01:37:30",
+    "original_end": "01:45:20",
+    "edited_start": "01:32:52",
+    "edited_end": "01:40:03",
+    "duration_min": 7.2
+  }
+]
