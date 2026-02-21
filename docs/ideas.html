@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Code 学术工作流：端到端示意与 Cursor/VS Code 使用说明</title>
+  <style>
+    :root { --bg: #f8f9fa; --card: #fff; --border: #dee2e6; --primary: #0d6efd; --text: #212529; --muted: #6c757d; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 1rem 2rem 2rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+    h2 { font-size: 1.2rem; margin-top: 1.5rem; }
+    h3 { font-size: 1.05rem; margin-top: 1rem; }
+    a { color: var(--primary); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+    .workflow { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 1rem 0; font-size: 0.9rem; }
+    .workflow .step { background: #e7f1ff; border: 1px solid #b6d4fe; padding: 0.4rem 0.8rem; border-radius: 6px; }
+    .workflow .arrow { color: var(--muted); }
+    blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 4px solid var(--primary); color: var(--muted); font-style: italic; }
+    .links ul { margin: 0.25rem 0; padding-left: 1.25rem; }
+    code { background: #e9ecef; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    pre { background: #2d2d2d; color: #f8f8f2; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
+    th { background: #e9ecef; }
+    .cite { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <h1>Claude Code 学术工作流：端到端示意与 Cursor / VS Code 使用说明</h1>
+  <p>本文档基于 <a href="https://github.com/pedrohcgs/claude-code-my-workflow">pedrohcgs/claude-code-my-workflow</a> 与公众号文章 <a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/wechatPost.md">wechatPost.md</a>，说明工作流全流程、在 Cursor 与 VS Code 中的用法及可复现程度。</p>
+
+  <h2>一、端到端工作流示意</h2>
+  <div class="card">
+    <div class="workflow">
+      <span class="step">1. 你描述任务</span>
+      <span class="arrow">→</span>
+      <span class="step">2. 规划模式（出计划/需求规格）</span>
+      <span class="arrow">→</span>
+      <span class="step">3. 你批准计划</span>
+      <span class="arrow">→</span>
+      <span class="step">4. Contractor 自主执行</span>
+      <span class="arrow">→</span>
+      <span class="step">5. 多 Agent 审查（proofreader / slide-auditor / pedagogy / R / critic-fixer…）</span>
+      <span class="arrow">→</span>
+      <span class="step">6. 修复并重审（至多 5 轮）</span>
+      <span class="arrow">→</span>
+      <span class="step">7. 质量打分（0–100）</span>
+      <span class="arrow">→</span>
+      <span class="step">8. 通过门控（≥80 提交，≥90 PR）才交付</span>
+    </div>
+  </div>
+  <blockquote>
+    「你不是给它一个个小指令，而是描述你要什么结果，然后它自己完成从规划到实施到质检的全过程。」<br>
+    <span class="cite">— wechatPost.md：Sant'Anna 建了一套什么系统</span>
+  </blockquote>
+  <blockquote>
+    「每个文件最终会得到一个 0 到 100 的质量分数，80 分以下不允许提交到版本库。」<br>
+    <span class="cite">— wechatPost.md：同上</span>
+  </blockquote>
+
+  <h2>二、核心概念与摘录</h2>
+  <table>
+    <thead><tr><th>概念</th><th>说明</th><th>来源</th></tr></thead>
+    <tbody>
+      <tr><td>单一真相源</td><td>表格/数字只在 R 或 Beamer 等一处定义，论文与幻灯片从该处派生，避免图文不符。</td><td>wechatPost.md；上游 README Single source of truth</td></tr>
+      <tr><td>复现协议</td><td>扩展模型前先自动复现原始结果；点估计容差 1e-6、标准误 1e-4、覆盖率 ±0.01 等。</td><td>wechatPost.md；.claude/rules/replication-protocol.md</td></tr>
+      <tr><td>探索文件夹</td><td><code>explorations/</code> 内代码门槛 60 分、流程简化，正式代码 80 分才可提交。</td><td>wechatPost.md；.claude/rules/exploration-fast-track.md</td></tr>
+      <tr><td>对抗式审查</td><td>Critic 只挑毛病，Fixer 只改；两者分离，最多五轮直到 APPROVED。</td><td>wechatPost.md；.claude/agents/quarto-critic.md, quarto-fixer.md</td></tr>
+      <tr><td>持续学习</td><td>纠正写入 MEMORY.md（如 [LEARN:tag]），新会话先读历史纠正，形成“错题本”。</td><td>wechatPost.md；CLAUDE.md [LEARN] tags</td></tr>
+    </tbody>
+  </table>
+
+  <h2>三、在 Cursor 中复现的步骤与提示词</h2>
+  <h3>3.1 准备</h3>
+  <ul>
+    <li>本仓库中已包含克隆的模板：<a href="https://github.com/tesolchina/genAI2026/tree/main/courses/econometrics/claude-code-my-workflow">courses/econometrics/claude-code-my-workflow</a>，或自行 fork 并 clone：<a href="https://github.com/pedrohcgs/claude-code-my-workflow">https://github.com/pedrohcgs/claude-code-my-workflow</a>。</li>
+    <li>在 Cursor 中打开该克隆（或你 fork 的）项目根目录，确保 AI 能访问 <code>CLAUDE.md</code>、<code>.claude/</code> 下的 rules、skills、agents。</li>
+  </ul>
+  <h3>3.2 首次适配项目的提示词（可粘贴到 Cursor AI）</h3>
+  <p>以下基于上游 <a href="https://github.com/pedrohcgs/claude-code-my-workflow#quick-start-5-minutes">Quick Start</a> 与 <a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-first-session">workflow-guide 首会话</a>，将 <strong>[PROJECT NAME]</strong> 和描述替换成你的项目：</p>
+  <pre>I am starting to work on [PROJECT NAME] in this repo. [Describe your project in 2–3 sentences — what you're building, who it's for, what tools you use.]
+
+I want our collaboration to be structured, precise, and rigorous. When creating visuals, everything must be polished and publication-ready.
+
+I've set up the Claude Code academic workflow (forked from pedrohcgs/claude-code-my-workflow). The configuration files are already in this repo. Please read them, understand the workflow, and then update all configuration files to fit my project — fill in placeholders in CLAUDE.md, adjust rules if needed, and propose any customizations specific to my use case.
+
+After that, use the plan-first workflow for all non-trivial tasks. Once I approve a plan, switch to contractor mode — coordinate everything autonomously and only come back to me when there's ambiguity or a decision to make.
+
+Enter plan mode and start by adapting the workflow configuration for this project.</pre>
+  <h3>3.3 日常任务示例</h3>
+  <ul>
+    <li>「把第三讲的 Beamer 幻灯片转换成 Quarto 网页格式，并跑一遍质量审查。」</li>
+    <li>「在 explorations/ 下新建一个子项目，试一个新的工具变量设定，满足 60 分门槛即可。」</li>
+    <li>「检查 scripts/ 下所有 R 脚本的复现协议：先复现基准结果再扩展。」</li>
+  </ul>
+  <p>在 Cursor 中，通过项目内的 <code>.claude/rules</code> 与 <code>CLAUDE.md</code> 约束行为，可实现“先规划、后执行、多轮审查、质量门控”的复现。</p>
+
+  <h2>四、在 VS Code 中的用法与局限</h2>
+  <ul>
+    <li><strong>VS Code + Claude Code 插件</strong>：打开同一项目，使用 Claude Code 面板，流程与 CLI 类似（见上游 <a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup">full guide – Setup</a>）。</li>
+    <li><strong>与 CLI 的差异</strong>（公众号留言区作者回复，<a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/wechatPost.md">wechatPost.md</a>）：「三四个月前的时候 cc 插件是有残缺的，但后来补上了一些功能。但要所有功能的话肯定还是 cli，比如最新的 agent teams 的功能插件肯定还没有。」</li>
+    <li>因此：<strong>MCP、hooks、skills 等在插件中可用性以当前 Claude Code 文档为准；若需 agent teams 等最新能力，建议用 CLI。</strong></li>
+  </ul>
+
+  <h2>五、能做到什么程度（Cursor vs VS Code vs CLI）</h2>
+  <table>
+    <thead><tr><th>能力</th><th>Cursor（本机 AI + 项目规则）</th><th>VS Code + Claude Code 插件</th><th>Claude Code CLI</th></tr></thead>
+    <tbody>
+      <tr><td>读写项目文件、执行命令</td><td>✅ 支持</td><td>✅ 支持</td><td>✅ 支持</td></tr>
+      <tr><td>遵循 CLAUDE.md / .claude/rules</td><td>✅ 需在项目内配置并让 AI 读取</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
+      <tr><td>规划优先、Contractor 模式</td><td>✅ 通过规则与提示词实现</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
+      <tr><td>多 Agent 审查（proofreader、slide-auditor 等）</td><td>⚠️ 由你或 AI 按技能描述调用，非自动多 agent</td><td>⚠️ 同左，视插件对 skills 的支持</td><td>✅ 完整 skills/agents</td></tr>
+      <tr><td>Hooks、PreCompact、MEMORY.md</td><td>⚠️ 行为依赖 Cursor 是否注入这些机制</td><td>⚠️ 依赖插件</td><td>✅ 完整</td></tr>
+      <tr><td>Agent teams 等最新功能</td><td>❌ 无</td><td>❌ 作者称插件尚未有</td><td>✅ 有</td></tr>
+    </tbody>
+  </table>
+  <p>结论：在 Cursor 与 VS Code 中可复现「规划 → 实施 → 人工或半自动审查 → 质量意识」的主流程；要完全复现 Sant'Anna 的 10 agents、21 skills、7 hooks，仍以 Claude Code CLI 或插件后续更新为准。</p>
+
+  <h2>六、参考链接汇总</h2>
+  <div class="card links">
+    <ul>
+      <li><a href="https://psantanna.com/claude-code-my-workflow/">Pedro Sant'Anna – Claude Code: My Workflow (Blog)</a></li>
+      <li><a href="https://github.com/pedrohcgs/claude-code-my-workflow">GitHub: pedrohcgs/claude-code-my-workflow</a></li>
+      <li><a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html">Full workflow guide (Quarto)</a></li>
+      <li><a href="https://economics.emory.edu/people/faculty/biography/sant-anna-pedro.html">Pedro Sant'Anna – Emory University Faculty</a></li>
+      <li><a href="https://doi.org/10.1016/j.jeconom.2020.12.001">Callaway &amp; Sant'Anna (2021), Journal of Econometrics</a></li>
+      <li><a href="https://scholar.google.com/citations?user=BVWmSY4AAAAJ&hl=en">Pedro Sant'Anna – Google Scholar</a></li>
+      <li><a href="https://code.claude.com/docs/en/overview">Claude Code Documentation</a></li>
+      <li>本仓库：<a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/wechatPost.md">wechatPost.md</a>、<a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/README_zh.md">README_zh.md</a>、<a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/fetchGitHub.md">fetchGitHub.md</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>本文档由 <a href="https://github.com/tesolchina/genAI2026/blob/main/courses/econometrics/fetchGitHub.md">fetchGitHub.md</a> 任务生成，用于在 Cursor / VS Code 中理解与复现 Sant'Anna 的 Claude Code 学术工作流。模板来源：<a href="https://github.com/pedrohcgs/claude-code-my-workflow">pedrohcgs/claude-code-my-workflow</a>（MIT）。</p>
+  </footer>
+</body>
+</html>
