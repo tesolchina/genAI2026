@@ -1,0 +1,18 @@
+---
+description: For non-trivial tasks, plan first: draft plan, save to quality_reports/plans/, get approval, then implement.
+alwaysApply: true
+---
+
+# Plan-First Workflow
+
+For **non-trivial** tasks (multi-file, ambiguous, or >~1 hour):
+
+1. **Check MEMORY.md** for relevant `[LEARN]` entries.
+2. **Draft a plan:** what to change, which files, in what order.
+3. **Save plan** to `quality_reports/plans/YYYY-MM-DD_short-description.md` (status: DRAFT).
+4. **Present to user** and wait for approval.
+5. **After approval,** implement. Update plan status to APPROVED/COMPLETED as you go.
+
+Skip for: single-file edits, clear small tasks, or when the user has already given a detailed spec.
+
+For complex/ambiguous tasks, write a short requirements spec (MUST/SHOULD/MAY, CLEAR/ASSUMED/BLOCKED) to `quality_reports/specs/` and get approval before planning.

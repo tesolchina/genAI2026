@@ -1,0 +1,11 @@
+---
+description: At session start, read MEMORY.md and apply [LEARN] corrections. When user corrects you, append [LEARN:category] wrong → right to MEMORY.md.
+alwaysApply: true
+---
+
+# MEMORY.md and [LEARN]
+
+- **On starting work:** If `MEMORY.md` exists, read it and follow any `[LEARN:...]` entries (citation fixes, notation, style). Do not repeat those mistakes.
+- **When the user corrects you:** Append one line to `MEMORY.md`: `[LEARN:category] wrong → right` (e.g. `[LEARN:citation] Belloni (2014) → Belloni (2013)`). Use a short category; do not duplicate existing lines.
+
+This keeps a persistent "error log" so future sessions stay consistent with past corrections.

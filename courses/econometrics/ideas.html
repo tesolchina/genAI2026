@@ -31,6 +31,28 @@
   <h1>Claude Code 学术工作流：端到端示意与 Cursor / VS Code 使用说明</h1>
   <p>本文档基于 <a href="https://github.com/pedrohcgs/claude-code-my-workflow">pedrohcgs/claude-code-my-workflow</a> 与公众号文章 <a href="./wechatPost.md">wechatPost.md</a>，说明工作流全流程、在 Cursor 与 VS Code 中的用法及可复现程度。</p>
 
+  <h2>本仓库相关文件速查</h2>
+  <table>
+    <thead><tr><th>路径</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>courses/econometrics/wechatPost.md</code></td><td>公众号文章：工作流解读与借鉴要点</td></tr>
+      <tr><td><code>courses/econometrics/README_zh.md</code></td><td>中文说明：整体流程与复现步骤</td></tr>
+      <tr><td><code>courses/econometrics/ideas.html</code></td><td>本页（工作流示意 + Cursor/VS Code 复现说明）</td></tr>
+      <tr><td><code>courses/econometrics/claude-code-my-workflow/</code></td><td>工作流模板根目录（CLAUDE.md、.claude/、.cursor/ 所在处）</td></tr>
+      <tr><td><code>…/CLAUDE.md</code></td><td>项目说明书：原则、目录结构、质量门控、技能速查</td></tr>
+      <tr><td><code>…/.claude/agents/</code></td><td>Claude Code 用：proofreader、slide-auditor、pedagogy-reviewer、r-reviewer、quarto-critic/fixer 等</td></tr>
+      <tr><td><code>…/.claude/skills/</code></td><td>Claude Code 用：/proofread、/visual-audit、/slide-excellence、/qa-quarto 等</td></tr>
+      <tr><td><code>…/.claude/rules/</code></td><td>Claude Code 用：plan-first、quality-gates、single-source-of-truth、replication-protocol 等</td></tr>
+      <tr><td><code>…/.claude/hooks/</code></td><td>Claude Code 用：pre-compact、session log 提醒等脚本（Cursor 中可手动或让 AI 执行）</td></tr>
+      <tr><td><code>…/.cursor/README.md</code></td><td>Cursor 复现说明：技能与规则列表、与 CLI 的差异、快速开始</td></tr>
+      <tr><td><code>…/.cursor/skills/</code></td><td>Cursor 用：proofread、visual-audit、pedagogy-review、review-r、qa-quarto、slide-excellence、memory-and-learn</td></tr>
+      <tr><td><code>…/.cursor/rules/</code></td><td>Cursor 用：plan-first-workflow、quality-gates、single-source、session-logging、replication、exploration、memory-learn</td></tr>
+      <tr><td><code>…/MEMORY.md</code></td><td>持续学习：保存 [LEARN:category] wrong → right，新会话先读</td></tr>
+      <tr><td><code>…/quality_reports/</code></td><td>计划、会话日志、审查报告、合并时质量报告</td></tr>
+      <tr><td><code>…/explorations/</code></td><td>探索用沙盒（门槛 60）；正式代码 80 才提交</td></tr>
+    </tbody>
+  </table>
+
   <h2>一、端到端工作流示意</h2>
   <div class="card">
     <div class="workflow">
@@ -72,51 +94,72 @@
     </tbody>
   </table>
 
-  <h2>三、在 Cursor 中复现的步骤与提示词</h2>
-  <h3>3.1 准备</h3>
-  <ul>
-    <li>在本仓库中已包含克隆的模板：<code>courses/econometrics/claude-code-my-workflow/</code>，或自行 fork 并 clone：<a href="https://github.com/pedrohcgs/claude-code-my-workflow">https://github.com/pedrohcgs/claude-code-my-workflow</a>。</li>
-    <li>在 Cursor 中打开该克隆（或你 fork 的）项目根目录，确保 AI 能访问 <code>CLAUDE.md</code>、<code>.claude/</code> 下的 rules、skills、agents。</li>
-  </ul>
-  <h3>3.2 首次适配项目的提示词（可粘贴到 Cursor AI）</h3>
-  <p>以下基于上游 <a href="https://github.com/pedrohcgs/claude-code-my-workflow#quick-start-5-minutes">Quick Start</a> 与 <a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-first-session">workflow-guide 首会话</a>，将 <strong>[PROJECT NAME]</strong> 和描述替换成你的项目：</p>
-  <pre>I am starting to work on [PROJECT NAME] in this repo. [Describe your project in 2–3 sentences — what you're building, who it's for, what tools you use.]
+  <h2>三、在 Cursor 中如何复现工作流</h2>
+  <p>本仓库在 <code>claude-code-my-workflow/.cursor/</code> 下已提供 Cursor 专用技能与规则，<strong>无需安装额外插件</strong>，打开项目即可复现规划优先、多维度审查、质量门控与 MEMORY。</p>
+  <h3>3.1 步骤</h3>
+  <ol>
+    <li><strong>打开项目根目录：</strong>在 Cursor 中打开 <code>courses/econometrics/claude-code-my-workflow/</code>（即包含 <code>CLAUDE.md</code> 和 <code>.cursor/</code> 的文件夹）。Cursor 会自动加载 <code>.cursor/rules/</code>；技能在 <code>.cursor/skills/</code> 下可被 AI 根据描述触发。</li>
+    <li><strong>依赖的文件：</strong>
+      <ul>
+        <li>规则：<code>.cursor/rules/*.mdc</code>（plan-first-workflow、quality-gates、single-source-of-truth、session-logging、replication-protocol、exploration-folder、memory-learn）</li>
+        <li>技能：<code>.cursor/skills/*/SKILL.md</code>（proofread、visual-audit、pedagogy-review、review-r、qa-quarto、slide-excellence、memory-and-learn）</li>
+        <li>说明：<code>.cursor/README.md</code>、<code>CLAUDE.md</code></li>
+      </ul>
+    </li>
+    <li><strong>首次适配：</strong>对 AI 说「请读 CLAUDE.md 和 .cursor/README.md，然后根据我当前项目更新 CLAUDE.md 里的占位符」。或粘贴下面 3.2 的提示词。</li>
+    <li><strong>日常使用：</strong>用自然语言即可触发技能，例如：「对 Slides/Lecture01.tex 做 proofread」「对 Quarto/lecture1.qmd 做 slide-excellence」「审查 scripts/R 下所有 R 脚本」「先读 MEMORY.md 再开始」「对 Lecture1 跑一遍 qa-quarto」。</li>
+  </ol>
+  <h3>3.2 首次适配项目的提示词（可粘贴到 Cursor）</h3>
+  <p>将 <strong>[PROJECT NAME]</strong> 和描述替换成你的项目（基于上游 <a href="https://github.com/pedrohcgs/claude-code-my-workflow#quick-start-5-minutes">Quick Start</a>）：</p>
+  <pre>I am starting to work on [PROJECT NAME] in this repo. [Describe your project in 2–3 sentences.]
 
 I want our collaboration to be structured, precise, and rigorous. When creating visuals, everything must be polished and publication-ready.
 
-I've set up the Claude Code academic workflow (forked from pedrohcgs/claude-code-my-workflow). The configuration files are already in this repo. Please read them, understand the workflow, and then update all configuration files to fit my project — fill in placeholders in CLAUDE.md, adjust rules if needed, and propose any customizations specific to my use case.
-
-After that, use the plan-first workflow for all non-trivial tasks. Once I approve a plan, switch to contractor mode — coordinate everything autonomously and only come back to me when there's ambiguity or a decision to make.
+Please read CLAUDE.md and .cursor/README.md, then update CLAUDE.md to fit my project (fill placeholders, adjust rules if needed). Use plan-first for non-trivial tasks: draft a plan, save to quality_reports/plans/, get my approval, then implement. When I correct you, append [LEARN:category] wrong → right to MEMORY.md.
 
 Enter plan mode and start by adapting the workflow configuration for this project.</pre>
   <h3>3.3 日常任务示例</h3>
   <ul>
-    <li>「把第三讲的 Beamer 幻灯片转换成 Quarto 网页格式，并跑一遍质量审查。」</li>
-    <li>「在 explorations/ 下新建一个子项目，试一个新的工具变量设定，满足 60 分门槛即可。」</li>
-    <li>「检查 scripts/ 下所有 R 脚本的复现协议：先复现基准结果再扩展。」</li>
+    <li>「把第三讲的 Beamer 转换成 Quarto，并跑一遍 slide-excellence。」</li>
+    <li>「在 explorations/ 下新建子项目，试一个新工具变量设定，满足探索文件夹 60 分门槛。」</li>
+    <li>「检查 scripts/ 下所有 R 脚本的复现协议：先复现基准再扩展。」</li>
   </ul>
-  <p>在 Cursor 中，通过项目内的 <code>.claude/rules</code> 与 <code>CLAUDE.md</code> 约束行为，可实现“先规划、后执行、多轮审查、质量门控”的复现。</p>
 
-  <h2>四、在 VS Code 中的用法与局限</h2>
-  <ul>
-    <li><strong>VS Code + Claude Code 插件</strong>：打开同一项目，使用 Claude Code 面板，流程与 CLI 类似（见上游 <a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup">full guide – Setup</a>）。</li>
-    <li><strong>与 CLI 的差异</strong>（公众号留言区作者回复，<a href="./wechatPost.md">wechatPost.md</a>）：「三四个月前的时候 cc 插件是有残缺的，但后来补上了一些功能。但要所有功能的话肯定还是 cli，比如最新的 agent teams 的功能插件肯定还没有。」</li>
-    <li>因此：<strong>MCP、hooks、skills 等在插件中可用性以当前 Claude Code 文档为准；若需 agent teams 等最新能力，建议用 CLI。</strong></li>
-  </ul>
+  <h2>四、在 VS Code 中如何复现工作流</h2>
+  <p>在 VS Code 中复现需使用 <strong>Claude Code 插件</strong>（或 CLI），依赖模板内的 <code>.claude/</code> 配置，而非 <code>.cursor/</code>。</p>
+  <h3>4.1 步骤</h3>
+  <ol>
+    <li><strong>安装 Claude Code：</strong>CLI <code>npm install -g @anthropic-ai/claude-code</code>，或在 VS Code 中安装 Claude Code 扩展。见 <a href="https://code.claude.com/docs/en/overview">Claude Code 文档</a> 与上游 <a href="https://psantanna.com/claude-code-my-workflow/workflow-guide.html#sec-setup">workflow guide – Setup</a>。</li>
+    <li><strong>打开项目根目录：</strong>在 VS Code 中打开 <code>courses/econometrics/claude-code-my-workflow/</code>（与 Cursor 相同根目录）。</li>
+    <li><strong>依赖的文件：</strong>
+      <ul>
+        <li><code>.claude/agents/</code>（proofreader、slide-auditor、pedagogy-reviewer、r-reviewer、quarto-critic、quarto-fixer 等）</li>
+        <li><code>.claude/skills/</code>（/proofread、/visual-audit、/pedagogy-review、/review-r、/slide-excellence、/qa-quarto 等）</li>
+        <li><code>.claude/rules/</code>（plan-first-workflow、quality-gates、single-source-of-truth、replication-protocol 等）</li>
+        <li><code>.claude/hooks/</code>（pre-compact、session log 等；由 Claude Code 在适当时机调用）</li>
+        <li><code>CLAUDE.md</code>、<code>MEMORY.md</code></li>
+      </ul>
+    </li>
+    <li><strong>首次会话：</strong>在 Claude Code 面板中粘贴与 3.2 类似的提示词（或上游 Quick Start 的完整提示），让 Claude 读配置并适配项目。</li>
+    <li><strong>日常使用：</strong>通过斜杠命令调用技能，如 <code>/proofread Slides/Lecture01.tex</code>、<code>/slide-excellence Quarto/lecture1.qmd</code>、<code>/qa-quarto Lecture1</code>。规划与 contractor 模式由 <code>.claude/rules</code> 驱动。</li>
+  </ol>
+  <h3>4.2 与 CLI 的差异</h3>
+  <p>公众号 <a href="./wechatPost.md">wechatPost.md</a> 留言区作者回复：插件曾功能残缺，后已补部分功能；<strong>全部功能（如 agent teams）仍以 CLI 为准</strong>。MCP、hooks、skills 在插件中的支持请以当前 Claude Code 文档为准。</p>
 
   <h2>五、能做到什么程度（Cursor vs VS Code vs CLI）</h2>
+  <p><strong>Cursor 复现：</strong>本仓库已在 <code>claude-code-my-workflow/.cursor/</code> 下提供 Cursor 版技能与规则，用于在 Cursor 内复现工作流。见 <a href="https://github.com/tesolchina/genAI2026/tree/main/courses/econometrics/claude-code-my-workflow/.cursor">.cursor/README.md</a>。</p>
   <table>
-    <thead><tr><th>能力</th><th>Cursor（本机 AI + 项目规则）</th><th>VS Code + Claude Code 插件</th><th>Claude Code CLI</th></tr></thead>
+    <thead><tr><th>能力</th><th>Cursor（.cursor/skills + rules）</th><th>VS Code + Claude Code 插件</th><th>Claude Code CLI</th></tr></thead>
     <tbody>
       <tr><td>读写项目文件、执行命令</td><td>✅ 支持</td><td>✅ 支持</td><td>✅ 支持</td></tr>
-      <tr><td>遵循 CLAUDE.md / .claude/rules</td><td>✅ 需在项目内配置并让 AI 读取</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
-      <tr><td>规划优先、Contractor 模式</td><td>✅ 通过规则与提示词实现</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
-      <tr><td>多 Agent 审查（proofreader、slide-auditor 等）</td><td>⚠️ 由你或 AI 按技能描述调用，非自动多 agent</td><td>⚠️ 同左，视插件对 skills 的支持</td><td>✅ 完整 skills/agents</td></tr>
-      <tr><td>Hooks、PreCompact、MEMORY.md</td><td>⚠️ 行为依赖 Cursor 是否注入这些机制</td><td>⚠️ 依赖插件</td><td>✅ 完整</td></tr>
-      <tr><td>Agent teams 等最新功能</td><td>❌ 无</td><td>❌ 作者称插件尚未有</td><td>✅ 有</td></tr>
+      <tr><td>遵循 CLAUDE.md / .claude/rules</td><td>✅ 项目内 .cursor/rules 等效</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
+      <tr><td>规划优先、Contractor 模式</td><td>✅ plan-first-workflow 等规则</td><td>✅ 同左</td><td>✅ 原生支持</td></tr>
+      <tr><td>多 Agent 审查（proofreader、slide-auditor 等）</td><td>✅ 单 agent 按 .cursor/skills 依次执行（proofread、visual-audit、pedagogy-review、review-r、slide-excellence、qa-quarto）</td><td>⚠️ 视插件对 skills 的支持</td><td>✅ 完整 skills/agents</td></tr>
+      <tr><td>Hooks、PreCompact、MEMORY.md</td><td>✅ MEMORY.md 由 memory-learn 规则 + memory-and-learn 技能实现；Hooks 可手动或让 AI 执行 .claude/hooks 脚本</td><td>⚠️ 依赖插件</td><td>✅ 完整</td></tr>
+      <tr><td>Agent teams 等最新功能</td><td>❌ 无多 agent 进程</td><td>❌ 作者称插件尚未有</td><td>✅ 有</td></tr>
     </tbody>
   </table>
-  <p>结论：在 Cursor 与 VS Code 中可复现「规划 → 实施 → 人工或半自动审查 → 质量意识」的主流程；要完全复现 Sant'Anna 的 10 agents、21 skills、7 hooks，仍以 Claude Code CLI 或插件后续更新为准。</p>
+  <p>结论：在 Cursor 中通过 <code>.cursor/skills</code> 与 <code>.cursor/rules</code> 已可复现「规划 → 实施 → 多维度审查（报告）→ 质量门控 → MEMORY 与探索文件夹」；多 agent 以单 agent 多技能顺序执行实现。Agent teams 等仍为 CLI 独有。</p>
 
   <h2>六、参考链接汇总</h2>
   <div class="card links">
@@ -128,7 +171,7 @@ Enter plan mode and start by adapting the workflow configuration for this projec
       <li><a href="https://doi.org/10.1016/j.jeconom.2020.12.001">Callaway &amp; Sant'Anna (2021), Journal of Econometrics</a></li>
       <li><a href="https://scholar.google.com/citations?user=BVWmSY4AAAAJ&hl=en">Pedro Sant'Anna – Google Scholar</a></li>
       <li><a href="https://code.claude.com/docs/en/overview">Claude Code Documentation</a></li>
-      <li>本地：<a href="./wechatPost.md">wechatPost.md</a>、<a href="./README_zh.md">README_zh.md</a>、<a href="./fetchGitHub.md">fetchGitHub.md</a></li>
+      <li>本仓库：<a href="./wechatPost.md">wechatPost.md</a>、<a href="./README_zh.md">README_zh.md</a>、<a href="./fetchGitHub.md">fetchGitHub.md</a>、<a href="./claude-code-my-workflow/">模板根目录</a>、<a href="./claude-code-my-workflow/.cursor/README.md">.cursor/README.md</a></li>
     </ul>
   </div>
 

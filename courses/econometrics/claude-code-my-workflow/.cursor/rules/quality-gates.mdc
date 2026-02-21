@@ -1,0 +1,17 @@
+---
+description: Quality scoring for .tex, .qmd, .R: 80 = commit, 90 = PR, 95 = excellence. Block commit below 80.
+globs: "**/*.tex,**/*.qmd,**/*.R"
+alwaysApply: false
+---
+
+# Quality Gates
+
+- **80/100** = Commit (good enough to save)
+- **90/100** = PR (ready for deployment)
+- **95/100** = Excellence (aspirational)
+
+**Enforcement:** Score < 80 → block commit and list blocking issues. Score < 90 → allow commit but warn and list recommendations.
+
+**Deductions (examples):** Critical (e.g. compile failure, syntax error, undefined citation): -10 to -100. Major (overflow, missing set.seed, hardcoded path): -3 to -20. Minor (font size, long lines): -1. Math line-length may be excepted if documented.
+
+Quality reports at **merge time** only: use `templates/quality-report.md`, save to `quality_reports/merges/`.

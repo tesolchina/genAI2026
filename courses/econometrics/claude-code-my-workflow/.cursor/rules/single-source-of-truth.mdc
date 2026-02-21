@@ -1,0 +1,15 @@
+---
+description: Beamer .tex is authoritative; Quarto and figures are derived. Never edit derived content independently; propagate from source.
+globs: "Figures/**/*,Slides/**/*.tex,Quarto/**/*.qmd"
+alwaysApply: false
+---
+
+# Single Source of Truth
+
+**Beamer `.tex` is the authoritative source.** Quarto `.qmd`, TikZ SVGs, and derived figures come from it.
+
+- Do **not** edit Quarto or derived artifacts independently for content changes.
+- Always propagate changes **from Beamer → Quarto** (and re-extract TikZ if needed).
+- Tables/numbers: define once in R output or Beamer; paper and slides consume that output.
+
+Before using TikZ SVGs in Quarto, ensure they match the current Beamer TikZ source; re-extract if different.

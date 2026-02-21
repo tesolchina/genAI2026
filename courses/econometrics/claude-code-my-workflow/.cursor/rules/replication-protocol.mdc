@@ -1,0 +1,16 @@
+---
+description: For R scripts: replicate original results to the dot before extending. Record targets, match specs, use tolerances (e.g. 1e-6 point, 1e-4 SE).
+globs: "**/*.R"
+alwaysApply: false
+---
+
+# Replication Protocol
+
+**Replicate before extending.** For any R work tied to a paper or baseline:
+
+1. **Inventory** replication package; record gold numbers (point estimates, SE, coverage) in e.g. `quality_reports/LectureNN_replication_targets.md`.
+2. **Translate/run** to match original spec exactly (covariates, sample, clustering, SE). No "improvements" during replication.
+3. **Tolerances:** point 1e-6, SE 1e-4, coverage ±0.01. Flag if outside.
+4. Only after replication passes, extend (new specs, robustness). Keep baseline script unchanged.
+
+Stata→R: match cluster df, absorb, link (probit vs logit), bootstrap seed/reps.

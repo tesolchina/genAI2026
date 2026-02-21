@@ -25,6 +25,7 @@
 | 微信文章解读 | [wechatPost.md](./wechatPost.md) | 工作流解读与借鉴要点 |
 | 上游模板仓库（完整克隆） | [claude-code-my-workflow/](./claude-code-my-workflow/) | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) 的本地克隆，含 `.claude/`、规则、技能、Agent 等 |
 | 工作流图示与操作说明 | [ideas.html](./ideas.html) | 端到端流程、在 Cursor/VS Code 中的用法、链接与摘录 |
+| Cursor 复现（技能与规则） | [claude-code-my-workflow/.cursor/](./claude-code-my-workflow/.cursor/) | 在 Cursor 内复现多维度审查、规划优先、质量门控、MEMORY、探索文件夹等 |
 | 本说明 | README_zh.md | 整体流程与复现步骤（中文） |
 
 ---

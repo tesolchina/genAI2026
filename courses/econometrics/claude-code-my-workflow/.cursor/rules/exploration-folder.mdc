@@ -1,0 +1,13 @@
+---
+description: Experimental work lives in explorations/. Quality bar 60 for explorations; graduate to production only when score >= 80 and checklist passed.
+globs: "explorations/**"
+alwaysApply: false
+---
+
+# Exploration Folder
+
+- **All experimental work** (new IV, new estimator, pilot sims) goes in `explorations/[project]/`.
+- Structure: README.md, R/, scripts/, output/, SESSION_LOG.md. Use `templates/exploration-readme.md`.
+- **Quality:** Explorations use a lower bar (e.g. 60/100); no full multi-round review required.
+- **Graduate to production** only when: quality ≥ 80, tests pass, results replicate, code clear. Then move to `scripts/` or `Figures/` and archive in `explorations/ARCHIVE/completed_[project]/`.
+- **Abandon:** Move to `explorations/ARCHIVE/abandoned_[project]/` with a short note (e.g. from `templates/archive-readme.md`).

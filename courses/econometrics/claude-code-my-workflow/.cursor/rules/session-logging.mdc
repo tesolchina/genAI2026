@@ -1,0 +1,12 @@
+---
+description: Keep session logs in quality_reports/session_logs/. Update after plan approval, incrementally during work, and at end of session.
+alwaysApply: true
+---
+
+# Session Logging
+
+- **When:** After plan approval; when making important decisions; at end of session.
+- **Where:** `quality_reports/session_logs/YYYY-MM-DD_brief-topic.md`
+- **What:** Goal, key context, files changed, decisions, open questions. Use `templates/session-log.md` if present.
+
+Before context gets long or session ends, ensure the current plan and key context are saved to disk so they survive a new chat or compression.
