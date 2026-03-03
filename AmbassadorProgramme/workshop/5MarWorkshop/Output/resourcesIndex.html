@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACE Prep Visual Index</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        h1, h2 { color: #2c3e50; }
+        .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #f9f9f9; }
+        .important { color: #e74c3c; font-weight: bold; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <h1>ACE Argument Construction & Evaluation Prep</h1>
+    <p>This visual guide helps you navigate the project files to prepare for your upcoming test.</p>
+    <p><a href="resourcesIndex.md">View Detailed Markdown Index</a></p>
+
+    <h2>Workflow Visualization</h2>
+    <div class="mermaid">
+        graph TD
+            Start(["Start Preparation"]) --> ReviewRules["Know the Rules"]
+            ReviewRules --> Draft["draftInstructions.md<br/>(100 mins, 400 words)"]
+            ReviewRules --> Rubric["rubrics.md<br/>(30% Needs Rebuttal)"]
+            
+            Start --> LearnContent["Learn the Content"]
+            LearnContent --> Source["HoReview.md<br/>(Social Chatbots Topic)"]
+            
+            Start --> MasterSkill["Master the Skill"]
+            MasterSkill --> Model["argumentModels.md<br/>(Toulmin Structure)"]
+            MasterSkill --> Rebuttal["respondCounterargument.md<br/>(Refuting Claims)"]
+            
+            ReviewRules --> Practice["Practice Run"]
+            LearnContent --> Practice
+            MasterSkill --> Practice
+            Practice --> Final["practiceWritingTask.md<br/>(Working From Home Topic)"]
+            
+            Practice --> Review["Review Samples"]
+            Review --> Sample1["ACE sample 1.md"]
+            Review --> Sample2["ACE sample 2.md"]
+    </div>
+
+    <h2>Key File Locations</h2>
+
+    <div class="card">
+        <h3>1. The Constraints (Read First)</h3>
+        <ul>
+            <li><a href="../Data/module 3/draftInstructions.md">Data/module 3/draftInstructions.md</a> - <strong>Read this first.</strong> 100 mins, handwriting, no AI.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>2. The Source Material (Read Deeply)</h3>
+        <ul>
+            <li><a href="../Data/Literature/HoReview.md">Data/Literature/HoReview.md</a> - <strong>Your ammo.</strong> This article contains the pro/con arguments on Social Chatbots you will likely need.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>3. The Technique (Study Hard)</h3>
+        <ul>
+            <li><a href="../Data/module 3/rubrics.md">Data/module 3/rubrics.md</a> - <strong>The grading key.</strong> Note the heavy weight on "Counterargument & Response".</li>
+            <li><a href="../Data/module 3/argumentModels.md">Data/module 3/argumentModels.md</a> - <strong>The manual.</strong> Explains "Claim, Evidence, Warrant".</li>
+             <li><a href="../Data/module 3/strategiesCounterargument.md">Data/module 3/strategiesCounterargument.md</a> - <strong>Advanced tactics.</strong> How to win the argument in paragraph 3.</li>
+             <li><a href="../Data/module 3/AIprompts.md">Data/module 3/AIprompts.md</a> - <strong>Prep Tool.</strong> Use AI <em>before</em> the test to critique your practice work.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>4. The Simulation (Do It)</h3>
+        <ul>
+            <li><a href="../Data/module 3/practiceWritingTask.md">Data/module 3/practiceWritingTask.md</a> - <strong>Timed drill.</strong> Topic: "Working From Home". Structure: Intro + 2 Body Paras.</li>
+        </ul>
+    </div>
+
+    <p class="important">Note: The 'ACE sample 1.md' and 'ACE sample 2.md' files appear to be empty placeholders currently.</p>
+
+</body>
+</html>

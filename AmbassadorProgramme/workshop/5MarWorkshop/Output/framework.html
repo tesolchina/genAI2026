@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agent Meets Textual Mentors — Framework</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #94a3b8;
+      --text: #e2e8f0;
+      --accent: #22d3ee;
+      --accent2: #a78bfa;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --line: #334155;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(circle at 10% 10%, #1e293b 0%, var(--bg) 35%, #020617 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(1200px, 94vw);
+      margin: 28px auto 40px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 0.98rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    button {
+      border: 1px solid #334155;
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 140ms ease;
+    }
+
+    button:hover { transform: translateY(-1px); border-color: #475569; }
+    button:active { transform: translateY(0); }
+
+    .primary {
+      border-color: #0891b2;
+      box-shadow: 0 0 0 1px rgba(34,211,238,0.2) inset;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(15,23,42,0.92), rgba(2,6,23,0.9));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+    }
+
+    .panel h2 {
+      margin: 2px 4px 10px;
+      font-size: 1rem;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    #canvas {
+      width: 100%;
+      height: 560px;
+      display: block;
+      background: linear-gradient(180deg, rgba(15,23,42,0.25), rgba(15,23,42,0.1));
+      border-radius: 12px;
+      border: 1px solid #1e293b;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      color: #cbd5e1;
+      font-size: 0.85rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .log {
+      height: 560px;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid #1e293b;
+      background: #020617;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      color: #c4d4e9;
+      white-space: pre-wrap;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #bae6fd;
+      min-height: 24px;
+    }
+
+    .small {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 0.82rem;
+    }
+
+    a { color: #67e8f9; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>AI Agent Meets Textual Mentors — Workflow Framework</h1>
+    <p class="subtitle">
+      Workshop context: UCLC 1008 (HKBU), 4 Mar 2026. This page dynamically visualizes how an agentic AI processes files across
+      <code>Context</code>, <code>Data</code>, <code>Docs</code>, <code>Tasks</code>, and <code>Output</code> in response to human instructions.
+    </p>
+
+    <div class="toolbar">
+      <button id="runBtn" class="primary">▶ Run Agent Simulation</button>
+      <button id="resetBtn">↺ Reset</button>
+      <button id="stepBtn">⏭ Step Through</button>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <h2>Relationship Map</h2>
+        <canvas id="canvas" width="900" height="560" aria-label="Folder relationship visualization"></canvas>
+
+        <div class="legend">
+          <span><i class="dot" style="background:#22d3ee"></i>Folder nodes</span>
+          <span><i class="dot" style="background:#a78bfa"></i>Agent</span>
+          <span><i class="dot" style="background:#34d399"></i>Read action</span>
+          <span><i class="dot" style="background:#fbbf24"></i>Write/generate action</span>
+        </div>
+        <div class="small">
+          Related pages: <a href="resourcesIndex.html">resourcesIndex.html</a> · <a href="resourcesIndex.md">resourcesIndex.md</a>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Action Trace</h2>
+        <div id="log" class="log"></div>
+        <div id="status" class="status">Ready. Press “Run Agent Simulation”.</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const logEl = document.getElementById('log');
+    const statusEl = document.getElementById('status');
+
+    const runBtn = document.getElementById('runBtn');
+    const stepBtn = document.getElementById('stepBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const nodes = {
+      human:  { x: 105, y: 80,  w: 150, h: 58, label: 'Human User', type: 'human' },
+      agent:  { x: 374, y: 245, w: 160, h: 72, label: 'Agentic AI', type: 'agent' },
+      readme: { x: 105, y: 180, w: 160, h: 60, label: 'readme.md', type: 'file' },
+      context:{ x: 80,  y: 300, w: 180, h: 66, label: 'Context/', type: 'folder' },
+      data:   { x: 80,  y: 400, w: 180, h: 66, label: 'Data/', type: 'folder' },
+      docs:   { x: 80,  y: 500, w: 180, h: 54, label: 'Docs/', type: 'folder' },
+      tasks:  { x: 640, y: 180, w: 180, h: 66, label: 'Tasks/', type: 'folder' },
+      output: { x: 640, y: 320, w: 180, h: 70, label: 'Output/', type: 'folder' },
+      framework: { x: 640, y: 440, w: 180, h: 76, label: 'framework.html', type: 'fileOut' }
+    };
+
+    const links = [
+      ['human', 'agent', 'instruction'],
+      ['agent', 'readme', 'read'],
+      ['agent', 'context', 'read'],
+      ['agent', 'data', 'read'],
+      ['agent', 'docs', 'read'],
+      ['agent', 'tasks', 'read'],
+      ['agent', 'output', 'write'],
+      ['output', 'framework', 'generate']
+    ];
+
+    const scenario = [
+      { from: 'human', to: 'agent', kind: 'instruction', msg: 'User instruction received from Tasks/explainFramework.md' },
+      { from: 'agent', to: 'tasks', kind: 'read', msg: 'Agent reads task prompt and clarifies objective.' },
+      { from: 'agent', to: 'readme', kind: 'read', msg: 'Agent reads readme.md for folder semantics.' },
+      { from: 'agent', to: 'context', kind: 'read', msg: 'Agent pulls context (audience, workshop goals).' },
+      { from: 'agent', to: 'data', kind: 'read', msg: 'Agent references course materials & literature mapping.' },
+      { from: 'agent', to: 'docs', kind: 'read', msg: 'Agent checks documentation conventions.' },
+      { from: 'agent', to: 'output', kind: 'write', msg: 'Agent plans output artifact in Output/.' },
+      { from: 'output', to: 'framework', kind: 'generate', msg: 'Agent generates framework.html visualization.' }
+    ];
+
+    let currentIndex = -1;
+    let animToken = null;
+    let running = false;
+
+    function colorForNode(type) {
+      if (type === 'agent') return '#a78bfa';
+      if (type === 'human') return '#38bdf8';
+      if (type === 'folder') return '#22d3ee';
+      if (type === 'fileOut') return '#fbbf24';
+      return '#14b8a6';
+    }
+
+    function edgeColor(kind) {
+      if (kind === 'write' || kind === 'generate') return '#fbbf24';
+      if (kind === 'instruction') return '#a78bfa';
+      return '#34d399';
+    }
+
+    function center(n) {
+      return { x: n.x + n.w / 2, y: n.y + n.h / 2 };
+    }
+
+    function drawRoundedRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function drawBackground() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      g.addColorStop(0, 'rgba(15,23,42,0.9)');
+      g.addColorStop(1, 'rgba(2,6,23,0.95)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawEdges(activeEdge = null) {
+      links.forEach(([from, to, kind]) => {
+        const a = center(nodes[from]);
+        const b = center(nodes[to]);
+        const isActive = activeEdge && activeEdge.from === from && activeEdge.to === to;
+
+        ctx.strokeStyle = isActive ? '#f8fafc' : edgeColor(kind);
+        ctx.globalAlpha = isActive ? 1 : 0.6;
+        ctx.lineWidth = isActive ? 3.2 : 2;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        const midX = (a.x + b.x) / 2;
+        ctx.bezierCurveTo(midX, a.y, midX, b.y, b.x, b.y);
+        ctx.stroke();
+
+        const dx = b.x - midX;
+        const dy = b.y - b.y;
+        const angle = Math.atan2((b.y - a.y), (b.x - a.x));
+        const len = 9;
+
+        ctx.beginPath();
+        ctx.moveTo(b.x, b.y);
+        ctx.lineTo(b.x - len * Math.cos(angle - 0.35), b.y - len * Math.sin(angle - 0.35));
+        ctx.lineTo(b.x - len * Math.cos(angle + 0.35), b.y - len * Math.sin(angle + 0.35));
+        ctx.closePath();
+        ctx.fillStyle = isActive ? '#f8fafc' : edgeColor(kind);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function drawNodes(activeIds = new Set()) {
+      Object.entries(nodes).forEach(([id, n]) => {
+        drawRoundedRect(n.x, n.y, n.w, n.h, 12);
+        const fill = colorForNode(n.type);
+        ctx.fillStyle = fill;
+        ctx.globalAlpha = activeIds.has(id) ? 0.35 : 0.2;
+        ctx.fill();
+
+        ctx.strokeStyle = activeIds.has(id) ? '#f8fafc' : fill;
+        ctx.globalAlpha = activeIds.has(id) ? 1 : 0.8;
+        ctx.lineWidth = activeIds.has(id) ? 2.7 : 1.6;
+        ctx.stroke();
+
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = '600 14px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n.label, n.x + n.w / 2, n.y + n.h / 2);
+      });
+    }
+
+    function drawToken(token) {
+      if (!token) return;
+      const color = token.kind === 'write' || token.kind === 'generate' ? '#fbbf24' : token.kind === 'instruction' ? '#a78bfa' : '#34d399';
+      ctx.beginPath();
+      ctx.arc(token.x, token.y, 7, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#f8fafc';
+      ctx.stroke();
+    }
+
+    function render(activeEdge = null, activeIds = new Set(), token = null) {
+      drawBackground();
+      drawEdges(activeEdge);
+      drawNodes(activeIds);
+      drawToken(token);
+    }
+
+    function log(message) {
+      const t = new Date().toLocaleTimeString();
+      logEl.textContent += `[${t}] ${message}\n`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function animateFlow(step) {
+      return new Promise((resolve) => {
+        const from = center(nodes[step.from]);
+        const to = center(nodes[step.to]);
+        const duration = 800;
+        const start = performance.now();
+
+        function frame(now) {
+          const p = Math.min((now - start) / duration, 1);
+          const x = from.x + (to.x - from.x) * p;
+          const y = from.y + (to.y - from.y) * p;
+
+          animToken = { x, y, kind: step.kind };
+          render(step, new Set([step.from, step.to]), animToken);
+
+          if (p < 1) {
+            requestAnimationFrame(frame);
+          } else {
+            animToken = null;
+            render(step, new Set([step.from, step.to]));
+            resolve();
+          }
+        }
+
+        requestAnimationFrame(frame);
+      });
+    }
+
+    async function runFromCurrent() {
+      if (running) return;
+      running = true;
+      runBtn.disabled = true;
+      stepBtn.disabled = true;
+
+      if (currentIndex < 0) {
+        log('Simulation started.');
+      }
+
+      while (currentIndex < scenario.length - 1) {
+        currentIndex++;
+        const step = scenario[currentIndex];
+        statusEl.textContent = `${currentIndex + 1}/${scenario.length} — ${step.msg}`;
+        log(step.msg);
+        await animateFlow(step);
+        await new Promise(r => setTimeout(r, 220));
+      }
+
+      statusEl.textContent = 'Done. Agent workflow complete and output generated.';
+      log('Simulation complete. framework.html generated in Output/.');
+      running = false;
+      runBtn.disabled = false;
+      stepBtn.disabled = false;
+    }
+
+    async function runOneStep() {
+      if (running) return;
+      if (currentIndex >= scenario.length - 1) {
+        statusEl.textContent = 'All steps already completed. Press Reset to replay.';
+        return;
+      }
+
+      running = true;
+      runBtn.disabled = true;
+      stepBtn.disabled = true;
+
+      currentIndex++;
+      const step = scenario[currentIndex];
+      statusEl.textContent = `${currentIndex + 1}/${scenario.length} — ${step.msg}`;
+      log(step.msg);
+      await animateFlow(step);
+
+      if (currentIndex === scenario.length - 1) {
+        log('Simulation complete. framework.html generated in Output/.');
+        statusEl.textContent = 'Done. Agent workflow complete and output generated.';
+      }
+
+      running = false;
+      runBtn.disabled = false;
+      stepBtn.disabled = false;
+    }
+
+    function resetAll() {
+      currentIndex = -1;
+      animToken = null;
+      logEl.textContent = '';
+      statusEl.textContent = 'Ready. Press “Run Agent Simulation”.';
+      render();
+    }
+
+    runBtn.addEventListener('click', runFromCurrent);
+    stepBtn.addEventListener('click', runOneStep);
+    resetBtn.addEventListener('click', resetAll);
+
+    render();
+  </script>
+</body>
+</html>
