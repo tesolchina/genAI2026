@@ -12,6 +12,12 @@ The workspace is designed as an **agentic learning workflow**: humans provide pr
 - Organize source materials, assignment constraints, and writing models.
 - Demonstrate how AI can support preparation (before assessment) through structured prompting, synthesis, and visualization.
 
+### Current Tentative ACE Topic
+
+**Are virtual companion apps or social chatbots suitable for teenagers?**
+
+Primary source file: `Data/ACE/draftInstructions.md`
+
 ---
 
 ## Project Structure
