@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACE Mentor Quest — Sample 01</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #121a33;
+      --panel: rgba(17, 24, 39, 0.78);
+      --line: #2b3a67;
+      --text: #e5ecff;
+      --muted: #a7b5db;
+      --accent: #56ccf2;
+      --accent2: #8b5cf6;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --tag-c: #60a5fa;
+      --tag-g: #34d399;
+      --tag-w: #fbbf24;
+      --tag-ca: #c084fc;
+      --tag-r: #f472b6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, #1d2a55 0%, transparent 30%),
+        radial-gradient(circle at 80% 0%, #3b1a72 0%, transparent 25%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .container {
+      width: min(1180px, 94vw);
+      margin: 24px auto 48px;
+    }
+
+    .hero {
+      background: linear-gradient(130deg, rgba(86, 204, 242, 0.14), rgba(139, 92, 246, 0.14));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin: 8px 0 14px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .hud {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    .stat .label { color: var(--muted); font-size: 0.8rem; }
+    .stat .value { font-weight: 700; font-size: 1rem; margin-top: 2px; }
+
+    .bar {
+      margin-top: 8px;
+      width: 100%;
+      height: 10px;
+      background: #101935;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #2d3e71;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 240ms ease;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hud { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    .panel h2 {
+      margin: 4px 0 10px;
+      font-size: 1rem;
+      color: #dbe7ff;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 8px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #304270;
+      background: rgba(12, 20, 43, 0.7);
+      font-size: 0.92rem;
+    }
+
+    .item input { accent-color: var(--ok); }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #3e568f;
+      color: #c6d5ff;
+      margin-left: auto;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .tab {
+      border: 1px solid #3d4f7f;
+      background: #111b38;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .tab.active {
+      border-color: #67d7f7;
+      box-shadow: 0 0 0 1px rgba(103, 215, 247, 0.22) inset;
+      background: linear-gradient(180deg, #1a2a53, #101a34);
+    }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .card {
+      border: 1px solid #344a7d;
+      background: rgba(13, 22, 45, 0.84);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 { margin: 0 0 8px; font-size: 0.98rem; }
+    .card p { margin: 0 0 8px; color: #d4e0ff; font-size: 0.92rem; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .tag.c { color: #bfdbfe; background: rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.55); }
+    .tag.g { color: #bbf7d0; background: rgba(52, 211, 153, 0.2); border-color: rgba(52, 211, 153, 0.55); }
+    .tag.w { color: #fde68a; background: rgba(251, 191, 36, 0.2); border-color: rgba(251, 191, 36, 0.55); }
+    .tag.ca { color: #e9d5ff; background: rgba(192, 132, 252, 0.2); border-color: rgba(192, 132, 252, 0.55); }
+    .tag.r { color: #fbcfe8; background: rgba(244, 114, 182, 0.2); border-color: rgba(244, 114, 182, 0.55); }
+
+    .btn {
+      border: 1px solid #3c4f83;
+      background: linear-gradient(180deg, #1f2f5a, #132045);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    details {
+      border: 1px solid #334a7d;
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: rgba(9, 17, 36, 0.75);
+      margin-bottom: 8px;
+    }
+
+    summary { cursor: pointer; font-weight: 600; }
+
+    .quiz {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .opt {
+      border: 1px solid #334a7d;
+      border-radius: 10px;
+      background: rgba(8, 17, 37, 0.82);
+      padding: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.16); }
+    .opt.wrong { border-color: #ef4444; background: rgba(239,68,68,0.16); }
+
+    .small { color: var(--muted); font-size: 0.82rem; }
+    .footer-note { margin-top: 10px; color: var(--muted); font-size: 0.85rem; }
+
+    .draft-text {
+      white-space: pre-wrap;
+      color: #d7e3ff;
+      font-size: 0.9rem;
+      background: rgba(7, 13, 28, 0.78);
+      border: 1px solid #334a7d;
+      border-radius: 10px;
+      padding: 10px;
+      max-height: 420px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>🎯 ACE Mentor Quest: Sample 01</h1>
+      <p class="subtitle">A gamified learning interface for Toulmin analysis, rubric alignment, and logical-flow training (based on ACE Sample 1).</p>
+
+      <div class="hud">
+        <div class="stat">
+          <div class="label">Progress</div>
+          <div class="value" id="progressText">0/5 missions completed</div>
+          <div class="bar"><span id="progressBar"></span></div>
+        </div>
+        <div class="stat">
+          <div class="label">XP</div>
+          <div class="value" id="xpText">0 XP</div>
+        </div>
+        <div class="stat">
+          <div class="label">Rank</div>
+          <div class="value" id="rankText">Novice Analyst</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel">
+        <h2>🧭 Mission Checklist</h2>
+        <div class="checklist" id="checklist">
+          <label class="item"><input type="checkbox" data-xp="20" /> Understand thesis + 2-claim roadmap <span class="badge">+20 XP</span></label>
+          <label class="item"><input type="checkbox" data-xp="20" /> Trace C→G→W links in P2 <span class="badge">+20 XP</span></label>
+          <label class="item"><input type="checkbox" data-xp="20" /> Evaluate CA→R in P3/P5 <span class="badge">+20 XP</span></label>
+          <label class="item"><input type="checkbox" data-xp="20" /> Complete 3 logic-flow exercises <span class="badge">+20 XP</span></label>
+          <label class="item"><input type="checkbox" data-xp="20" /> Do rubric self-check <span class="badge">+20 XP</span></label>
+        </div>
+        <p class="footer-note">Tip: finish all missions to unlock “Master Builder” rank.</p>
+      </aside>
+
+      <section class="panel">
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-view="mentor">Mentor Map</button>
+          <button class="tab" data-view="draft">Original Draft</button>
+          <button class="tab" data-view="sentence">Sentence Lab</button>
+          <button class="tab" data-view="flow">Flow Drills</button>
+          <button class="tab" data-view="rubric">Rubric Boss Battle</button>
+          <button class="tab" data-view="framework">Build Template</button>
+        </div>
+
+        <div class="view active" id="view-mentor">
+          <div class="card">
+            <h3>🧩 Essay Architecture (Paragraph-level Toulmin)</h3>
+            <p><strong>P1:</strong> Context + Thesis (argument + reason map)</p>
+            <p><strong>P2:</strong> Claim 1 + Grounds + Warrant</p>
+            <p><strong>P3:</strong> Counterargument 1 + Response 1</p>
+            <p><strong>P4:</strong> Claim 2 + Grounds + Warrant</p>
+            <p><strong>P5:</strong> Counterargument 2 + Response 2</p>
+            <p><strong>P6:</strong> Summary + Final remark</p>
+          </div>
+
+          <div class="card">
+            <h3>⚙️ Transferable Mentor Lessons</h3>
+            <ul>
+              <li>Use thesis as a two-lane roadmap: <em>stance + claim 1 + claim 2</em>.</li>
+              <li>Never leave evidence floating: always add a warrant.</li>
+              <li>Strong rebuttal = acknowledge valid concern + target hidden assumption.</li>
+              <li>Conclusion should synthesize, not just repeat.</li>
+            </ul>
+            <p class="small">Aligned with activities 2.2, 2.4, 2.6, 2.7, 2.8, and 3.1 in Module 3.</p>
+          </div>
+        </div>
+
+        <div class="view" id="view-draft">
+          <div class="card">
+            <h3>📄 Original Draft (Verbatim)</h3>
+            <p>This section presents each original paragraph, immediately followed by its annotation and explanation.</p>
+          </div>
+
+          <div class="card">
+            <h3>Title</h3>
+            <p><strong>Are chatbots suitable companions for young people?</strong></p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 1 (Original)</h3>
+            <p>In a world connected by social media, many young people still feel very isolated and struggle to form real offline relationships (Twenge, 2019). Chatbots, designed to mimic human conversations and offer companionship, have received mixed reactions (Kretzschmar et al., 2019) (Context). While chatbots may seem like helpful companions, they are not suitable for young people because they intensify feelings of loneliness and create a false sense of reality, failing to provide true companionship (Thesis Statement).</p>
+            <div class="tags"><span class="tag c">[CTX]+[ARG]</span></div>
+            <p><strong>Explanation:</strong> Opens with social context and closes with a clear thesis that previews two claims. This supports strong argument structure and thesis clarity in the rubric.</p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 2 (Original)</h3>
+            <p>Despite their human-like interactions, chatbots tend to increase loneliness in young people rather than reduce it (Claim). According to Pani et al. (2024), chatbots provide quick satisfaction but only partly meet social needs, which require face-to-face interaction to be fully satisfied. Their ease of use can trick young people into thinking real relationships are not essential, discouraging them from actively building social skills and networks vital for healthy growth (Turkle, 2017). For example, social chatbots such as Replika AI, meant to offer companionship, can lead to addiction and social withdrawal because they easily form strong bonds with users (Pani et al., 2024) (Evidence/Grounds). This implies that users who tend to gravitate toward such chatbots are likely to engage in excessive use that prioritises human-machine interactions over real-world social engagement, intensifying feelings of isolation (Explanation/Warrant).</p>
+            <div class="tags"><span class="tag c">[C]</span><span class="tag g">[G]</span><span class="tag w">[W]</span></div>
+            <p><strong>Explanation:</strong> Full Toulmin move: explicit claim, cited evidence, and a warrant that explains the mechanism from convenience to social withdrawal.</p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 3 (Original)</h3>
+            <p>Some might argue the ready availability and human-like features of chatbots, such as their ability to showcase empathy, make them ideal companions for combating loneliness, especially among marginalised youth who lack emotional support (Counterargument of Rebuttal). However, this argument overlooks the potential of a reinforcing loop. For example, a teenager suffering from social anxiety may turn to a chatbot for comfort since AI never judges people. Over time, the teenager will withdraw from real-world interactions when relying solely on the chatbot for emotional support. As the in-person social skills weaken from disuse, face-to-face interactions become even more intimidating, trapping the teenager in a cycle of avoidance, ultimately deepening the teenager’s sense of alienation and loneliness (Response of Rebuttal).</p>
+            <div class="tags"><span class="tag ca">[CA]</span><span class="tag r">[R]</span></div>
+            <p><strong>Explanation:</strong> Presents a credible opposing view, then rebuts by challenging its assumption and showing a causal avoidance loop. This demonstrates higher-quality critical thinking.</p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 4 (Original)</h3>
+            <p>Chatbots give young people a false sense of reality by being ambiguous about their limitations (Claim). Most chatbots do not explicitly acknowledge their inability to reciprocate emotions with helpful replies or equivalent emotional depth, since they do not possess any lived experiences or feelings. Chatbots’ failure to adequately respond to young people’s personal struggles can leave them feeling dismissed or unsupported, and through portraying a false reality, hinder them from seeking help in the real world (Zhang et al., 2025). Compared to mental health professionals, chatbots are not sensitive enough to subtlety and understatement, and can underestimate the importance and urgency of users’ queries (Wester et al., 2024) (Evidence/Grounds). The unawareness that chatbots lack reciprocity may lead young people, who are in a critical phase of developing social and emotional intelligence, to form unrealistic expectations of a genuine companionship (Explanation/Warrant).</p>
+            <div class="tags"><span class="tag c">[C]</span><span class="tag g">[G]</span><span class="tag w">[W]</span></div>
+            <p><strong>Explanation:</strong> Mirrors paragraph 2 structure (claim → grounds → warrant), which strengthens coherence and keeps the argument logically interconnected.</p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 5 (Original)</h3>
+            <p>Some argue that chatbots do not deceive users but rather provide a safe, simulated environment for young people to practise social interactions and build confidence to carry over into their real-world relationships (Counterargument of Rebuttal). It is worth pointing out that this view assumes that users will naturally outgrow chatbot dependence. Unfortunately, in reality, many young people, once accustomed to the simplicity of AI interactions, may avoid the complexities of human relationships altogether. Chatbots may replace real relationships, encouraging users to avoid human interaction and misunderstand true social connection (Response of Rebuttal).</p>
+            <div class="tags"><span class="tag ca">[CA]</span><span class="tag r">[R]</span></div>
+            <p><strong>Explanation:</strong> Effective rebuttal because it targets transfer and dependence assumptions rather than simply rejecting the counterargument.</p>
+          </div>
+
+          <div class="card">
+            <h3>Paragraph 6 (Original)</h3>
+            <p>Despite demonstrating some resemblances to human-like conversations, chatbots can only at best simulate superficial features of supportive relationships or promote short-term improvements in mood. Chatbots exacerbate loneliness by replacing genuine human connections with empty interaction and fostering the false belief that emotional reciprocity with AI is possible (Summary). With the right intentions, chatbots can be useful assistive tools for young people, but in no way should they assume the role of a companion or as a substitute for genuine human interactions (Final remark).</p>
+            <div class="tags"><span class="tag w">[SUM]</span><span class="tag r">[Final Position]</span></div>
+            <p><strong>Explanation:</strong> Synthesizes the two claims and adds nuance (assistive use is acceptable; replacement is not), improving precision and academic balance.</p>
+          </div>
+
+          <div class="card">
+            <h3>📚 References from the Original Draft</h3>
+            <ul>
+              <li>Kretzschmar et al. (2019)</li>
+              <li>Pani, Crawford, & Allen (2024)</li>
+              <li>Turkle (2017)</li>
+              <li>Twenge (2019)</li>
+              <li>Wester et al. (2024)</li>
+              <li>Zhang et al. (2025)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="view" id="view-sentence">
+          <div class="card">
+            <h3>🔬 Annotated Examples</h3>
+            <p><strong>“Despite their human-like interactions, chatbots tend to increase loneliness...”</strong></p>
+            <div class="tags"><span class="tag c">[C] Claim</span></div>
+          </div>
+
+          <div class="card">
+            <p><strong>“According to Pani et al. (2024), chatbots provide quick satisfaction but only partly meet social needs...”</strong></p>
+            <div class="tags"><span class="tag g">[G] Grounds</span></div>
+          </div>
+
+          <div class="card">
+            <p><strong>“Their ease of use can trick young people into thinking real relationships are not essential...”</strong></p>
+            <div class="tags"><span class="tag w">[W] Warrant</span></div>
+          </div>
+
+          <div class="card">
+            <p><strong>“Some might argue ... chatbots ... make them ideal companions ...”</strong></p>
+            <div class="tags"><span class="tag ca">[CA] Counterargument</span></div>
+          </div>
+
+          <div class="card">
+            <p><strong>“However, this argument overlooks the potential of a reinforcing loop...”</strong></p>
+            <div class="tags"><span class="tag r">[R] Response</span></div>
+          </div>
+
+          <details>
+            <summary>Want a quick memory hook?</summary>
+            <p>House model: <strong>Claim = roof</strong>, <strong>Grounds = foundation</strong>, <strong>Warrant = walls</strong>, <strong>Counterargument = storm</strong>, <strong>Response = storm shutters</strong>.</p>
+          </details>
+        </div>
+
+        <div class="view" id="view-flow">
+          <div class="card">
+            <h3>🎮 Logic-Flow Mini Quiz</h3>
+            <p>Pick the strongest sequence for a body paragraph.</p>
+            <div class="quiz" data-answer="2">
+              <div class="opt" data-opt="1">Evidence → Claim → Counterargument → Warrant</div>
+              <div class="opt" data-opt="2">Claim → Grounds → Warrant → Counterargument → Response</div>
+              <div class="opt" data-opt="3">Counterargument → Conclusion → Claim → Evidence</div>
+            </div>
+            <p class="small" id="quizFeedback">Select an option.</p>
+          </div>
+
+          <div class="card">
+            <h3>🛠 Rebuttal Upgrade Drill</h3>
+            <p><strong>Counterargument:</strong> “Chatbots provide safe social practice for anxious teens.”</p>
+            <p>Best response pattern:</p>
+            <p><em>“This assumes transfer is automatic; however, scripted low-risk interaction may reduce tolerance for ambiguity in real human exchange, limiting transfer.”</em></p>
+          </div>
+
+          <div class="card">
+            <h3>🧪 Warrant Builder</h3>
+            <p>Claim: Chatbots increase loneliness.</p>
+            <p>Grounds: Users interact 30% less with humans.</p>
+            <p>Target warrant move: explain mechanism from reduced social practice → lower social confidence → deeper disconnection.</p>
+          </div>
+        </div>
+
+        <div class="view" id="view-rubric">
+          <div class="card">
+            <h3>👑 Rubric Boss Battle (Self-check)</h3>
+            <p>Rate each 0–2:</p>
+            <ul>
+              <li>Thesis clarity</li>
+              <li>Claim–ground–warrant connection</li>
+              <li>Counterargument quality</li>
+              <li>Response precision</li>
+              <li>Academic tone + citation hygiene</li>
+            </ul>
+            <p><strong>Score guide:</strong> 8–10 strong | 5–7 revise logic | &lt;5 rebuild structure first.</p>
+          </div>
+
+          <div class="card">
+            <h3>⚠ Common failure states</h3>
+            <ul>
+              <li>Summary mode instead of argument mode</li>
+              <li>Evidence without warrant</li>
+              <li>Weak strawman counterargument</li>
+              <li>Response that only repeats the claim</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="view" id="view-framework">
+          <div class="card">
+            <h3>🧱 Reusable ACE Skeleton</h3>
+            <p><strong>Introduction:</strong> context + thesis (stance + claim map)</p>
+            <p><strong>Body 1:</strong> claim 1 + grounds + warrant + CA + R</p>
+            <p><strong>Body 2:</strong> claim 2 + grounds + warrant + CA + R</p>
+            <p><strong>Conclusion:</strong> synthesis + boundary condition</p>
+          </div>
+
+          <div class="card">
+            <h3>🕒 Suggested timed drill (100 min exam prep)</h3>
+            <ul>
+              <li>20–25 min: read + plan argument map</li>
+              <li>15 min: introduction draft</li>
+              <li>25 min: body paragraph 1</li>
+              <li>25 min: body paragraph 2 (CA + R)</li>
+              <li>10–15 min: editing + citation checks</li>
+            </ul>
+          </div>
+
+          <button class="btn" id="resetBtn">Reset Progress</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const views = document.querySelectorAll('.view');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        views.forEach(v => v.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`view-${tab.dataset.view}`).classList.add('active');
+      });
+    });
+
+    const checks = document.querySelectorAll('#checklist input[type="checkbox"]');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const xpText = document.getElementById('xpText');
+    const rankText = document.getElementById('rankText');
+
+    function rankFromXP(xp) {
+      if (xp >= 100) return 'Master Builder';
+      if (xp >= 80) return 'Rebuttal Ranger';
+      if (xp >= 60) return 'Warrant Warrior';
+      if (xp >= 40) return 'Claim Crafter';
+      if (xp >= 20) return 'Grounds Scout';
+      return 'Novice Analyst';
+    }
+
+    function updateHUD() {
+      const total = checks.length;
+      const done = [...checks].filter(c => c.checked).length;
+      const xp = [...checks].filter(c => c.checked).reduce((acc, c) => acc + Number(c.dataset.xp), 0);
+      progressText.textContent = `${done}/${total} missions completed`;
+      progressBar.style.width = `${(done / total) * 100}%`;
+      xpText.textContent = `${xp} XP`;
+      rankText.textContent = rankFromXP(xp);
+      localStorage.setItem('sample01-checks', JSON.stringify([...checks].map(c => c.checked)));
+    }
+
+    const saved = localStorage.getItem('sample01-checks');
+    if (saved) {
+      const arr = JSON.parse(saved);
+      checks.forEach((c, i) => c.checked = Boolean(arr[i]));
+    }
+
+    checks.forEach(c => c.addEventListener('change', updateHUD));
+    updateHUD();
+
+    const quiz = document.querySelector('.quiz');
+    const feedback = document.getElementById('quizFeedback');
+    quiz.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const answer = quiz.dataset.answer;
+        quiz.querySelectorAll('.opt').forEach(o => o.classList.remove('correct', 'wrong'));
+        if (opt.dataset.opt === answer) {
+          opt.classList.add('correct');
+          feedback.textContent = 'Correct. That sequence mirrors strong Toulmin logic.';
+        } else {
+          opt.classList.add('wrong');
+          feedback.textContent = 'Close—try again. Prioritize Claim → Grounds → Warrant before rebuttal moves.';
+        }
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      checks.forEach(c => c.checked = false);
+      localStorage.removeItem('sample01-checks');
+      updateHUD();
+    });
+  </script>
+</body>
+</html>
