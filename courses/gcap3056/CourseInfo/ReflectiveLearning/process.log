@@ -12,3 +12,10 @@
 - Added `SyncGoogleDoc.md` instructions: fetch Google Doc tab → `GoogleDocsMoreInfo.md`.
 - Created `GoogleDocsMoreInfo.md` with link to the doc tab; automatic fetch not possible (Google Docs requires auth / JS). Placeholder and instructions for pasting tab content added.
 - Updated `process.log`.
+
+## 2026-10-20
+
+- Added Week 8-10 journal instructions: JournalInstructionsWeek8-10.md (source) + reflectLearningWeek8-10.html (Moodle paste version).
+- New task set: W8 = learning setup + partnership map (collects student feedback on website setup and AI/peer/teacher partnership); W9 = before-after / failure / working method; W10 = curate + lasting-change commitment.
+- Includes sample entry to imitate + AI drafting prompt with [ASK ME] guard, weekly routine (Google Doc tab -> status page -> Moodle forum), checklist, schedule table.
+- Dispatch: simongtd#193 comment 6282349504.
